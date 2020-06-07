@@ -1,9 +1,27 @@
 ﻿<Application x:Class="ReactivePropertySamples.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sys="clr-namespace:System;assembly=System.Runtime"
              xmlns:local="clr-namespace:ReactivePropertySamples"
+             xmlns:vc="clr-namespace:ReactivePropertySamples.Views.Converters"
              StartupUri="Views/MainWindow.xaml" >
+
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="BoolToVisiConverter" />
+            <vc:EmptyStringToTrueConverter x:Key="EmptyStringToTrueConverter" />
+            <vc:StringConcatConverter x:Key="StringConcatConverter" />
+
+            <!-- フォントサイズ -->
+            <sys:Double x:Key="FontSizeDefault">12</sys:Double>
+            <sys:Double x:Key="FontSizeItemTitle">16</sys:Double>
+            <sys:Double x:Key="FontSizeItemSubtitle">12</sys:Double>
+            <sys:Double x:Key="FontSizeItemKeywords">8</sys:Double>
+            <sys:Double x:Key="FontSizeTitle">20</sys:Double>
+            <sys:Double x:Key="FontSizeSubtitle">14</sys:Double>
+            <sys:Double x:Key="FontSizeDescription">12</sys:Double>
+            <sys:Double x:Key="FontSizeKeywords">12</sys:Double>
+
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

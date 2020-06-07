@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReactivePropertySamples.Views"
         mc:Ignorable="d"
-        Title="MainWindow"
-        Height="300" Width="400">
-    <Grid>
+        Title="ReactivePropertySamples"
+        Height="400" Width="600">
 
-    </Grid>
+    <local:PagesListBox />
+
 </Window>
