@@ -19,7 +19,7 @@ namespace ReactivePropertySamples.Views
 
     class PagesListBoxViewModel : MyBindableBase
     {
-        public IList<PageSource> PagesSource { get; } = PageSource.PageList;
+        public IList<PageSource> PagesSource { get; } = PageSourceStore.AllPageList;
 
         // リストの文字列による絞り込み
         public ICommand FilterCommand => _filterCommand ??= new MyCommand<string>(pattern =>

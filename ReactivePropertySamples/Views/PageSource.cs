@@ -6,6 +6,41 @@ using System.Linq;
 
 namespace ReactivePropertySamples.Views
 {
+    static class PageSourceStore
+    {
+        // Viewに表示されるコントロールのリスト
+        public static IList<PageSource> AllPageList { get; } = new[]
+        {
+            // 未対応 CatchIgnore CanExecuteChangedAsObservable ErrorChangedAsObservable
+            // 未対応 ObserveErrorInfo Inverse Pairwise OnErrorRetry ToUnit ScheduledNotifier
+            // 未対応 IFilteredReadOnlyObservableCollection ReactivePropertySlim
+                        new PageSource(typeof(BooleanNotifierPage)),
+
+            // 未対応  
+            new PageSource(typeof(ReactiveCommand1Page)),
+            new PageSource(typeof(ObserveElementPropertyChanged1Page)),
+            new PageSource(typeof(ObserveElementProperty1Page)),
+            new PageSource(typeof(ReadOnlyReactiveCollection1Page)),
+            new PageSource(typeof(ReactiveCollection1Page)),
+            new PageSource(typeof(BusyNotifierPage)),
+            new PageSource(typeof(CountNotifierPage)),
+            new PageSource(typeof(CombineAllValuePage)),
+            new PageSource(typeof(Validate1Page)),
+            new PageSource(typeof(FromPocoMode1Page)),
+            new PageSource(typeof(TwoWay2Page)),
+            // 未対応
+
+            new PageSource(typeof(BooleanNotifierPage)),
+            new PageSource(typeof(TwoWay1Page)),
+            new PageSource(typeof(AsyncReactiveCommand1Page)),
+            new PageSource(typeof(ObserveProperty1Page)),
+            new PageSource(typeof(ReactiveProperty1Page)),
+
+            new PageSource(typeof(BlankPage), "Title", "Subtitle", "Description"),
+        }
+        .ToList();
+    }
+
     class PageSource
     {
         public string Title { get; }
@@ -50,37 +85,5 @@ namespace ReactivePropertySamples.Views
             if (Keywords != null) return Keywords.Any(x => x.ToLower().Contains(pat));
             return false;
         }
-
-
-        // Viewに表示されるコントロールのリスト
-        public static IList<PageSource> PageList { get; } = new[]
-        {
-            // 未対応 CatchIgnore CanExecuteChangedAsObservable ErrorChangedAsObservable
-            // 未対応 ObserveErrorInfo Inverse Pairwise OnErrorRetry ToUnit ScheduledNotifier
-            // 未対応 IFilteredReadOnlyObservableCollection ReactivePropertySlim
-            // 未対応  
-
-            new PageSource(typeof(BlankPage)),
-            new PageSource(typeof(BlankPage)),
-            new PageSource(typeof(ReactiveCommand1Page)),
-            new PageSource(typeof(ObserveElementPropertyChanged1Page)),
-            new PageSource(typeof(ObserveElementProperty1Page)),
-            new PageSource(typeof(ReadOnlyReactiveCollection1Page)),
-            new PageSource(typeof(ReactiveCollection1Page)),
-            new PageSource(typeof(BusyNotifierPage)),
-            new PageSource(typeof(CountNotifierPage)),
-            new PageSource(typeof(BooleanNotifierPage)),
-            new PageSource(typeof(CombineAllValuePage)),
-            new PageSource(typeof(Validate1Page)),
-            new PageSource(typeof(FromPocoMode1Page)),
-            new PageSource(typeof(TwoWay1Page)),
-            // 未対応
-
-            new PageSource(typeof(AsyncReactiveCommand1Page)),
-            new PageSource(typeof(ObserveProperty1Page)),
-            new PageSource(typeof(ReactiveProperty1Page)),
-            new PageSource(typeof(BlankPage), "Title", "Subtitle", "Description"),
-        }
-        .ToList();
     }
 }

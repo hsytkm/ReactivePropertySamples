@@ -59,6 +59,9 @@
     <Compile Update="Views\Pages\ReactiveCollection1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Pages\TwoWay2Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\Validate1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -105,6 +108,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\ReactiveCollection1Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\TwoWay2Page.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\Validate1Page.xaml">

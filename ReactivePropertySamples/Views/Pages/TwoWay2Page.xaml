@@ -1,5 +1,5 @@
 ﻿<ctrl:MyPageControl
-    x:Class="ReactivePropertySamples.Views.Pages.TwoWay1Page"
+    x:Class="ReactivePropertySamples.Views.Pages.TwoWay2Page"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -15,9 +15,8 @@
     </ctrl:MyPageControl.Subtitle>
 
     <ctrl:MyPageControl.Description>
-        Model を介して、各チェックボックスの値が同期している。
+        リスト選択を通知＆番号で選択。
     </ctrl:MyPageControl.Description>
-    <!-- リスト選択を通知＆番号で選択 -->
 
     <ctrl:MyPageControl.Keywords>
         <x:Array Type="{x:Type system:String}" >
@@ -29,15 +28,6 @@
     <DockPanel Margin="5" >
         <ctrl:MyPageTitle DockPanel.Dock="Top"
                           DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
-
-        <StackPanel Orientation="Horizontal" Margin="10" >
-            <CheckBox DockPanel.Dock="Left" 
-                      Content="Setting" Margin="20,0"
-                      IsChecked="{Binding IsFunctionEnable.Value, Mode=TwoWay}" />
-
-            <CheckBox Content="Setting (Same)" Margin="20,0"
-                      IsChecked="{Binding IsFunctionEnable.Value, Mode=TwoWay}" />
-        </StackPanel>
 
     </DockPanel>
 </ctrl:MyPageControl>

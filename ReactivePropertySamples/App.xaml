@@ -21,6 +21,9 @@
             <sys:Double x:Key="FontSizeSubtitle">14</sys:Double>
             <sys:Double x:Key="FontSizeDescription">12</sys:Double>
             <sys:Double x:Key="FontSizeKeywords">12</sys:Double>
+            <sys:Double x:Key="FontSizeLarge">18</sys:Double>
+            <sys:Double x:Key="FontSizeMiddle">14</sys:Double>
+            <sys:Double x:Key="FontSizeSmall">12</sys:Double>
 
         </ResourceDictionary>
     </Application.Resources>
