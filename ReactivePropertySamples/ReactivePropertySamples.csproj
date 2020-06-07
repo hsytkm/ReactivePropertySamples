@@ -23,19 +23,97 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\UserControls\ObserveProperty1Page.xaml.cs">
+    <Compile Update="Views\Pages\BusyNotifierPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\UserControls\ReactiveProperty1Page.xaml.cs">
+    <Compile Update="Views\Pages\CountNotifierPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\ObserveElementPropertyChanged1Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\ObserveProperty1Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\AsyncReactiveCommand1Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\FromPocoMode1Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\CombineAllValuePage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\BooleanNotifierPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\ObserveElementProperty1Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\ReactiveCommand1Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\ReadOnlyReactiveCollection1Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\ReactiveCollection1Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\Validate1Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\TwoWay1Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\ReactiveProperty1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Views\UserControls\ObserveProperty1Page.xaml">
+    <Page Update="Views\Pages\BusyNotifierPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\UserControls\ReactiveProperty1Page.xaml">
+    <Page Update="Views\Pages\CountNotifierPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\ObserveElementPropertyChanged1Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\ObserveProperty1Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\AsyncReactiveCommand1Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\FromPocoMode1Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\CombineAllValuePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\BooleanNotifierPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\ObserveElementProperty1Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\ReactiveCommand1Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\ReadOnlyReactiveCollection1Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\ReactiveCollection1Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Validate1Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\TwoWay1Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\ReactiveProperty1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace ReactivePropertySamples.Views.UserControls
+namespace ReactivePropertySamples.Views.Pages
 {
     public partial class BlankPage : UserControl
     {

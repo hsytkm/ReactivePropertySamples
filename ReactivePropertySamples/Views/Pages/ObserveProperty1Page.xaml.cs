@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Reactive.Linq;
 using System.Threading;
 
-namespace ReactivePropertySamples.Views.UserControls
+namespace ReactivePropertySamples.Views.Pages
 {
     public partial class ObserveProperty1Page : Controls.MyPageControl
     {

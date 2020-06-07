@@ -4,7 +4,7 @@ using ReactivePropertySamples.Infrastructures;
 using System;
 using System.Reactive.Linq;
 
-namespace ReactivePropertySamples.Views.UserControls
+namespace ReactivePropertySamples.Views.Pages
 {
     public partial class ReactiveProperty1Page : Controls.MyPageControl
     {
