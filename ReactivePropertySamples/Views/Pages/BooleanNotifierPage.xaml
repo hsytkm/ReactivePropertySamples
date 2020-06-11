@@ -41,21 +41,15 @@
             
         </DockPanel>
 
-        <Grid Margin="20,5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <TextBlock FontWeight="Bold" FontSize="{StaticResource FontSizeMiddle}"
+        <StackPanel Margin="20,5" Orientation="Horizontal" >
+            <TextBlock FontWeight="Bold" FontSize="{StaticResource FontSizeMiddle}" Margin="10,0"
                        Text="2の倍数" Foreground="Red"
-                       Visibility="{Binding BoolNotifierMultiple2.Value, Mode=OneWay, Converter={StaticResource BoolToVisiConverter}}" />
-            
-            <TextBlock Grid.Column="1"
-                       FontWeight="Bold" FontSize="{StaticResource FontSizeMiddle}"
+                       Visibility="{Binding BoolNotifierMultiple2.Value, Mode=OneWay, Converter={StaticResource BooleanToVisiHiddConverter}}" />
+
+            <TextBlock FontWeight="Bold" FontSize="{StaticResource FontSizeMiddle}" Margin="10,0"
                        Text="3の倍数" Foreground="Blue"
-                       Visibility="{Binding BoolNotifierMultiple3.Value, Mode=OneWay, Converter={StaticResource BoolToVisiConverter}}" />
-        </Grid>
+                       Visibility="{Binding BoolNotifierMultiple3.Value, Mode=OneWay, Converter={StaticResource BooleanToVisiHiddConverter}}" />
+        </StackPanel>
 
     </DockPanel>
 </ctrl:MyPageControl>

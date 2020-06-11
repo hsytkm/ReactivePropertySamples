@@ -15,12 +15,14 @@
     </ctrl:MyPageControl.Subtitle>
 
     <ctrl:MyPageControl.Description>
-        どーしよ？
+        TextBox の入力値をチェックする
     </ctrl:MyPageControl.Description>
 
     <ctrl:MyPageControl.Keywords>
         <x:Array Type="{x:Type system:String}" >
             <system:String>SetValidateNotifyError</system:String>
+            <system:String>ObserveErrorChanged</system:String>
+            <system:String>ObserveHasErrors</system:String>
         </x:Array>
     </ctrl:MyPageControl.Keywords>
 
@@ -28,6 +30,45 @@
         <ctrl:MyPageTitle DockPanel.Dock="Top"
                           DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
 
+        <DockPanel DockPanel.Dock="Top" Margin="20,10" Background="LightBlue" >
+            <TextBlock DockPanel.Dock="Top" Margin="5"
+                       Text="TextBox の Empty チェック" />
+            <TextBlock DockPanel.Dock="Right" Margin="10,0" Foreground="Red"
+                       Text="{Binding InputText1ErrorMessage.Value, Mode=OneWay}" />
+            <TextBox Margin="15,0,0,5"
+                     Text="{Binding InputText1.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     ToolTip="{Binding (Validation.Errors)/ErrorContent, RelativeSource={RelativeSource Self}}" />
+        </DockPanel>
 
+        <DockPanel DockPanel.Dock="Top" Margin="20,10" Background="LightPink" >
+            <TextBlock DockPanel.Dock="Top" Margin="5,5,5,0"
+                       Text="エラーなければ Command 実行可能" />
+
+            <Grid DockPanel.Dock="Left" Margin="15,5" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Name" Width="40" />
+                <TextBox Grid.Row="0" Grid.Column="1" Margin="20,0" Width="80"
+                         Text="{Binding Name.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         ToolTip="{Binding (Validation.Errors)/ErrorContent, RelativeSource={RelativeSource Self}}" />
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Age" Width="40" />
+                <TextBox Grid.Row="1" Grid.Column="1" Margin="20,0" Width="80"
+                         Text="{Binding Age.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         ToolTip="{Binding (Validation.Errors)/ErrorContent, RelativeSource={RelativeSource Self}}" />
+            </Grid>
+
+            <Button Content="Enter" Margin="5"
+                    Command="{Binding PersonEntryCommand, Mode=OneWay}" />
+        </DockPanel>
+
+        <Border />
     </DockPanel>
 </ctrl:MyPageControl>

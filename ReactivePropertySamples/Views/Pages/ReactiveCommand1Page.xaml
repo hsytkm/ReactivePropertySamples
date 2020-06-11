@@ -15,7 +15,7 @@
     </ctrl:MyPageControl.Subtitle>
 
     <ctrl:MyPageControl.Description>
-        どーしよ？
+        カウンタの操作を色々なパターンで。
     </ctrl:MyPageControl.Description>
 
     <ctrl:MyPageControl.Keywords>
@@ -24,10 +24,53 @@
         </x:Array>
     </ctrl:MyPageControl.Keywords>
 
+    <UserControl.Resources>
+        <system:Int32 x:Key="IntOne">1</system:Int32>
+        <system:Int32 x:Key="IntTwo">2</system:Int32>
+    </UserControl.Resources>
+
     <DockPanel Margin="5" >
         <ctrl:MyPageTitle DockPanel.Dock="Top"
                           DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
 
+        <DockPanel DockPanel.Dock="Top" Margin="20,10" Background="LightBlue" >
+            <TextBlock DockPanel.Dock="Top" Margin="5"
+                       Text="シンプルなやーつ  (CanExecute=true固定)" />
+            <Button DockPanel.Dock="Left" Margin="20,5" Padding="10,5"
+                    Content="Counter++"
+                    Command="{Binding Command1, Mode=OneTime}" />
+            <TextBlock Margin="20,5" VerticalAlignment="Center" FontSize="{StaticResource FontSizeMiddle}"
+                       Text="{Binding Counter1.Value, Mode=OneWay, StringFormat='Count= {0}'}" />
+        </DockPanel>
 
+        <DockPanel DockPanel.Dock="Top" Margin="20,10" Background="LightGreen" >
+            <TextBlock DockPanel.Dock="Top" Margin="5"
+                       Text="CommandParameter の指定  (CanExecute=true固定)" />
+            <Button DockPanel.Dock="Left" Margin="20,5" Padding="10,5"
+                    Content="Counter++"
+                    Command="{Binding Command2, Mode=OneTime}"
+                    CommandParameter="{StaticResource IntOne}"/>
+            <Button DockPanel.Dock="Left" Margin="20,5" Padding="10,5"
+                    Content="Counter += 2"
+                    Command="{Binding Command2, Mode=OneTime}"
+                    CommandParameter="{StaticResource IntTwo}"/>
+            <TextBlock Margin="20,5" VerticalAlignment="Center" FontSize="{StaticResource FontSizeMiddle}"
+                       Text="{Binding Counter2.Value, Mode=OneWay, StringFormat='Count= {0}'}" />
+        </DockPanel>
+
+        <DockPanel DockPanel.Dock="Top" Margin="20,10" Background="LightPink" >
+            <TextBlock DockPanel.Dock="Top" Margin="5"
+                       Text="CanExecute の切替 (IObservable&lt;bool&gt; から ReactiveCommand を作成)" />
+            <Button DockPanel.Dock="Left" Margin="20,5" Padding="10,5"
+                    Content="Counter++"
+                    Command="{Binding Command3, Mode=OneTime}" />
+            <CheckBox VerticalAlignment="Center"
+                      Content="Enable"
+                      IsChecked="{Binding CheckFlag3.Value, Mode=TwoWay}" />
+            <TextBlock Margin="20,5" VerticalAlignment="Center" FontSize="{StaticResource FontSizeMiddle}"
+                       Text="{Binding Counter3.Value, Mode=OneWay, StringFormat='Count= {0}'}" />
+        </DockPanel>
+
+        <Border/>
     </DockPanel>
 </ctrl:MyPageControl>

@@ -14,22 +14,24 @@ namespace ReactivePropertySamples.Views
             // 未対応 CatchIgnore CanExecuteChangedAsObservable ErrorChangedAsObservable
             // 未対応 ObserveErrorInfo Inverse Pairwise OnErrorRetry ToUnit ScheduledNotifier
             // 未対応 IFilteredReadOnlyObservableCollection ReactivePropertySlim
-                        new PageSource(typeof(BooleanNotifierPage)),
+            // 未対応 ReactiveConverter
+
+            new PageSource(typeof(Validate1Page)),
 
             // 未対応  
-            new PageSource(typeof(ReactiveCommand1Page)),
             new PageSource(typeof(ObserveElementPropertyChanged1Page)),
             new PageSource(typeof(ObserveElementProperty1Page)),
             new PageSource(typeof(ReadOnlyReactiveCollection1Page)),
             new PageSource(typeof(ReactiveCollection1Page)),
-            new PageSource(typeof(BusyNotifierPage)),
-            new PageSource(typeof(CountNotifierPage)),
-            new PageSource(typeof(CombineAllValuePage)),
-            new PageSource(typeof(Validate1Page)),
-            new PageSource(typeof(FromPocoMode1Page)),
-            new PageSource(typeof(TwoWay2Page)),
             // 未対応
 
+            new PageSource(typeof(TwoWay2Page)),
+            new PageSource(typeof(Validate1Page)),
+            new PageSource(typeof(CountNotifierPage)),
+            new PageSource(typeof(ReactiveCommand1Page)),
+            new PageSource(typeof(BusyNotifierPage)),
+            new PageSource(typeof(FromPocoMode1Page)),
+            new PageSource(typeof(CombineAllValuePage)),
             new PageSource(typeof(BooleanNotifierPage)),
             new PageSource(typeof(TwoWay1Page)),
             new PageSource(typeof(AsyncReactiveCommand1Page)),

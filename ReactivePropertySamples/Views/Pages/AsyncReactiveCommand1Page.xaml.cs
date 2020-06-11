@@ -17,22 +17,18 @@ namespace ReactivePropertySamples.Views.Pages
 
     class AsyncReactiveCommand1ViewModel : MyDisposableBindableBase
     {
-        public AsyncReactiveCommand ButtonClickAsyncCommand1 { get; }
-            = new AsyncReactiveCommand();
-        public AsyncReactiveCommand ButtonClickAsyncCommand2 { get; }
-            = new AsyncReactiveCommand();
+        public AsyncReactiveCommand ButtonClickAsyncCommand1 { get; } = new AsyncReactiveCommand();
+        public AsyncReactiveCommand ButtonClickAsyncCommand2 { get; } = new AsyncReactiveCommand();
 
         public AsyncReactiveCommand1ViewModel()
         {
             ButtonClickAsyncCommand1.Subscribe(async _ =>
             {
-                Debug.WriteLine("Clicked ASync 1");
                 await Task.Delay(1000);
             });
 
             ButtonClickAsyncCommand2.Subscribe(async _ =>
             {
-                Debug.WriteLine("Clicked ASync 2");
                 await Task.Delay(3000);
             });
         }

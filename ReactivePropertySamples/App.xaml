@@ -9,6 +9,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BoolToVisiConverter" />
+            <vc:BooleanToVisibleHiddenConverter x:Key="BooleanToVisiHiddConverter" />
             <vc:EmptyStringToTrueConverter x:Key="EmptyStringToTrueConverter" />
             <vc:StringConcatConverter x:Key="StringConcatConverter" />
 

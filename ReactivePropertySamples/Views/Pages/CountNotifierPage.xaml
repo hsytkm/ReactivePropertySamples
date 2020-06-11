@@ -11,11 +11,11 @@
     d:DesignHeight="450" d:DesignWidth="800" >
 
     <ctrl:MyPageControl.Subtitle>
-        CountNotifier
+        操作結果の Dispose により操作が逆実行
     </ctrl:MyPageControl.Subtitle>
 
     <ctrl:MyPageControl.Description>
-        どーしよ？
+        リソースの取得/返却を想定（一定時間の経過で返却される）
     </ctrl:MyPageControl.Description>
 
     <ctrl:MyPageControl.Keywords>
@@ -28,6 +28,18 @@
         <ctrl:MyPageTitle DockPanel.Dock="Top"
                           DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
 
+        <StackPanel DockPanel.Dock="Top" Margin="20" Orientation="Horizontal" >
+            <Button Content="+1" Padding="10,5" Margin="10,0"
+                    Command="{Binding GetResourceCommand1, Mode=OneTime}" />
+            <Button Content="+2" Padding="10,5" Margin="10,0"
+                    Command="{Binding GetResourceCommand2, Mode=OneTime}" />
+            <Button Content="+3" Padding="10,5" Margin="10,0"
+                    Command="{Binding GetResourceCommand3, Mode=OneTime}" />
+        </StackPanel>
 
+        <TextBlock Margin="30,0"
+                   FontSize="{StaticResource FontSizeMiddle}"
+                   Text="{Binding Counter.Value, Mode=OneWay, StringFormat='Using resource count :  {0}'}" />
+        
     </DockPanel>
 </ctrl:MyPageControl>

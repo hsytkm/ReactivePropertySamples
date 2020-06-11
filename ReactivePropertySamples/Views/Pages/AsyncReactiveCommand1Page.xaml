@@ -30,11 +30,11 @@
                           DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
 
         <Button DockPanel.Dock="Top" Margin="10" Padding="10"
-                Content="Button1"
+                Content="Light Process"
                 Command="{Binding ButtonClickAsyncCommand1, Mode=OneTime}" />
 
         <Button DockPanel.Dock="Top" Margin="10" Padding="10"
-                Content="Button2"
+                Content="Heavy Process"
                 Command="{Binding ButtonClickAsyncCommand2, Mode=OneTime}" />
 
         <Border />

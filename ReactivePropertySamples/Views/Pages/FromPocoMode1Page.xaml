@@ -11,23 +11,67 @@
     d:DesignHeight="450" d:DesignWidth="800" >
 
     <ctrl:MyPageControl.Subtitle>
-        Modelとの接続
+        Model(POCO) との接続
     </ctrl:MyPageControl.Subtitle>
 
     <ctrl:MyPageControl.Description>
-        Model(POCO) から～～
+        INotifyPropertyChanged を実装していない場合、VM から M への一方通行の同期になる。
     </ctrl:MyPageControl.Description>
 
     <ctrl:MyPageControl.Keywords>
         <x:Array Type="{x:Type system:String}" >
             <system:String>FromObject</system:String>
+            <system:String>POCO</system:String>
         </x:Array>
     </ctrl:MyPageControl.Keywords>
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Button}" >
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Padding" Value="15,3" />
+            <Setter Property="Margin" Value="20,5" />
+        </Style>
+    </UserControl.Resources>
 
     <DockPanel Margin="5" >
         <ctrl:MyPageTitle DockPanel.Dock="Top"
                           DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
 
+        <TextBlock DockPanel.Dock="Top" Margin="20"
+                   FontWeight="Bold" FontSize="{StaticResource FontSizeLarge}"
+                   Text="{Binding PersonName.Value, Mode=OneWay, StringFormat='Name is  &quot;{0}&quot;.'}" />
 
+        <DockPanel DockPanel.Dock="Top" Margin="20,10" >
+            <TextBlock DockPanel.Dock="Top" Margin="0,0,0,5">
+                <Run Text="ViewModel の ReactiveProperty.Value を変更する" />
+                <LineBreak/>
+                <Run Text="  ※Rp.Value への設定値が Modelプロパティも更新される" Foreground="Blue" />
+            </TextBlock>
+            <Button DockPanel.Dock="Left" Content="to Ryu"
+                    Command="{Binding ChangeRpNameCommand, Mode=OneTime}"
+                    CommandParameter="Ryu" />
+            <Button DockPanel.Dock="Left" Content="to Honda"
+                    Command="{Binding ChangeRpNameCommand, Mode=OneTime}"
+                    CommandParameter="Honda" />
+            <Border/>
+        </DockPanel>
+
+        <DockPanel DockPanel.Dock="Top" Margin="20,10" >
+            <TextBlock DockPanel.Dock="Top" Margin="0,0,0,5">
+                <Run Text="Model の Name プロパティ を変更する" />
+                <LineBreak/>
+                <Run Text="  ※Modelプロパティの更新が、VM に通知されない (OneWay)" Foreground="Red" />
+            </TextBlock>
+            <Button DockPanel.Dock="Left" Content="to Ken"
+                    Command="{Binding ChangeModelNameCommand, Mode=OneTime}"
+                    CommandParameter="Ken" />
+            <Button DockPanel.Dock="Left" Content="to Guile"
+                    Command="{Binding ChangeModelNameCommand, Mode=OneTime}"
+                    CommandParameter="Guile" />
+            <Border/>
+        </DockPanel>
+
+        <Border/>
     </DockPanel>
 </ctrl:MyPageControl>
