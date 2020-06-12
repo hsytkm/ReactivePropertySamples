@@ -16,15 +16,15 @@ namespace ReactivePropertySamples.Views
             // 未対応 IFilteredReadOnlyObservableCollection ReactivePropertySlim
             // 未対応 ReactiveConverter
 
-            new PageSource(typeof(Validate1Page)),
+            //new PageSource(typeof(ObserveElementProperty1Page)),
 
             // 未対応  
             new PageSource(typeof(ObserveElementPropertyChanged1Page)),
             new PageSource(typeof(ObserveElementProperty1Page)),
             new PageSource(typeof(ReadOnlyReactiveCollection1Page)),
-            new PageSource(typeof(ReactiveCollection1Page)),
             // 未対応
 
+            new PageSource(typeof(ReactiveCollection1Page)),
             new PageSource(typeof(TwoWay2Page)),
             new PageSource(typeof(Validate1Page)),
             new PageSource(typeof(CountNotifierPage)),

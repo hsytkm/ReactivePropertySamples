@@ -1,7 +1,9 @@
 ﻿using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
 using ReactivePropertySamples.Infrastructures;
 using System;
 using System.Diagnostics;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 
 namespace ReactivePropertySamples.Views.Pages
@@ -22,15 +24,16 @@ namespace ReactivePropertySamples.Views.Pages
 
         public AsyncReactiveCommand1ViewModel()
         {
-            ButtonClickAsyncCommand1.Subscribe(async _ =>
-            {
-                await Task.Delay(1000);
-            });
+            ButtonClickAsyncCommand1
+                .Subscribe(async _ => await Task.Delay(1000))
+                .AddTo(CompositeDisposable);
 
-            ButtonClickAsyncCommand2.Subscribe(async _ =>
-            {
-                await Task.Delay(3000);
-            });
+            ButtonClickAsyncCommand2
+                .Subscribe(async _ =>
+                {
+                    await Task.Delay(3000);
+                })
+                .AddTo(CompositeDisposable);
         }
     }
 }
