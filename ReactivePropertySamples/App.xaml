@@ -11,6 +11,7 @@
             <BooleanToVisibilityConverter x:Key="BoolToVisiConverter" />
             <vc:BooleanToVisibleHiddenConverter x:Key="BooleanToVisiHiddConverter" />
             <vc:EmptyStringToTrueConverter x:Key="EmptyStringToTrueConverter" />
+            <vc:StringBuilderToStringConverter x:Key="StringBuilderToStringConverter" />
             <vc:StringConcatConverter x:Key="StringConcatConverter" />
 
             <!-- フォントサイズ -->

@@ -23,5 +23,10 @@ namespace ReactivePropertySamples.Infrastructures
 
             return SetProperty(ref field, value, propertyName);
         }
+
+        protected virtual void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
