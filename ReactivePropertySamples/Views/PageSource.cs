@@ -11,8 +11,10 @@ namespace ReactivePropertySamples.Views
         // Viewに表示されるコントロールのリスト
         public static IList<PageSource> AllPageList { get; } = new[]
         {
+            new PageSource(typeof(ObserveProperty1Page)),
+
             // 未対応 CatchIgnore CanExecuteChangedAsObservable ErrorChangedAsObservable
-            // 未対応 ObserveErrorInfo Inverse Pairwise OnErrorRetry ToUnit ScheduledNotifier
+            // 未対応 ObserveErrorInfo Pairwise OnErrorRetry ToUnit ScheduledNotifier
             // 未対応 IFilteredReadOnlyObservableCollection ReactivePropertySlim
             // 未対応 ReactiveConverter
 
@@ -20,6 +22,7 @@ namespace ReactivePropertySamples.Views
             new PageSource(typeof(ObserveElementPropertyChanged1Page)),
             // 未対応
 
+            new PageSource(typeof(ReactiveProperty2Page)),
             new PageSource(typeof(ObserveElementProperty1Page)),
             new PageSource(typeof(ReadOnlyReactiveCollection1Page)),
             new PageSource(typeof(ReactiveCollection1Page)),
@@ -55,6 +58,7 @@ namespace ReactivePropertySamples.Views
             ControlType = controlType;
             TypeName = controlType.ToString().Split('.').Last();        // Typeから名前空間を除去する
 
+            // 一度インスタンス化して、内部情報を吸い上げる
             if (Activator.CreateInstance(controlType) is MyPageControl control)
             {
                 Title = control.Title;

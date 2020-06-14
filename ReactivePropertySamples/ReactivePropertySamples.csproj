@@ -53,6 +53,9 @@
     <Compile Update="Views\Pages\ReactiveCommand1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Pages\ReactiveProperty2Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\ReadOnlyReactiveCollection1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -102,6 +105,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\ReactiveCommand1Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\ReactiveProperty2Page.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\ReadOnlyReactiveCollection1Page.xaml">

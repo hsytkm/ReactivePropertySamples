@@ -21,7 +21,7 @@
     <ctrl:MyPageControl.Keywords>
         <x:Array Type="{x:Type system:String}" >
             <system:String>BusyNotifier</system:String>
-            <system:String>ReactiveCommand</system:String>
+            <system:String>Inverse</system:String>
         </x:Array>
     </ctrl:MyPageControl.Keywords>
 

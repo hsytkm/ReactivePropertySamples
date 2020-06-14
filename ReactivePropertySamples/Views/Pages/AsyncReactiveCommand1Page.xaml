@@ -21,7 +21,7 @@
     <ctrl:MyPageControl.Keywords>
         <x:Array Type="{x:Type system:String}" >
             <system:String>AsyncReactiveCommand</system:String>
-            <system:String>CanExecute</system:String>
+            <system:String>WithSubscribe</system:String>
         </x:Array>
     </ctrl:MyPageControl.Keywords>
 

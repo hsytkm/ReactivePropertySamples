@@ -26,38 +26,32 @@ namespace ReactivePropertySamples.Views.Pages
         public BusyNotifierViewModel()
         {
             LightProcessCommand = _busyNotifier
-                .Select(x => !x)
+                .Inverse()
                 .ToReactiveCommand()
-                .AddTo(CompositeDisposable);
-
-            LightProcessCommand
-                .Subscribe(async () =>
+                .WithSubscribe(async () =>
                 {
-                    if (_busyNotifier.IsBusy) return;   // Viewボタンが無効になるので来ない
+                    // Viewボタンが無効になるので来ないが勉強のため
+                    if (_busyNotifier.IsBusy) throw new Exception();
 
                     using (_busyNotifier.ProcessStart())
                     {
                         await Task.Delay(500);
                     }
-                })
-                .AddTo(CompositeDisposable);
+                }, CompositeDisposable.Add);
 
             HeavyProcessCommand = _busyNotifier
-                .Select(x => !x)
+                .Inverse()
                 .ToReactiveCommand()
-                .AddTo(CompositeDisposable);
-
-            HeavyProcessCommand
-                .Subscribe(async () =>
+                .WithSubscribe(async () =>
                 {
-                    if (_busyNotifier.IsBusy) return;   // Viewボタンが無効になるので来ない
+                    // Viewボタンが無効になるので来ないが勉強のため
+                    if (_busyNotifier.IsBusy) throw new Exception();
 
                     using (_busyNotifier.ProcessStart())
                     {
                         await Task.Delay(2000);
                     }
-                })
-                .AddTo(CompositeDisposable);
+                }, CompositeDisposable.Add);
         }
     }
 }

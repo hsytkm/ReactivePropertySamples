@@ -19,21 +19,20 @@ namespace ReactivePropertySamples.Views.Pages
 
     class AsyncReactiveCommand1ViewModel : MyDisposableBindableBase
     {
-        public AsyncReactiveCommand ButtonClickAsyncCommand1 { get; } = new AsyncReactiveCommand();
-        public AsyncReactiveCommand ButtonClickAsyncCommand2 { get; } = new AsyncReactiveCommand();
+        public AsyncReactiveCommand ButtonClickAsyncCommand1 { get; }
+        public AsyncReactiveCommand ButtonClickAsyncCommand2 { get; }
 
         public AsyncReactiveCommand1ViewModel()
         {
+            ButtonClickAsyncCommand1 = new AsyncReactiveCommand()
+                .AddTo(CompositeDisposable);
             ButtonClickAsyncCommand1
-                .Subscribe(async _ => await Task.Delay(1000))
+                .Subscribe(async () => await Task.Delay(1000))
                 .AddTo(CompositeDisposable);
 
-            ButtonClickAsyncCommand2
-                .Subscribe(async _ =>
-                {
-                    await Task.Delay(3000);
-                })
-                .AddTo(CompositeDisposable);
+            // WithSubscribe() : インスタンス化 + Disposable 登録
+            ButtonClickAsyncCommand2 = new AsyncReactiveCommand()
+                .WithSubscribe(async () => await Task.Delay(3000), CompositeDisposable.Add);
         }
     }
 }

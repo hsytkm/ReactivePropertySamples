@@ -87,40 +87,27 @@ namespace ReactivePropertySamples.Views.Pages
                 .CollectionChangedAsObservable()
                 .Select(_ => DataCollection.Any())
                 .ToReactiveCommand()
-                .AddTo(CompositeDisposable);
-            RemoveHeadItemCommand
-                .Where(x => DataCollection.Any())
-                .Subscribe(_ => DataCollection.RemoveAtOnScheduler(0))
-                .AddTo(CompositeDisposable);
+                .WithSubscribe(() => DataCollection.RemoveAtOnScheduler(0), CompositeDisposable.Add);
 
             RemoveTailItemCommand = DataCollection
                 .CollectionChangedAsObservable()
                 .Select(_ => DataCollection.Any())
                 .ToAsyncReactiveCommand()
-                .AddTo(CompositeDisposable);
-            RemoveTailItemCommand
-                .Subscribe(async _ =>
-                {
-                    if (DataCollection.Any())
+                .WithSubscribe(async () =>
                     {
                         await Task.Delay(500);
                         DataCollection.RemoveAtOnScheduler(DataCollection.Count - 1);
-                    }
-                })
-                .AddTo(CompositeDisposable);
+                    }, CompositeDisposable.Add);
 
             ClearAllItemsCommand = DataCollection
                 .CollectionChangedAsObservable()
                 .Select(_ => DataCollection.Any())
                 .ToAsyncReactiveCommand()
-                .AddTo(CompositeDisposable);
-            ClearAllItemsCommand
-                .Subscribe(async _ =>
-                {
-                    await Task.Delay(500);
-                    DataCollection.ClearOnScheduler();
-                })
-                .AddTo(CompositeDisposable);
+                .WithSubscribe(async () =>
+                    {
+                        await Task.Delay(500);
+                        DataCollection.ClearOnScheduler();
+                    }, CompositeDisposable.Add);
             #endregion
 
             // Remove 達の CanExecute を false にするため、コレクションを操作する（◆もっと良い実装ない？）

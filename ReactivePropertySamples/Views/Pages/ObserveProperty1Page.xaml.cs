@@ -5,6 +5,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Reactive.Linq;
+using System.Text;
 using System.Threading;
 
 namespace ReactivePropertySamples.Views.Pages
@@ -21,12 +22,7 @@ namespace ReactivePropertySamples.Views.Pages
     class ObserveProperty1ViewModel : MyDisposableBindableBase
     {
         private readonly ObserveProperty1Model _model;
-
-        public ReadOnlyReactiveProperty<string> LatestLog { get; }
-
-        public ReadOnlyReactiveCollection<string> LatestLogs { get; }
-        //public ObservableCollection<string> LatestLogs1 { get; } = new ObservableCollection<string>();
-        //public ReactiveCollection<string> LatestLogCollection2 { get; } = new ReactiveCollection<string>();
+        public StringBuilder LogBuilder { get; } = new StringBuilder();
 
         public ObserveProperty1ViewModel()
         {
@@ -34,22 +30,13 @@ namespace ReactivePropertySamples.Views.Pages
             CompositeDisposable.Add(_model);
 
             // Model のプロパティを購読
-            LatestLog = _model
-                .ObserveProperty(x => x.EventLog)
-                .ToReadOnlyReactiveProperty()
+            _model.ObserveProperty(x => x.EventLog)
+                .Subscribe(x =>
+                {
+                    LogBuilder.Insert(0, x + Environment.NewLine);
+                    NotifyPropertyChanged(nameof(LogBuilder));
+                })
                 .AddTo(CompositeDisposable);
-
-            var logs = new ObservableCollection<string>();
-
-            // 購読したデータをコレクション先頭に追加
-            LatestLog
-                .Subscribe(x => logs.Insert(0, x))
-                .AddTo(CompositeDisposable);
-
-            LatestLogs = logs
-                .ToReadOnlyReactiveCollection()
-                .AddTo(CompositeDisposable);
-
         }
     }
 
@@ -65,10 +52,8 @@ namespace ReactivePropertySamples.Views.Pages
         public ObserveProperty1Model()
         {
             // 1秒後から1.5秒間隔のタイマー
-            var timer = Observable.Timer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1.5));
-
-            var disposable = timer
-                .Subscribe(x => EventLog = $"message {x}")
+            Observable.Timer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1.5))
+                .Subscribe(x => EventLog = $"Model data {x}")
                 .AddTo(CompositeDisposable);
         }
     }

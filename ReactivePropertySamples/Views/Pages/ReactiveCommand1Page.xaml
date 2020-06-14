@@ -21,6 +21,7 @@
     <ctrl:MyPageControl.Keywords>
         <x:Array Type="{x:Type system:String}" >
             <system:String>ReactiveCommand</system:String>
+            <system:String>WithSubscribe</system:String>
         </x:Array>
     </ctrl:MyPageControl.Keywords>
 
@@ -62,11 +63,16 @@
             <TextBlock DockPanel.Dock="Top" Margin="5"
                        Text="CanExecute の切替 (IObservable&lt;bool&gt; から ReactiveCommand を作成)" />
             <Button DockPanel.Dock="Left" Margin="20,5" Padding="10,5"
-                    Content="Counter++"
-                    Command="{Binding Command3, Mode=OneTime}" />
+                    Content="Switch"
+                    Command="{Binding Command31, Mode=OneTime}" />
             <CheckBox VerticalAlignment="Center"
                       Content="Enable"
-                      IsChecked="{Binding CheckFlag3.Value, Mode=TwoWay}" />
+                      IsChecked="{Binding CheckFlag31.Value, Mode=TwoWay}" />
+
+            <Button DockPanel.Dock="Left" Margin="20,5" Padding="10,5"
+                    Content="Wait 0.5sec"
+                    Command="{Binding Command32, Mode=OneTime}" />
+
             <TextBlock Margin="20,5" VerticalAlignment="Center" FontSize="{StaticResource FontSizeMiddle}"
                        Text="{Binding Counter3.Value, Mode=OneWay, StringFormat='Count= {0}'}" />
         </DockPanel>

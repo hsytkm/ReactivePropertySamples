@@ -3,6 +3,7 @@ using Reactive.Bindings.Extensions;
 using ReactivePropertySamples.Infrastructures;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Linq;
 
@@ -59,7 +60,7 @@ namespace ReactivePropertySamples.Views.Pages
                 }
                 .CombineLatestValuesAreAllFalse()
                 .ToReactiveCommand()
-                .AddTo(CompositeDisposable);
+                .WithSubscribe(() => Debug.WriteLine("Entry"), CompositeDisposable.Add);
         }
     }
 }

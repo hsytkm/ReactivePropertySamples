@@ -34,7 +34,7 @@
                        FontWeight="Bold" FontSize="{StaticResource FontSizeMiddle}"
                        Text="{Binding InputValue.Value, Mode=OneWay, StringFormat='Value={0}'}" />
 
-            <Slider Minimum="0" Maximum="13"
+            <Slider Minimum="1" Maximum="13"
                     SmallChange="1" LargeChange="5"
                     IsSnapToTickEnabled="True" TickFrequency="1"
                     Value="{Binding InputValue.Value, Mode=TwoWay}" />

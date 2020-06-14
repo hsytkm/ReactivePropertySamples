@@ -15,7 +15,7 @@
     </ctrl:MyPageControl.Subtitle>
 
     <ctrl:MyPageControl.Description>
-        Model(INotifyPropertyChanged) からx秒ごとに発行されるデータを購読
+        Model (INotifyPropertyChanged) から 一定時間 で発行されるデータを購読
     </ctrl:MyPageControl.Description>
 
     <ctrl:MyPageControl.Keywords>
@@ -29,21 +29,11 @@
         <ctrl:MyPageTitle DockPanel.Dock="Top"
                           DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
 
-        <TextBlock DockPanel.Dock="Top" Margin="10,10,0,0" Background="LightBlue" Padding="5" >
-            <Run Text="最新のログデータ : " />
-            <Run Text="{Binding LatestLog.Value, Mode=OneWay}" />
-        </TextBlock>
+        <TextBlock DockPanel.Dock="Top" Margin="10,5" FontWeight="Bold" Text="データ履歴 : " />
 
-        <DockPanel DockPanel.Dock="Top" Margin="10,10,0,0" Background="LightPink" >
-            <TextBlock DockPanel.Dock="Top" Margin="5" >
-                <Run Text="ログデータ履歴 : " />
-                <Run Text="   改めてやると全然理解できていない。実装し直して…" Foreground="Red" FontWeight="Bold" />
-            </TextBlock>
-
-            <ScrollViewer>
-                <ItemsControl Margin="10,5" ItemsSource="{Binding LatestLogs, Mode=OneTime}" />
-            </ScrollViewer>
-        </DockPanel>
+        <ScrollViewer Margin="15,0" Background="LightBlue" >
+            <TextBlock Text="{Binding LogBuilder, Mode=OneWay, Converter={StaticResource StringBuilderToStringConverter}}" />
+        </ScrollViewer>
 
     </DockPanel>
 </ctrl:MyPageControl>

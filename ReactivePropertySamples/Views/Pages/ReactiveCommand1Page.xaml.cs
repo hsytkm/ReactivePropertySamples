@@ -2,7 +2,9 @@
 using Reactive.Bindings.Extensions;
 using ReactivePropertySamples.Infrastructures;
 using System;
+using System.Reactive;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
 
 namespace ReactivePropertySamples.Views.Pages
 {
@@ -23,9 +25,11 @@ namespace ReactivePropertySamples.Views.Pages
         public ReactiveCommand<int> Command2 { get; } = new ReactiveCommand<int>();
         public ReactiveProperty<int> Counter2 { get; } = new ReactiveProperty<int>();
 
-        public ReactiveCommand Command3 { get; } // ToReactiveCommand() で生成するので初期化不要
-        public ReactiveProperty<bool> CheckFlag3 { get; } = new ReactiveProperty<bool>();
+        public ReactiveCommand Command31 { get; } // ToReactiveCommand() で生成するので初期化不要
+        public ReactiveProperty<bool> CheckFlag31 { get; } = new ReactiveProperty<bool>();
         public ReactiveProperty<int> Counter3 { get; } = new ReactiveProperty<int>();
+
+        public ReactiveCommand Command32 { get; } // ToReactiveCommand() で生成するので初期化不要
 
         public ReactiveCommand1ViewModel()
         {
@@ -38,13 +42,25 @@ namespace ReactivePropertySamples.Views.Pages
                 .AddTo(CompositeDisposable);
 
             // IObservable<bool> から ReactiveCommand を作成
-            Command3 = CheckFlag3
+            // View の CheckBox により、CanExecute  を切り替え
+            Command31 = CheckFlag31.ToReactiveCommand()
+                .WithSubscribe(() => ++Counter3.Value, CompositeDisposable.Add);
+
+            var updateTimeTrigger = new Subject<Unit>();
+            CompositeDisposable.Add(updateTimeTrigger);
+
+            // IObservable<bool> から ReactiveCommand を作成
+            // 実行後に一定時間は CanExecute を無効にする (ひねくれずに AsyncReactiveCommand を使えばよいと思う)
+            Command32 = Observable.Merge(
+                    updateTimeTrigger.Select(_ => false),
+                    updateTimeTrigger.Delay(TimeSpan.FromSeconds(0.5)).Select(_ => true))
                 .ToReactiveCommand()
                 .AddTo(CompositeDisposable);
-            Command3
-                .Subscribe(() => ++Counter3.Value)
-                .AddTo(CompositeDisposable);
 
+            Command32
+                .Do(_ => updateTimeTrigger.OnNext(Unit.Default))
+                .Subscribe(_ => ++Counter3.Value)
+                .AddTo(CompositeDisposable);
         }
     }
 }
