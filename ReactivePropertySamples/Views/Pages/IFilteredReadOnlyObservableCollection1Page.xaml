@@ -1,0 +1,75 @@
+﻿<ctrl:MyPageControl
+    x:Class="ReactivePropertySamples.Views.Pages.IFilteredReadOnlyObservableCollection1Page"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:local="clr-namespace:ReactivePropertySamples.Views.Pages"
+    xmlns:ctrl="clr-namespace:ReactivePropertySamples.Views.Controls"
+    mc:Ignorable="d" 
+    d:DesignHeight="450" d:DesignWidth="800" >
+
+    <ctrl:MyPageControl.Subtitle>
+        プロパティ値を監視してフィルタリングするコレクション
+    </ctrl:MyPageControl.Subtitle>
+
+    <ctrl:MyPageControl.Description>
+        左アイテムが1秒毎にインクリされて、3の倍数だと右に追加される。
+    </ctrl:MyPageControl.Description>
+
+    <ctrl:MyPageControl.Keywords>
+        <x:Array Type="{x:Type system:String}" >
+            <system:String>IFilteredReadOnlyObservableCollection&lt;T&gt;</system:String>
+        </x:Array>
+    </ctrl:MyPageControl.Keywords>
+
+    <DockPanel Margin="5" >
+        <ctrl:MyPageTitle DockPanel.Dock="Top"
+                          DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
+
+        <Button DockPanel.Dock="Top" Margin="10" Padding="10,5"
+                Content="Add item"
+                Command="{Binding AddCommand, Mode=OneTime}" />
+
+        <Grid Margin="10,0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Panel.Resources>
+                <Style TargetType="{x:Type TextBlock}" >
+                    <Setter Property="FontSize" Value="{StaticResource FontSizeMiddle}" />
+                    <Setter Property="Margin" Value="10" />
+                </Style>
+                <DataTemplate x:Key="MyDataTemplate" >
+                    <Border Margin="10,3" BorderBrush="Black" BorderThickness="1" Background="LightBlue" >
+                        <TextBlock Margin="3" FontSize="{StaticResource FontSizeMiddle}" >
+                            <Run Text="{Binding Id, Mode=OneTime, StringFormat='ID={0}'}" />
+                            <Run Text=", " />
+                            <Run Text="{Binding Value, Mode=OneWay, StringFormat='Timer={0}'}" />
+                        </TextBlock>
+                    </Border>
+                </DataTemplate>
+            </Panel.Resources>
+
+            <TextBlock Grid.Column="0" Grid.Row="0"
+                       Text="ReactiveCollection&lt;T&gt;" />
+            <ItemsControl Grid.Column="0" Grid.Row="1" Margin="10,0"
+                          ItemTemplate="{StaticResource MyDataTemplate}"
+                          ItemsSource="{Binding SourceValues, Mode=OneWay}" />
+
+            <TextBlock Grid.Column="1" Grid.Row="0"
+                       Text="IFilteredReadOnlyObservableCollection&lt;T&gt;" />
+            <ItemsControl Grid.Column="1" Grid.Row="1" Margin="10,0"
+                          ItemTemplate="{StaticResource MyDataTemplate}"
+                          ItemsSource="{Binding FilteredValues, Mode=OneWay}" />
+        </Grid>
+
+    </DockPanel>
+</ctrl:MyPageControl>

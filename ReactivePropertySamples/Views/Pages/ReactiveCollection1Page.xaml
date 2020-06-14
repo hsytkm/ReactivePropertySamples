@@ -11,24 +11,24 @@
     d:DesignHeight="450" d:DesignWidth="800" >
 
     <ctrl:MyPageControl.Subtitle>
-        指定 Scheduler から Collection 操作
+        UIスレッドからの操作
     </ctrl:MyPageControl.Subtitle>
 
     <ctrl:MyPageControl.Description>
-        ReactiveCollection&lt;object&gt; に Add / Insert / Remove / Clear
+        ReactiveCollection&lt;T&gt; の基本操作
     </ctrl:MyPageControl.Description>
 
     <ctrl:MyPageControl.Keywords>
         <x:Array Type="{x:Type system:String}" >
             <system:String>ReactiveCollection</system:String>
-            <system:String>AddOnScheduler</system:String>
+            <system:String>ToReactiveCollection</system:String>
         </x:Array>
     </ctrl:MyPageControl.Keywords>
 
     <UserControl.Resources>
         <Style TargetType="{x:Type Button}" >
-            <Setter Property="Margin" Value="10,5" />
-            <Setter Property="Padding" Value="10,2" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="Padding" Value="10,3" />
         </Style>
     </UserControl.Resources>
     
@@ -36,38 +36,23 @@
         <ctrl:MyPageTitle DockPanel.Dock="Top"
                           DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
 
-        <DockPanel DockPanel.Dock="Top" Margin="10" Background="LightBlue" >
-            <TextBlock DockPanel.Dock="Top" Margin="10,5" FontSize="{StaticResource FontSizeMiddle}"
-                       Text="Add random data" />
-
-            <StackPanel DockPanel.Dock="Top" Margin="20,0,20,0" Orientation="Horizontal" >
-                <TextBlock DockPanel.Dock="Top" FontSize="{StaticResource FontSizeSmall}" Width="120"
-                           Text="Add on UIThread" />
-                <Button Content="Int" Command="{Binding AddRandomIntCommand, Mode=OneTime}" />
-                <Button Content="Double" Command="{Binding AddRandomDoubleCommand, Mode=OneTime}" />
-                <Button Content="Time.Now" Command="{Binding AddRandomTimeNowCommand, Mode=OneTime}" />
-            </StackPanel>
-
-            <StackPanel DockPanel.Dock="Top" Margin="20,0,20,0" Orientation="Horizontal" >
-                <TextBlock DockPanel.Dock="Top" FontSize="{StaticResource FontSizeSmall}" Width="120"
-                           Text="Insert0 on BgThread" />
-                <Button Content="Int" Command="{Binding InsertHeadRandomIntCommand, Mode=OneTime}" />
-                <Button Content="Double" Command="{Binding InsertHeadRandomDoubleCommand, Mode=OneTime}" />
-                <Button Content="Time.Now" Command="{Binding InsertHeadRandomTimeNowCommand, Mode=OneTime}" />
-            </StackPanel>
-
-            <StackPanel DockPanel.Dock="Top" Margin="20,0,20,0" Orientation="Horizontal" >
-                <TextBlock DockPanel.Dock="Top" FontSize="{StaticResource FontSizeSmall}" Width="120"
-                           Text="Remove / Clear" />
-                <Button Content="Head" Command="{Binding RemoveHeadItemCommand, Mode=OneTime}" />
-                <Button Content="Tail" Command="{Binding RemoveTailItemCommand, Mode=OneTime}" />
-                <Button Content="All" Command="{Binding ClearAllItemsCommand, Mode=OneTime}" />
-            </StackPanel>
+        <DockPanel DockPanel.Dock="Top" Margin="20,10,20,0" >
+            <TextBlock DockPanel.Dock="Top" Margin="0,5" FontSize="{StaticResource FontSizeSmall}" >
+                <Run Text="ReactiveCollection の操作" FontSize="{StaticResource FontSizeMiddle}" />
+                <LineBreak/>
+                <Run Text="  Add : ReactiveCommand から ReactiveCollection&lt;T&gt; を作成" />
+                <LineBreak/>
+                <Run Text="  Remove/Clear : ReactiveCollection&lt;T&gt; から ReactiveCommand を作成" />
+            </TextBlock>
+            <Button Content="Add" Command="{Binding AddCommand, Mode=OneTime}" />
+            <Button Content="Remove" Command="{Binding RemoveCommand, Mode=OneTime}" />
+            <Button Content="Clear" Command="{Binding ClearCommand, Mode=OneTime}" />
+            <Border/>
         </DockPanel>
 
         <ScrollViewer Margin="10,5" >
             <ItemsControl Background="LightGreen"
-                          ItemsSource="{Binding DataCollection, Mode=OneTime}" />
+                          ItemsSource="{Binding SourceValues, Mode=OneTime}" />
         </ScrollViewer>
 
     </DockPanel>

@@ -29,6 +29,9 @@
     <Compile Update="Views\Pages\CountNotifierPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Pages\IFilteredReadOnlyObservableCollection1Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\ObserveElementPropertyChanged1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -50,6 +53,9 @@
     <Compile Update="Views\Pages\ObserveElementProperty1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Pages\ReactiveCollection2Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\ReactiveCommand1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -63,6 +69,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Pages\TwoWay2Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\ReactiveConverter1Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\MessageBrokerPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Pages\Validate1Page.xaml.cs">
@@ -81,6 +93,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\CountNotifierPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\IFilteredReadOnlyObservableCollection1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\ObserveElementPropertyChanged1Page.xaml">
@@ -104,6 +119,9 @@
     <Page Update="Views\Pages\ObserveElementProperty1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\Pages\ReactiveCollection2Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Pages\ReactiveCommand1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -117,6 +135,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\TwoWay2Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\ReactiveConverter1Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\MessageBrokerPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\Validate1Page.xaml">

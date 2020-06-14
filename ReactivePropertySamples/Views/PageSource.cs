@@ -11,21 +11,22 @@ namespace ReactivePropertySamples.Views
         // Viewに表示されるコントロールのリスト
         public static IList<PageSource> AllPageList { get; } = new[]
         {
-            new PageSource(typeof(ObserveProperty1Page)),
-
             // 未対応 CatchIgnore CanExecuteChangedAsObservable ErrorChangedAsObservable
             // 未対応 ObserveErrorInfo Pairwise OnErrorRetry ToUnit ScheduledNotifier
-            // 未対応 IFilteredReadOnlyObservableCollection ReactivePropertySlim
-            // 未対応 ReactiveConverter
-
-            // 未対応  
+            // 未対応 ReactivePropertySlim INotifyCollectionChanged
+            
+            // 未対応
+            new PageSource(typeof(MessageBrokerPage)),
             new PageSource(typeof(ObserveElementPropertyChanged1Page)),
             // 未対応
 
+            new PageSource(typeof(ReactiveCollection1Page)),
+            new PageSource(typeof(IFilteredReadOnlyObservableCollection1Page)),
+            new PageSource(typeof(ReactiveConverter1Page)),
             new PageSource(typeof(ReactiveProperty2Page)),
             new PageSource(typeof(ObserveElementProperty1Page)),
             new PageSource(typeof(ReadOnlyReactiveCollection1Page)),
-            new PageSource(typeof(ReactiveCollection1Page)),
+            new PageSource(typeof(ReactiveCollection2Page)),
             new PageSource(typeof(TwoWay2Page)),
             new PageSource(typeof(Validate1Page)),
             new PageSource(typeof(CountNotifierPage)),
