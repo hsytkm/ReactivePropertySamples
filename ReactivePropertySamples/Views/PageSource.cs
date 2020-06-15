@@ -14,7 +14,7 @@ namespace ReactivePropertySamples.Views
             // 未対応 CatchIgnore CanExecuteChangedAsObservable ErrorChangedAsObservable
             // 未対応 ObserveErrorInfo Pairwise OnErrorRetry ToUnit ScheduledNotifier
             // 未対応 ReactivePropertySlim INotifyCollectionChanged
-            
+
             // 未対応
             new PageSource(typeof(MessageBrokerPage)),
             new PageSource(typeof(ObserveElementPropertyChanged1Page)),

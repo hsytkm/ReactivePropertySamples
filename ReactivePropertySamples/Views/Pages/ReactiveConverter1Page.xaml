@@ -18,13 +18,14 @@
     </ctrl:MyPageControl.Subtitle>
 
     <ctrl:MyPageControl.Description>
-        MouseMove イベントで カーソル位置 を通知
+        Behaviors.EventTrigger から ReactiveProperty に値を流す
     </ctrl:MyPageControl.Description>
 
     <ctrl:MyPageControl.Keywords>
         <x:Array Type="{x:Type system:String}" >
             <system:String>EventToReactiveProperty</system:String>
             <system:String>ReactiveConverter&lt;T, U&gt;</system:String>
+            <system:String>IgnoreEventArgs</system:String>
         </x:Array>
     </ctrl:MyPageControl.Keywords>
 
@@ -32,7 +33,42 @@
         <ctrl:MyPageTitle DockPanel.Dock="Top"
                           DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
 
-        <Border Margin="10" Background="LightGreen" >
+        <TextBlock DockPanel.Dock="Top" Margin="20,10,20,0"
+                   FontSize="{StaticResource FontSizeMiddle}"
+                   Text="MouseDown/Up イベント(EventArgsを使用しない版)" />
+        <Border DockPanel.Dock="Top" Margin="30,10" Background="LightBlue" >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PreviewMouseDown">
+                    <rp:EventToReactiveProperty IgnoreEventArgs="True" ReactiveProperty="{Binding PreviewMouseDownUnit, Mode=OneTime}" />
+                </i:EventTrigger>
+                <i:EventTrigger EventName="MouseDown">
+                    <rp:EventToReactiveProperty IgnoreEventArgs="True" ReactiveProperty="{Binding MouseDownUnit, Mode=OneTime}" />
+                </i:EventTrigger>
+                <i:EventTrigger EventName="MouseUp">
+                    <rp:EventToReactiveProperty IgnoreEventArgs="True" ReactiveProperty="{Binding MouseUpUnit, Mode=OneTime}" />
+                </i:EventTrigger>
+                <i:EventTrigger EventName="PreviewMouseUp">
+                    <rp:EventToReactiveProperty IgnoreEventArgs="True" ReactiveProperty="{Binding PreviewMouseUpUnit, Mode=OneTime}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+            <DockPanel IsHitTestVisible="False">
+                <StackPanel DockPanel.Dock="Right" Margin="20,10" >
+                    <TextBlock Text="{Binding MouseEventCounter.PreviewMouseDownCounter, Mode=OneWay, StringFormat='PreviewMouseDownCounter={0}'}" />
+                    <TextBlock Text="{Binding MouseEventCounter.MouseDownCounter, Mode=OneWay, StringFormat='MouseDownCounter={0}'}" />
+                    <TextBlock Text="{Binding MouseEventCounter.MouseUpCounter, Mode=OneWay, StringFormat='MouseUpCounter={0}'}" />
+                    <TextBlock Text="{Binding MouseEventCounter.PreviewMouseUpCounter, Mode=OneWay, StringFormat='PreviewMouseUpCounter={0}'}" />
+                </StackPanel>
+
+                <TextBlock FontSize="{StaticResource FontSizeMiddle}" Margin="20,0"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" Text="Click area" />
+            </DockPanel>
+        </Border>
+
+        <TextBlock DockPanel.Dock="Top" Margin="20,0"
+                   FontSize="{StaticResource FontSizeMiddle}"
+                   Text="MouseMove イベントで カーソル位置 を通知 (EventArgsを使用する版)" />
+        <Border Margin="30,10" Background="LightGreen" >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseMove">
                     <rp:EventToReactiveProperty ReactiveProperty="{Binding MouseMovePoint, Mode=OneTime}" >
