@@ -20,6 +20,7 @@ namespace ReactivePropertySamples.Views
             new PageSource(typeof(ObserveElementPropertyChanged1Page)),
             // 未対応
 
+            new PageSource(typeof(MessageBroker1Page)),
             new PageSource(typeof(ReactiveCollection1Page)),
             new PageSource(typeof(IFilteredReadOnlyObservableCollection1Page)),
             new PageSource(typeof(ReactiveConverter1Page)),
