@@ -7,18 +7,25 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <StackPanel>
-        <TextBlock>
-            <Run FontSize="{StaticResource FontSizeTitle}" Text="{Binding Title, Mode=OneTime}" />
-            <Run Text="      " />
-            <Run FontSize="{StaticResource FontSizeSubtitle}" Text="{Binding Subtitle, Mode=OneTime}" />
-        </TextBlock>
+        <StackPanel.Resources>
+            <Style TargetType="{x:Type TextBox}" >
+                <Setter Property="IsReadOnly" Value="True" />
+                <Setter Property="BorderThickness" Value="0" />
+            </Style>
+        </StackPanel.Resources>
 
-        <TextBlock Margin="10,3" FontSize="{StaticResource FontSizeDescription}"
-                   Text="{Binding Description, Mode=OneTime}" />
+        <TextBox FontSize="{StaticResource FontSizeTitle}" TextDecorations="Underline"
+                 Text="{Binding Title, Mode=OneTime}" />
+
+        <TextBox Margin="5,3" FontSize="{StaticResource FontSizeSubtitle}"
+                 Text="{Binding Subtitle, Mode=OneTime}" />
+        
+        <TextBox Margin="10,0" FontSize="{StaticResource FontSizeDescription}"
+                 Text="{Binding Description, Mode=OneTime}" />
 
         <!--
-        <TextBlock Margin="10,3" FontSize="{StaticResource FontSizeKeywords}"
-                   Text="{Binding Keywords, Mode=OneTime, Converter={StaticResource StringConcatConverter}}" />
+        <TextBox Margin="10,3" FontSize="{StaticResource FontSizeKeywords}"
+                 Text="{Binding Keywords, Mode=OneTime, Converter={StaticResource StringConcatConverter}}" />
         -->
     </StackPanel>
 </UserControl>

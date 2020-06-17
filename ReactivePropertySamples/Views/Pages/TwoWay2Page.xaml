@@ -37,7 +37,7 @@
             <DockPanel DockPanel.Dock="Top" Margin="15,0,15,5" >
                 <TextBlock DockPanel.Dock="Left" Text="Range: 0~100" />
                 <TextBlock DockPanel.Dock="Right"
-                           Text="{Binding CheckModelValueInt2.Value, Mode=OneWay, StringFormat='Value = {0}'}" />
+                           Text="{Binding CheckModelValueInt2.Value, Mode=OneWay, StringFormat='Model Value = {0}'}" />
                 <TextBox Margin="20,0"
                          Text="{Binding InputInt2.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          ToolTip="{Binding (Validation.Errors)/ErrorContent, RelativeSource={RelativeSource Self}}" />
@@ -46,7 +46,7 @@
             <DockPanel DockPanel.Dock="Top" Margin="15,0,15,5" >
                 <TextBlock DockPanel.Dock="Left" Text="Range: 1.00~99.99" />
                 <TextBlock DockPanel.Dock="Right"
-                           Text="{Binding CheckModelValueDouble2.Value, Mode=OneWay, StringFormat='Value = {0}'}" />
+                           Text="{Binding CheckModelValueDouble2.Value, Mode=OneWay, StringFormat='Model Value = {0}'}" />
                 <TextBox Margin="20,0"
                          Text="{Binding InputDouble2.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          ToolTip="{Binding (Validation.Errors)/ErrorContent, RelativeSource={RelativeSource Self}}" />

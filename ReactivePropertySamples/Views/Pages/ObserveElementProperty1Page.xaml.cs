@@ -1,6 +1,7 @@
 ﻿using Reactive.Bindings.Extensions;
 using ReactivePropertySamples.Infrastructures;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Reactive.Linq;
@@ -54,18 +55,21 @@ namespace ReactivePropertySamples.Views.Pages
                 Lv++;
             });
         private ICommand _lvUpCommand;
-    }
 
-    class ObserveElementProperty1ViewModel : MyDisposableBindableBase
-    {
-        public ObservableCollection<DQPlayer> Players { get; } =
-            new ObservableCollection<DQPlayer>()
+        public static IEnumerable<DQPlayer> Party { get; } =
+            new List<DQPlayer>()
             {
                 new DQPlayer("勇者", 15, 5),
                 new DQPlayer("戦士", 25, 0),
                 new DQPlayer("僧侶", 10, 10),
                 new DQPlayer("魔法", 5, 15),
             };
+    }
+
+    class ObserveElementProperty1ViewModel : MyDisposableBindableBase
+    {
+        public ObservableCollection<DQPlayer> Players { get; } =
+            new ObservableCollection<DQPlayer>(DQPlayer.Party);
 
         // ◆StringBuilder を使ったけど、Rp でログを TextBox に表示するには、どう実装するのだろうか…
         public StringBuilder PlayersStatusLog { get; } = new StringBuilder();

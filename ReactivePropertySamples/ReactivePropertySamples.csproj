@@ -32,6 +32,9 @@
     <Compile Update="Views\Pages\IFilteredReadOnlyObservableCollection1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Pages\AsyncMessageBroker1Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\MessageBroker1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -77,9 +80,6 @@
     <Compile Update="Views\Pages\ReactiveConverter1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\MessageBrokerPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Views\Pages\Validate1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -99,6 +99,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\IFilteredReadOnlyObservableCollection1Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\AsyncMessageBroker1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\MessageBroker1Page.xaml">
@@ -144,9 +147,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\ReactiveConverter1Page.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Views\Pages\MessageBrokerPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\Validate1Page.xaml">

@@ -16,15 +16,15 @@ namespace ReactivePropertySamples.Views
             // 未対応 ReactivePropertySlim INotifyCollectionChanged
 
             // 未対応
-            new PageSource(typeof(MessageBrokerPage)),
-            new PageSource(typeof(ObserveElementPropertyChanged1Page)),
             // 未対応
 
+            new PageSource(typeof(AsyncMessageBroker1Page)),
             new PageSource(typeof(MessageBroker1Page)),
             new PageSource(typeof(ReactiveCollection1Page)),
             new PageSource(typeof(IFilteredReadOnlyObservableCollection1Page)),
             new PageSource(typeof(ReactiveConverter1Page)),
             new PageSource(typeof(ReactiveProperty2Page)),
+            new PageSource(typeof(ObserveElementPropertyChanged1Page)),
             new PageSource(typeof(ObserveElementProperty1Page)),
             new PageSource(typeof(ReadOnlyReactiveCollection1Page)),
             new PageSource(typeof(ReactiveCollection2Page)),
@@ -41,7 +41,7 @@ namespace ReactivePropertySamples.Views
             new PageSource(typeof(ObserveProperty1Page)),
             new PageSource(typeof(ReactiveProperty1Page)),
 
-            new PageSource(typeof(BlankPage), "Title", "Subtitle", "Description"),
+            //new PageSource(typeof(BlankPage), "Title", "Subtitle", "Description"),
         }
         .ToList();
     }

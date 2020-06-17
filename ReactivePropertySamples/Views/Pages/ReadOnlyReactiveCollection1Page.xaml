@@ -10,20 +10,16 @@
     xmlns:ctrl="clr-namespace:ReactivePropertySamples.Views.Controls"
     mc:Ignorable="d" 
     d:DesignHeight="450" d:DesignWidth="800"
-    Description="TextBox の string を Model の ObservableCollection&lt;string&gt; に追加し、&#xD;&#xA;ViewModel の ToReadOnlyReactiveCollection() により表示する。">
+    Description="
+TextBox の string を Model の ObservableCollection&lt;string&gt; に追加し、&#xD;&#xA;
+ViewModel の ToReadOnlyReactiveCollection() により表示する。">
 
-    <ctrl:MyPageControl.Resources>
-        <system:String x:Key="Message">TextBox の string を Model の ObservableCollection&lt;string&gt; に追加し、&#xD;&#xA;ViewModel の ToReadOnlyReactiveCollection() により表示する。</system:String>
-    </ctrl:MyPageControl.Resources>
-    
     <ctrl:MyPageControl.Subtitle>
         ReadOnlyReactiveCollection
     </ctrl:MyPageControl.Subtitle>
 
     <!-- 改行したいので、記法変える（なぜ上だと動くか説明できない…勘で発見した）
     <ctrl:MyPageControl.Description>
-        TextBox の string を Model の ObservableCollection&lt;string&gt; に追加し、&#xD;&#xA;
-        ViewModel の ToReadOnlyReactiveCollection() により表示する。
     </ctrl:MyPageControl.Description>
     -->
 

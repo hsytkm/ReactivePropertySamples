@@ -1,5 +1,5 @@
 ﻿<ctrl:MyPageControl
-    x:Class="ReactivePropertySamples.Views.Pages.MessageBroker1Page"
+    x:Class="ReactivePropertySamples.Views.Pages.AsyncMessageBroker1Page"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -11,22 +11,21 @@
     d:DesignHeight="450" d:DesignWidth="800"
     Description="
 左から右へデータを通知する (Singletonなので左右が別プロジェクトでも行けるはず)&#xD;&#xA;
-DisposeでUnsubscribeされて通知が切れる。">
+DisposeでUnsubscribeされて通知が切れる。" >
 
     <ctrl:MyPageControl.Subtitle>
-        Prism.EventAggregator と似たものっぽい
+        MessageBroker の Async版
     </ctrl:MyPageControl.Subtitle>
 
     <!-- 改行したいので、記法変える（なぜ上だと動くか説明できない…勘で発見した）
     <ctrl:MyPageControl.Description>
-        左から右へデータを通知する (Singletonなので左右が別プロジェクトでも行けるはず)
     </ctrl:MyPageControl.Description>
     -->
 
     <ctrl:MyPageControl.Keywords>
         <x:Array Type="{x:Type system:String}" >
-            <system:String>MessageBroker</system:String>
-            <system:String>Publish</system:String>
+            <system:String>AsyncMessageBroker</system:String>
+            <system:String>PublishAsync</system:String>
         </x:Array>
     </ctrl:MyPageControl.Keywords>
 
@@ -53,14 +52,18 @@ DisposeでUnsubscribeされて通知が切れる。">
 
         <Grid Margin="10,20" >
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <ListBox Grid.Row="0"
+            <TextBlock Grid.Row="0" Margin="0,0,0,3" Text="1秒後に追加される" />
+            <ListBox Grid.Row="1"
                      ItemsSource="{Binding MessageValues1, Mode=OneTime}"
                      ItemTemplate="{StaticResource listBoxDataTemplete}" />
 
-            <ListBox Grid.Row="1" Margin="0,10"
+            <TextBlock Grid.Row="2" Margin="0,10,0,3" Text="2秒後に追加される" />
+            <ListBox Grid.Row="3"
                      ItemsSource="{Binding MessageValues2, Mode=OneTime}"
                      ItemTemplate="{StaticResource listBoxDataTemplete}" />
         </Grid>

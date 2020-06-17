@@ -8,15 +8,19 @@
     xmlns:local="clr-namespace:ReactivePropertySamples.Views.Pages"
     xmlns:ctrl="clr-namespace:ReactivePropertySamples.Views.Controls"
     mc:Ignorable="d" 
-    d:DesignHeight="450" d:DesignWidth="800" >
+    d:DesignHeight="450" d:DesignWidth="800"
+    Description="
+ObserveElementPropertyChanged() 後続の SenderEventArgsPair&lt;T, U&gt; では、&#xD;&#xA;
+インスタンス と 変化プロパティ しか取れない。（変化後の値は流れてこない）" >
 
     <ctrl:MyPageControl.Subtitle>
         ObserveElementPropertyChanged
     </ctrl:MyPageControl.Subtitle>
 
+    <!-- 改行したいので、記法変える（なぜ上だと動くか説明できない…勘で発見した）
     <ctrl:MyPageControl.Description>
-        どーしよ？
     </ctrl:MyPageControl.Description>
+    -->
 
     <ctrl:MyPageControl.Keywords>
         <x:Array Type="{x:Type system:String}" >
@@ -28,6 +32,47 @@
         <ctrl:MyPageTitle DockPanel.Dock="Top"
                           DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
 
+        <DockPanel DockPanel.Dock="Top" Margin="20,10" Background="LightBlue" >
+            <TextBlock DockPanel.Dock="Top" Margin="5" FontSize="{StaticResource FontSizeLarge}"
+                       Text="Modelの世界" />
+            <ItemsControl Margin="20,5"
+                          ItemsSource="{Binding Players, Mode=OneTime}" >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="0,0,10,0" BorderBrush="Black" BorderThickness="2" Background="White" >
+                            <StackPanel Margin="10" >
+                                <Panel.Resources>
+                                    <Style TargetType="{x:Type TextBlock}" >
+                                        <Setter Property="FontSize" Value="{StaticResource FontSizeMiddle}" />
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="Margin" Value="0,0,10,3" />
+                                    </Style>
+                                </Panel.Resources>
+                                <TextBlock Text="{Binding Name, Mode=OneTime}" />
+                                <TextBlock Text="{Binding Lv, Mode=OneWay, StringFormat='Lv={0}'}" />
+                                <TextBlock Text="{Binding HP, Mode=OneWay, StringFormat='HP={0}'}" />
+                                <TextBlock Text="{Binding MP, Mode=OneWay, StringFormat='MP={0}'}" />
+                                <Button Margin="5,10,5,0" Padding="10,3" Content="LvUp" Command="{Binding LvUpCommand, Mode=OneTime}" />
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </DockPanel>
+
+        <DockPanel Margin="20,10" Background="LightGreen" >
+            <TextBlock DockPanel.Dock="Top" Margin="5" FontSize="{StaticResource FontSizeLarge}"
+                       Text="ViewModelの世界" />
+
+            <ScrollViewer Margin="20,0,20,5" Background="White" >
+                <TextBlock Text="{Binding PlayersStatusLog, Mode=OneWay, Converter={StaticResource StringBuilderToStringConverter}}" />
+            </ScrollViewer>
+        </DockPanel>
 
     </DockPanel>
 </ctrl:MyPageControl>

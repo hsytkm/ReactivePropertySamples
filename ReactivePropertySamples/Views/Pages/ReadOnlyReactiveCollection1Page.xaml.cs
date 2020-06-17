@@ -22,7 +22,7 @@ namespace ReactivePropertySamples.Views.Pages
         public ReadOnlyReactiveCollection<PersonRORC> People { get; }
 
         public ReactiveCommand<string> AddPersonNameToModelCommand { get; } = new ReactiveCommand<string>();
-        public ReactiveCommand<string> ClearModelPeopleCommand { get; } = new ReactiveCommand<string>();
+        public ReactiveCommand ClearModelPeopleCommand { get; } = new ReactiveCommand();
         
         public ReadOnlyReactiveCollection1ViewModel()
         {
@@ -32,12 +32,13 @@ namespace ReactivePropertySamples.Views.Pages
                 .AddTo(CompositeDisposable);
 
             AddPersonNameToModelCommand
+                .Where(x => !string.IsNullOrEmpty(x))
                 .Subscribe(x => _model.AddPerson(x))
                 .AddTo(CompositeDisposable);
 
             // Collection.Any() による CanExecute 切り替えは未実装
             ClearModelPeopleCommand
-                .Subscribe(x => _model.ClearPersons())
+                .Subscribe(() => _model.ClearPersons())
                 .AddTo(CompositeDisposable);
         }
     }
