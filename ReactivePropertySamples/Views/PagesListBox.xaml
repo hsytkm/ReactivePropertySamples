@@ -38,15 +38,25 @@
     </UserControl.Resources>
 
     <DockPanel>
-        <ctrl:WatermarkTextBox DockPanel.Dock="Top"
-                               Text="" WatermarkText="Search ..." >
-            <i:Interaction.Triggers>
-                <i:PropertyChangedTrigger Binding="{Binding Text, RelativeSource={RelativeSource AncestorType={x:Type ctrl:WatermarkTextBox}}}">
-                    <i:InvokeCommandAction Command="{Binding FilterCommand}"
-                                           CommandParameter="{Binding Text, RelativeSource={RelativeSource AncestorType={x:Type ctrl:WatermarkTextBox}}}" />
-                </i:PropertyChangedTrigger>
-            </i:Interaction.Triggers>
-        </ctrl:WatermarkTextBox>
+        <DockPanel DockPanel.Dock="Top" >
+            <CheckBox x:Name="visibleKeywordsCheckBox"
+                      DockPanel.Dock="Right" Margin="10,0"
+                      VerticalAlignment="Center"
+                      Content="Description" IsChecked="True" />
+            <CheckBox x:Name="visibleSubTitleCheckBox"
+                      DockPanel.Dock="Right" Margin="10,0,0,0"
+                      VerticalAlignment="Center"
+                      Content="SubTitle" IsChecked="True" />
+            
+            <ctrl:WatermarkTextBox Text="" WatermarkText="Search ..." >
+                <i:Interaction.Triggers>
+                    <i:PropertyChangedTrigger Binding="{Binding Text, RelativeSource={RelativeSource AncestorType={x:Type ctrl:WatermarkTextBox}}}">
+                        <i:InvokeCommandAction Command="{Binding FilterCommand}"
+                                               CommandParameter="{Binding Text, RelativeSource={RelativeSource AncestorType={x:Type ctrl:WatermarkTextBox}}}" />
+                    </i:PropertyChangedTrigger>
+                </i:Interaction.Triggers>
+            </ctrl:WatermarkTextBox>
+        </DockPanel>
 
         <ListBox DockPanel.Dock="Left"
                  ItemsSource="{Binding PagesSource, Mode=OneTime}"
@@ -66,10 +76,12 @@
                                    Text="{Binding Title, Mode=OneTime}" />
                         <TextBlock DockPanel.Dock="Top" Margin="5,0" 
                                    FontSize="{StaticResource FontSizeItemSubtitle}" 
-                                   Text="{Binding Subtitle, Mode=OneTime}" />
+                                   Text="{Binding Subtitle, Mode=OneTime}"
+                                   Visibility="{Binding IsChecked, Mode=OneWay, Source={x:Reference Name=visibleSubTitleCheckBox}, Converter={StaticResource BoolToVisiConverter}}" />
                         <ItemsControl Margin="10,2,0,0" Foreground="Gray"
                                       FontSize="{StaticResource FontSizeItemKeywords}" 
-                                      ItemsSource="{Binding Keywords, Mode=OneTime}" >
+                                      ItemsSource="{Binding Keywords, Mode=OneTime}"
+                                      Visibility="{Binding IsChecked, Mode=OneWay, Source={x:Reference Name=visibleKeywordsCheckBox}, Converter={StaticResource BoolToVisiConverter}}" >
                             <!-- ◆UI悩み中
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -86,7 +98,6 @@
                     </DockPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-        
         </ListBox>
 
         <ContentControl Content="{Binding TargetUserControl, Mode=OneWay}" />

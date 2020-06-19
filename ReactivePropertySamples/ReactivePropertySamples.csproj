@@ -23,6 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\Pages\CanExecuteChangedAsObservablePage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\BusyNotifierPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -65,6 +68,9 @@
     <Compile Update="Views\Pages\ReactiveCommand1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Pages\ReactiveConverter2Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\ReactiveProperty2Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -80,6 +86,9 @@
     <Compile Update="Views\Pages\ReactiveConverter1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Pages\Validate2Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\Validate1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -92,6 +101,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Views\Pages\CanExecuteChangedAsObservablePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Pages\BusyNotifierPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -134,6 +146,9 @@
     <Page Update="Views\Pages\ReactiveCommand1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\Pages\ReactiveConverter2Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Pages\ReactiveProperty2Page.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -147,6 +162,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\ReactiveConverter1Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Validate2Page.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\Validate1Page.xaml">

@@ -22,6 +22,7 @@
         <x:Array Type="{x:Type system:String}" >
             <system:String>CombineLatestValuesAreAllTrue</system:String>
             <system:String>CombineLatestValuesAreAllFalse</system:String>
+            <system:String>CombineLatest()</system:String>
         </x:Array>
     </ctrl:MyPageControl.Keywords>
 

@@ -26,17 +26,18 @@ namespace ReactivePropertySamples.Views.Pages
         
         public ReadOnlyReactiveCollection1ViewModel()
         {
-            // 元コレクションのデータ型を変換した新たなコレクションを作成
+            // 元コレクション(Model)のデータ型を変換した新たなコレクションを作成
             People = _model.People
                 .ToReadOnlyReactiveCollection(x => new PersonRORC(x))
                 .AddTo(CompositeDisposable);
 
+            // Modelのコレクションにデータ追加
             AddPersonNameToModelCommand
                 .Where(x => !string.IsNullOrEmpty(x))
                 .Subscribe(x => _model.AddPerson(x))
                 .AddTo(CompositeDisposable);
 
-            // Collection.Any() による CanExecute 切り替えは未実装
+            // Modelのコレクションをクリア(Collection.Any() による CanExecute 切り替えは未実装)
             ClearModelPeopleCommand
                 .Subscribe(() => _model.ClearPersons())
                 .AddTo(CompositeDisposable);

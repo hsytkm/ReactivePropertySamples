@@ -1,0 +1,65 @@
+﻿<ctrl:MyPageControl
+    x:Class="ReactivePropertySamples.Views.Pages.CanExecuteChangedAsObservablePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:local="clr-namespace:ReactivePropertySamples.Views.Pages"
+    xmlns:ctrl="clr-namespace:ReactivePropertySamples.Views.Controls"
+    mc:Ignorable="d" 
+    d:DesignHeight="450" d:DesignWidth="800" >
+
+    <ctrl:MyPageControl.Subtitle>
+        CanExecuteChanged を IObservable に変換
+    </ctrl:MyPageControl.Subtitle>
+
+    <ctrl:MyPageControl.Description>
+        ICommand.CanExecuteChanged の変化を捉える
+    </ctrl:MyPageControl.Description>
+
+    <ctrl:MyPageControl.Keywords>
+        <x:Array Type="{x:Type system:String}" >
+            <system:String>CanExecuteChangedAsObservable()</system:String>
+            <system:String>CanExecute()</system:String>
+        </x:Array>
+    </ctrl:MyPageControl.Keywords>
+
+    <DockPanel Margin="5" >
+        <ctrl:MyPageTitle DockPanel.Dock="Top"
+                          DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
+
+        <DockPanel DockPanel.Dock="Top" Margin="20,40,20,0" Background="LightBlue" >
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="20,10">
+                <CheckBox Content="Check1" VerticalAlignment="Center"
+                          IsChecked="{Binding IsChecked1.Value, Mode=TwoWay}" />
+                <CheckBox Content="Check2" VerticalAlignment="Center" Margin="20,0"
+                          IsChecked="{Binding IsChecked2.Value, Mode=TwoWay}" />
+            </StackPanel>
+
+            <Button DockPanel.Dock="Top" Margin="20,10" Padding="5"
+                    Content="Counter++"
+                    Command="{Binding IncrementCommand, Mode=OneTime}" />
+
+            <TextBlock Margin="30,10"
+                       FontSize="{StaticResource FontSizeMiddle}"
+                       Text="{Binding Counter.Value, Mode=OneWay, StringFormat='Counter = {0}'}" />
+        </DockPanel>
+
+        <DockPanel DockPanel.Dock="Top" Margin="20" Background="LightPink" >
+            <TextBlock DockPanel.Dock="Top" Margin="20,10" TextWrapping="Wrap" >
+                上記 Button.Command の CanExecute の条件は複雑だが、
+                CanExecuteChangedAsObservable() を使うことで、
+                ICommand.CanExecuteChanged の変化を捉えられる。
+                （こーいった使い方しか思い浮かばなかった）
+            </TextBlock>
+
+            <CheckBox Margin="30,10" VerticalAlignment="Center" IsEnabled="False"
+                      Content="CanCommand (ReadOnly)"
+                      IsChecked="{Binding CanExecuteIncrementCommand.Value, Mode=OneWay}" />
+        </DockPanel>
+
+        <Border />
+
+    </DockPanel>
+</ctrl:MyPageControl>

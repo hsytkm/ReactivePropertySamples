@@ -37,9 +37,10 @@ namespace ReactivePropertySamples.Views.Pages
                 .FromObject(_model, x => x.Name)
                 .AddTo(CompositeDisposable);
 
-            PersonName
-                .Subscribe(x => Debug.WriteLine($"ViewModel の ReactiveProperty.Value に \"{x}\" が設定されました。"))
-                .AddTo(CompositeDisposable);
+            //PersonName
+            //    .Select(x => $"ViewModel の ReactiveProperty.Value に \"{x}\" が設定されました。")
+            //    .Subscribe(x => Debug.WriteLine(x))
+            //    .AddTo(CompositeDisposable);
         }
     }
 
@@ -53,7 +54,7 @@ namespace ReactivePropertySamples.Views.Pages
                 if (!Equals(_name, value))
                 {
                     _name = value;
-                    Debug.WriteLine($"Model の Name プロパティに \"{value}\" が設定されました。");
+                    //Debug.WriteLine($"Model の Name プロパティに \"{value}\" が設定されました。");
                 }
             }
         }
