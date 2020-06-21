@@ -14,9 +14,10 @@ namespace ReactivePropertySamples.Views
             /* 未対応
              *  CatchIgnore ErrorChangedAsObservable 
              *  ObserveErrorInfo OnErrorRetry ToUnit 
-             *  ScheduledNotifier ReactivePropertySlim 
+             *  ReactivePropertySlim
              */
 
+            new PageSource(typeof(ScheduledNotifierPage)),
             new PageSource(typeof(Validate2Page)),
             new PageSource(typeof(CanExecuteChangedAsObservablePage)),
             new PageSource(typeof(AsyncMessageBroker1Page)),

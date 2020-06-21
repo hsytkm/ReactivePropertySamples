@@ -13,4 +13,6 @@ ReactiveProperty Samples for WPF
 
 [ReactiveProperty documentation](https://okazuki.jp/ReactiveProperty/)
 
+[ReactiveProperty : WPF/SL/WP7‚Ì‚½‚ß‚ÌRx‚ÆMVVM‚ğŒq‚®Šg’£ƒ‰ƒCƒuƒ‰ƒŠ](http://neue.cc/2011/10/07_346.html)
+
 ˆÈã
