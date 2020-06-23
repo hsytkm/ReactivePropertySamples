@@ -1,0 +1,89 @@
+﻿<ctrl:MyPageControl
+    x:Class="ReactivePropertySamples.Views.Pages.AsyncTaskSelectPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:local="clr-namespace:ReactivePropertySamples.Views.Pages"
+    xmlns:ctrl="clr-namespace:ReactivePropertySamples.Views.Controls"
+    mc:Ignorable="d" 
+    d:DesignHeight="450" d:DesignWidth="800" >
+
+    <ctrl:MyPageControl.Subtitle>
+        .SelectAsync()
+    </ctrl:MyPageControl.Subtitle>
+
+    <ctrl:MyPageControl.Description>
+        IObservable&lt;T&gt; のメソッドチェーンで、Task を実行
+    </ctrl:MyPageControl.Description>
+    <!-- リスト選択を通知＆番号で選択 -->
+
+    <ctrl:MyPageControl.Keywords>
+        <x:Array Type="{x:Type system:String}" >
+            <system:String>Func&lt;Task&gt;</system:String>
+            <system:String>Observable.FromAsync()</system:String>
+            <system:String>Observable.Interval(TimeSpan.FromSeconds(1))</system:String>
+        </x:Array>
+    </ctrl:MyPageControl.Keywords>
+
+    <UserControl.DataContext>
+        <local:AsyncTaskSelectViewModel />
+    </UserControl.DataContext>
+
+    <DockPanel Margin="5" >
+        <Panel.Resources>
+            <Color x:Key="RedColor" A="255" R="255" G="0" B="0" />
+            <Color x:Key="BlueColor" A="255" R="0" G="0" B="255" />
+
+            <Style TargetType="{x:Type Button}" >
+                <Setter Property="Margin" Value="20,5,20,10" />
+                <Setter Property="Padding" Value="10,5" />
+            </Style>
+            <Style TargetType="{x:Type Ellipse}" >
+                <Setter Property="Width" Value="30" />
+                <Setter Property="Height" Value="30" />
+            </Style>
+        </Panel.Resources>
+
+        <ctrl:MyPageTitle DockPanel.Dock="Top"
+                          DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
+
+        <TextBlock DockPanel.Dock="Top" Margin="20,10" LineHeight="20" Background="LightGray" >
+            <Run Text="1. Button.Click により、ViewModel 経由で Model のプロパティ(Color)が変化する。" />
+            <LineBreak/>
+            <Run Text="2. Model からの変更通知により、ViewModel で Brush が生成される。" />
+            <LineBreak/>
+            <Run Text="     (この処理が重いことを想定して数秒のウェイトを設けている）" />
+        </TextBlock>
+
+        <TextBlock DockPanel.Dock="Top" Margin="20,0" FontSize="{StaticResource FontSizeMiddle}"
+                   Text="{Binding TimeNow.Value, Mode=OneWay, StringFormat='フリーズ検知用タイマー   {0:hh:mm:ss.f}'}" />
+
+        <DockPanel DockPanel.Dock="Top" Margin="20,10" Background="LightBlue" >
+            <TextBlock DockPanel.Dock="Top" Margin="10,5"
+                       Text="Color から Brush を同期で生成する（処理中にUIフリーズする）" />
+            <Button Content="To Red"
+                    Command="{Binding SetColor1Command, Mode=OneTime}"
+                    CommandParameter="{StaticResource RedColor}" />
+            <Button Content="To Blue"
+                    Command="{Binding SetColor1Command, Mode=OneTime}"
+                    CommandParameter="{StaticResource BlueColor}" />
+            <Ellipse Fill="{Binding FillBrush1.Value, Mode=OneWay}" />
+        </DockPanel>
+
+        <DockPanel DockPanel.Dock="Top" Margin="20,10" Background="LightPink" >
+            <TextBlock DockPanel.Dock="Top" Margin="10,5"
+                       Text="Color から Brush を非同期で生成する（処理中にUIフリーズしない！）" />
+            <Button Content="To Red"
+                    Command="{Binding SetColor2Command, Mode=OneTime}"
+                    CommandParameter="{StaticResource RedColor}" />
+            <Button Content="To Blue"
+                    Command="{Binding SetColor2Command, Mode=OneTime}"
+                    CommandParameter="{StaticResource BlueColor}" />
+            <Ellipse Fill="{Binding FillBrush2.Value, Mode=OneWay}" />
+        </DockPanel>
+
+        <Border/>
+    </DockPanel>
+</ctrl:MyPageControl>
