@@ -26,10 +26,13 @@ namespace ReactivePropertySamples.Views.Pages
 
         private readonly AsyncTaskSelectModel _model1 = new AsyncTaskSelectModel();
         private readonly AsyncTaskSelectModel _model2 = new AsyncTaskSelectModel();
+        private readonly AsyncTaskSelectModel _model3 = new AsyncTaskSelectModel();
         public ReactiveCommand<Color> SetColor1Command { get; } = new ReactiveCommand<Color>();
         public ReactiveCommand<Color> SetColor2Command { get; } = new ReactiveCommand<Color>();
+        public ReactiveCommand<Color> SetColor3Command { get; } = new ReactiveCommand<Color>();
         public ReadOnlyReactiveProperty<SolidColorBrush> FillBrush1 { get; }
         public ReadOnlyReactiveProperty<SolidColorBrush> FillBrush2 { get; }
+        public ReadOnlyReactiveProperty<SolidColorBrush> FillBrush3 { get; }
 
 
         public AsyncTaskSelectViewModel()
@@ -54,9 +57,23 @@ namespace ReactivePropertySamples.Views.Pages
                 .AddTo(CompositeDisposable);
 
             // Select 内で Task を使用して、IObservable<T> を流す
+            // the second call will start only when the first one is already finished.
             FillBrush2 = _model2.ObserveProperty(x => x.UserColor, isPushCurrentValueAtFirst: false)
                 .Select(color => Observable.FromAsync(() => Task.Run(() => ColorToBrushAsync(color))))
                 .Concat()
+                .ObserveOnUIDispatcher()
+                .ToReadOnlyReactiveProperty()
+                .AddTo(CompositeDisposable);
+
+
+            SetColor3Command
+                .Subscribe(x => _model3.UserColor = x)
+                .AddTo(CompositeDisposable);
+
+            // the second call to the method could start before the end of the first call.
+            FillBrush3 = _model3.ObserveProperty(x => x.UserColor, isPushCurrentValueAtFirst: false)
+                .ObserveOn(Scheduler.Default)
+                .Select(color => ColorToBrushAsync(color))
                 .ObserveOnUIDispatcher()
                 .ToReadOnlyReactiveProperty()
                 .AddTo(CompositeDisposable);
