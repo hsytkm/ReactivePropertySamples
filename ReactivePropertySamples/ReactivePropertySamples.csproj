@@ -23,169 +23,169 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\Pages\ScheduledNotifierPage.xaml.cs">
+    <Compile Update="Views\Pages\Notifiers\ScheduledNotifierPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\CanExecuteChangedAsObservablePage.xaml.cs">
+    <Compile Update="Views\Pages\Commands\CanExecuteChangedAsObservablePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\BusyNotifierPage.xaml.cs">
+    <Compile Update="Views\Pages\Notifiers\BusyNotifierPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\CountNotifierPage.xaml.cs">
+    <Compile Update="Views\Pages\Notifiers\CountNotifierPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\IFilteredReadOnlyObservableCollection1Page.xaml.cs">
+    <Compile Update="Views\Pages\Collections\IFilteredReadOnlyObservableCollection1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\AsyncMessageBroker1Page.xaml.cs">
+    <Compile Update="Views\Pages\Notifiers\AsyncMessageBroker1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\MessageBroker1Page.xaml.cs">
+    <Compile Update="Views\Pages\Notifiers\MessageBroker1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\ObserveElementPropertyChanged1Page.xaml.cs">
+    <Compile Update="Views\Pages\Collections\ObserveElementPropertyChanged1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\ObserveProperty1Page.xaml.cs">
+    <Compile Update="Views\Pages\IReactiveProperties\ObserveProperty1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\AsyncReactiveCommand1Page.xaml.cs">
+    <Compile Update="Views\Pages\Commands\AsyncReactiveCommand1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\FromPocoMode1Page.xaml.cs">
+    <Compile Update="Views\Pages\IReactiveProperties\FromPocoMode1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\CombineAllValuePage.xaml.cs">
+    <Compile Update="Views\Pages\IObservableChains\CombineAllValuePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\BooleanNotifierPage.xaml.cs">
+    <Compile Update="Views\Pages\Notifiers\BooleanNotifierPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\ObserveElementProperty1Page.xaml.cs">
+    <Compile Update="Views\Pages\Collections\ObserveElementProperty1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\ReactiveCollection2Page.xaml.cs">
+    <Compile Update="Views\Pages\Collections\ReactiveCollection2Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\ReactiveCommand1Page.xaml.cs">
+    <Compile Update="Views\Pages\Commands\ReactiveCommand1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\ReactiveConverter2Page.xaml.cs">
+    <Compile Update="Views\Pages\ReactiveConverters\ReactiveConverter2Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\ReactiveProperty2Page.xaml.cs">
+    <Compile Update="Views\Pages\IReactiveProperties\ReactiveProperty2Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\ReadOnlyReactiveCollection1Page.xaml.cs">
+    <Compile Update="Views\Pages\Collections\ReadOnlyReactiveCollection1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\ReactiveCollection1Page.xaml.cs">
+    <Compile Update="Views\Pages\Collections\ReactiveCollection1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\AsyncTaskSelectPage.xaml.cs">
+    <Compile Update="Views\Pages\IObservableChains\AsyncTaskSelectPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\TwoWay2Page.xaml.cs">
+    <Compile Update="Views\Pages\Synchronizations\TwoWay2Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\ReactiveConverter1Page.xaml.cs">
+    <Compile Update="Views\Pages\ReactiveConverters\ReactiveConverter1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\Validate2Page.xaml.cs">
+    <Compile Update="Views\Pages\Validations\Validate2Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\Validate1Page.xaml.cs">
+    <Compile Update="Views\Pages\Validations\Validate1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\TwoWay1Page.xaml.cs">
+    <Compile Update="Views\Pages\Synchronizations\TwoWay1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\ReactiveProperty1Page.xaml.cs">
+    <Compile Update="Views\Pages\IReactiveProperties\ReactiveProperty1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Views\Pages\ScheduledNotifierPage.xaml">
+    <Page Update="Views\Pages\Notifiers\ScheduledNotifierPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\CanExecuteChangedAsObservablePage.xaml">
+    <Page Update="Views\Pages\Commands\CanExecuteChangedAsObservablePage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\BusyNotifierPage.xaml">
+    <Page Update="Views\Pages\Notifiers\BusyNotifierPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\CountNotifierPage.xaml">
+    <Page Update="Views\Pages\Notifiers\CountNotifierPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\IFilteredReadOnlyObservableCollection1Page.xaml">
+    <Page Update="Views\Pages\Collections\IFilteredReadOnlyObservableCollection1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\AsyncMessageBroker1Page.xaml">
+    <Page Update="Views\Pages\Notifiers\AsyncMessageBroker1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\MessageBroker1Page.xaml">
+    <Page Update="Views\Pages\Notifiers\MessageBroker1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\ObserveElementPropertyChanged1Page.xaml">
+    <Page Update="Views\Pages\Collections\ObserveElementPropertyChanged1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\ObserveProperty1Page.xaml">
+    <Page Update="Views\Pages\IReactiveProperties\ObserveProperty1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\AsyncReactiveCommand1Page.xaml">
+    <Page Update="Views\Pages\Commands\AsyncReactiveCommand1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\FromPocoMode1Page.xaml">
+    <Page Update="Views\Pages\IReactiveProperties\FromPocoMode1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\CombineAllValuePage.xaml">
+    <Page Update="Views\Pages\IObservableChains\CombineAllValuePage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\BooleanNotifierPage.xaml">
+    <Page Update="Views\Pages\Notifiers\BooleanNotifierPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\ObserveElementProperty1Page.xaml">
+    <Page Update="Views\Pages\Collections\ObserveElementProperty1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\ReactiveCollection2Page.xaml">
+    <Page Update="Views\Pages\Collections\ReactiveCollection2Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\ReactiveCommand1Page.xaml">
+    <Page Update="Views\Pages\Commands\ReactiveCommand1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\ReactiveConverter2Page.xaml">
+    <Page Update="Views\Pages\ReactiveConverters\ReactiveConverter2Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\ReactiveProperty2Page.xaml">
+    <Page Update="Views\Pages\IReactiveProperties\ReactiveProperty2Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\ReadOnlyReactiveCollection1Page.xaml">
+    <Page Update="Views\Pages\Collections\ReadOnlyReactiveCollection1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\ReactiveCollection1Page.xaml">
+    <Page Update="Views\Pages\Collections\ReactiveCollection1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\AsyncTaskSelectPage.xaml">
+    <Page Update="Views\Pages\IObservableChains\AsyncTaskSelectPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\TwoWay2Page.xaml">
+    <Page Update="Views\Pages\Synchronizations\TwoWay2Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\ReactiveConverter1Page.xaml">
+    <Page Update="Views\Pages\ReactiveConverters\ReactiveConverter1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\Validate2Page.xaml">
+    <Page Update="Views\Pages\Validations\Validate2Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\Validate1Page.xaml">
+    <Page Update="Views\Pages\Validations\Validate1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\TwoWay1Page.xaml">
+    <Page Update="Views\Pages\Synchronizations\TwoWay1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\ReactiveProperty1Page.xaml">
+    <Page Update="Views\Pages\IReactiveProperties\ReactiveProperty1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
