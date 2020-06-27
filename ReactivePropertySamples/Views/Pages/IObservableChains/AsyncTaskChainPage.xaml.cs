@@ -11,22 +11,21 @@ using System.Windows.Media;
 
 namespace ReactivePropertySamples.Views.Pages
 {
-    public partial class AsyncTaskSelectPage : Controls.MyPageControl
+    public partial class AsyncTaskChainPage : Controls.MyPageControl
     {
-        public AsyncTaskSelectPage()
+        public AsyncTaskChainPage()
         {
             InitializeComponent();
-            //DataContext = new AsyncTaskSelectViewModel();
         }
     }
 
-    class AsyncTaskSelectViewModel : MyDisposableBindableBase
+    class AsyncTaskChainViewModel : MyDisposableBindableBase
     {
         public ReadOnlyReactiveProperty<DateTime> TimeNow { get; }
 
-        private readonly AsyncTaskSelectModel _model1 = new AsyncTaskSelectModel();
-        private readonly AsyncTaskSelectModel _model2 = new AsyncTaskSelectModel();
-        private readonly AsyncTaskSelectModel _model3 = new AsyncTaskSelectModel();
+        private readonly AsyncTaskChainModel _model1 = new AsyncTaskChainModel();
+        private readonly AsyncTaskChainModel _model2 = new AsyncTaskChainModel();
+        private readonly AsyncTaskChainModel _model3 = new AsyncTaskChainModel();
         public ReactiveCommand<Color> SetColor1Command { get; } = new ReactiveCommand<Color>();
         public ReactiveCommand<Color> SetColor2Command { get; } = new ReactiveCommand<Color>();
         public ReactiveCommand<Color> SetColor3Command { get; } = new ReactiveCommand<Color>();
@@ -35,7 +34,7 @@ namespace ReactivePropertySamples.Views.Pages
         public ReadOnlyReactiveProperty<SolidColorBrush> FillBrush3 { get; }
 
 
-        public AsyncTaskSelectViewModel()
+        public AsyncTaskChainViewModel()
         {
             TimeNow = Observable.Interval(TimeSpan.FromMilliseconds(100))
                 .Select(_ => DateTime.Now)
@@ -89,7 +88,7 @@ namespace ReactivePropertySamples.Views.Pages
         }
     }
 
-    class AsyncTaskSelectModel : MyBindableBase
+    class AsyncTaskChainModel : MyBindableBase
     {
         public Color UserColor
         {

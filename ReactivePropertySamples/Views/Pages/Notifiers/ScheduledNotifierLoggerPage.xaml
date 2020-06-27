@@ -1,0 +1,94 @@
+﻿<ctrl:MyPageControl
+    x:Class="ReactivePropertySamples.Views.Pages.ScheduledNotifierLoggerPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:local="clr-namespace:ReactivePropertySamples.Views.Pages"
+    xmlns:ctrl="clr-namespace:ReactivePropertySamples.Views.Controls"
+    mc:Ignorable="d" 
+    d:DesignHeight="450" d:DesignWidth="800" >
+
+    <!-- WPFでReactiveProperty入門 ～アプリケーションのステータスやエラー情報をIObservable で通知する
+            https://pierre3.hatenablog.com/entry/2015/11/03/004119
+    -->
+
+    <ctrl:MyPageControl.Subtitle>
+        ログ出力
+    </ctrl:MyPageControl.Subtitle>
+
+    <ctrl:MyPageControl.Description>
+        ScheduledNotifier&lt;T&gt; を使って、コンテキストを意識せずにログ出力する。
+    </ctrl:MyPageControl.Description>
+
+    <ctrl:MyPageControl.Keywords>
+        <x:Array Type="{x:Type system:String}" >
+            <system:String>ScheduledNotifier&lt;int&gt;</system:String>
+            <system:String>ToUnit()</system:String>
+        </x:Array>
+    </ctrl:MyPageControl.Keywords>
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="listBoxDataTemplete">
+            <TextBlock Text="{Binding Message, Mode=OneTime}" />
+        </DataTemplate>
+    </UserControl.Resources>
+    
+    <DockPanel Margin="5" >
+        <ctrl:MyPageTitle DockPanel.Dock="Top"
+                          DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
+
+        <WrapPanel DockPanel.Dock="Top" Margin="20,10" Background="LightBlue" >
+            <Panel.Resources>
+                <Style TargetType="{x:Type Button}" >
+                    <Setter Property="Margin" Value="10" />
+                    <Setter Property="Padding" Value="10,5" />
+                </Style>
+            </Panel.Resources>
+
+            <Button Content="On UIThread" Command="{Binding OnUIThreadCommand, Mode=OneTime}" />
+            <Button Content="On AsyncTask" Command="{Binding OnAsyncTaskCommand, Mode=OneTime}" />
+            <Button Content="On Scheduler" Command="{Binding OnDefaultSchedulerCommand, Mode=OneTime}" />
+        </WrapPanel>
+
+        <Grid Margin="10,0,10,0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,0,0,5"
+                       Text="Logs : All" />
+            <ListBox Grid.Column="0" Grid.Row="1" Background="LightGreen"
+                     ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                     ItemsSource="{Binding AllLogs, Mode=OneTime}" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding ., Mode=OneTime}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <DockPanel Grid.Column="1" Grid.Row="0" Margin="0,0,0,5">
+                <Button DockPanel.Dock="Right" Content="Clear" Command="{Binding ClearErrorLogsCommand, Mode=OneTime}" />
+                <TextBlock Text="Logs : Warn/Error/Fatal" />
+                
+            </DockPanel>
+            <ListBox Grid.Column="1" Grid.Row="1" Background="LightPink"
+                     ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                     ItemsSource="{Binding ErrorLogs, Mode=OneTime}" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding ., Mode=OneTime}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+
+    </DockPanel>
+</ctrl:MyPageControl>

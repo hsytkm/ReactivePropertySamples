@@ -23,6 +23,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\Pages\Collections\ObservableCollectionScanPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\IObservableChains\ModelCollectionChainPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\Notifiers\ScheduledNotifierLoggerPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\Notifiers\ScheduledNotifierPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -83,7 +92,7 @@
     <Compile Update="Views\Pages\Collections\ReactiveCollection1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\IObservableChains\AsyncTaskSelectPage.xaml.cs">
+    <Compile Update="Views\Pages\IObservableChains\AsyncTaskChainPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Pages\Synchronizations\TwoWay2Page.xaml.cs">
@@ -107,6 +116,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Views\Pages\Collections\ObservableCollectionScanPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\IObservableChains\ModelCollectionChainPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Notifiers\ScheduledNotifierLoggerPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Pages\Notifiers\ScheduledNotifierPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -167,7 +185,7 @@
     <Page Update="Views\Pages\Collections\ReactiveCollection1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\IObservableChains\AsyncTaskSelectPage.xaml">
+    <Page Update="Views\Pages\IObservableChains\AsyncTaskChainPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\Synchronizations\TwoWay2Page.xaml">

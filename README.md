@@ -18,4 +18,6 @@ Version 7.1.0
 
 [ReactiveProperty : WPF/SL/WP7のためのRxとMVVMを繋ぐ拡張ライブラリ](http://neue.cc/2011/10/07_346.html)
 
+[WPFでReactiveProperty入門 ～アプリケーションのステータスやエラー情報をIObservable で通知する](https://pierre3.hatenablog.com/entry/2015/11/03/004119)
+
 以上

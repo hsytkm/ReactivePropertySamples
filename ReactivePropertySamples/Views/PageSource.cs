@@ -16,7 +16,13 @@ namespace ReactivePropertySamples.Views
              *  ObserveErrorInfo OnErrorRetry ToUnit 
              *  ReactivePropertySlim
              */
-            new PageSource(typeof(AsyncTaskSelectPage)),
+            
+            new PageSource(typeof(ScheduledNotifierLoggerPage)),
+            
+            new PageSource(typeof(ModelCollectionChainPage)),
+
+            new PageSource(typeof(ObservableCollectionScanPage)),
+            new PageSource(typeof(AsyncTaskChainPage)),
             new PageSource(typeof(ScheduledNotifierPage)),
             new PageSource(typeof(Validate2Page)),
             new PageSource(typeof(CanExecuteChangedAsObservablePage)),

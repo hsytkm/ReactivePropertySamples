@@ -1,5 +1,5 @@
 ﻿<ctrl:MyPageControl
-    x:Class="ReactivePropertySamples.Views.Pages.AsyncTaskSelectPage"
+    x:Class="ReactivePropertySamples.Views.Pages.AsyncTaskChainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -31,7 +31,7 @@
     </ctrl:MyPageControl.Keywords>
 
     <UserControl.DataContext>
-        <local:AsyncTaskSelectViewModel />
+        <local:AsyncTaskChainViewModel />
     </UserControl.DataContext>
 
     <DockPanel Margin="5" >

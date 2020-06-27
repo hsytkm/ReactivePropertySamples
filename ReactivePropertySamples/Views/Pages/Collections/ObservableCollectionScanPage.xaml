@@ -1,0 +1,61 @@
+﻿<ctrl:MyPageControl
+    x:Class="ReactivePropertySamples.Views.Pages.ObservableCollectionScanPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:local="clr-namespace:ReactivePropertySamples.Views.Pages"
+    xmlns:ctrl="clr-namespace:ReactivePropertySamples.Views.Controls"
+    mc:Ignorable="d" 
+    d:DesignHeight="450" d:DesignWidth="800" >
+
+    <!-- [C#][ReactiveProperty] ObservableCollectionの要素の集計をして、ReactivePropertyに変換する
+            https://qiita.com/koara-local/items/2c0c27c40339ba2b09a4?utm_source=stock_summary_mail&utm_medium=email&utm_term=hsytkm&utm_content=%5bC#][ReactiveProperty]%20ObservableCollection%E3%81%AE%E8%A6%81%E7%B4%A0%E3%81%AE%E9%9B%86%E8%A8%88%E3%82%92%E3%81%97%E3%81%A6%E3%80%81ReactiveProperty%E3%81%AB%E5%A4%89%E6%8F%9B%E3%81%99%E3%82%8B&utm_campaign=stock_summary_mail_2020-06-27
+    -->
+    <ctrl:MyPageControl.Subtitle>
+        ObservableCollection 内のプロパティを集計
+    </ctrl:MyPageControl.Subtitle>
+
+    <ctrl:MyPageControl.Description>
+        コレクション内のフラグが 1つ以上 True なら True になる IReactiveProperty&lt;bool&gt;
+    </ctrl:MyPageControl.Description>
+
+    <ctrl:MyPageControl.Keywords>
+        <x:Array Type="{x:Type system:String}" >
+            <system:String>Scan()</system:String>
+        </x:Array>
+    </ctrl:MyPageControl.Keywords>
+
+    <DockPanel Margin="5" >
+        <ctrl:MyPageTitle DockPanel.Dock="Top"
+                          DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
+
+        <ItemsControl DockPanel.Dock="Top" Margin="20" Background="LightBlue"
+                      ItemsSource="{Binding ItemsSource, Mode=OneTime}"  >
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" >
+                        <CheckBox Margin="10,5" IsChecked="{Binding IsUpdated, Mode=TwoWay}" />
+                        <TextBlock Margin="10,5" Text="{Binding Name, Mode=OneTime}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <TextBlock x:Name="myTextBox" Margin="20,10" FontSize="{StaticResource FontSizeLarge}" >
+            <i:Interaction.Triggers>
+                <i:DataTrigger Binding="{Binding IsUpdated.Value, Mode=OneWay}" Value="True" >
+                    <i:ChangePropertyAction TargetName="myTextBox" PropertyName="Text"
+                                            Value="ObservableCollection 内の IsChecked が1つ以上ON" />
+                </i:DataTrigger>
+                <i:DataTrigger Binding="{Binding IsUpdated.Value, Mode=OneWay}" Value="False" >
+                    <i:ChangePropertyAction TargetName="myTextBox" PropertyName="Text"
+                                            Value="ObservableCollection 内の IsChecked が全てOFF" />
+                </i:DataTrigger>
+            </i:Interaction.Triggers>
+        </TextBlock>
+
+    </DockPanel>
+</ctrl:MyPageControl>

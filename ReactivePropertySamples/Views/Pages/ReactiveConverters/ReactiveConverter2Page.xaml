@@ -26,6 +26,7 @@
             <system:String>EventToReactiveProperty</system:String>
             <system:String>Pairwise</system:String>
             <system:String>SkipUntil / TakeUntil</system:String>
+            <system:String>Repeat</system:String>
         </x:Array>
     </ctrl:MyPageControl.Keywords>
 

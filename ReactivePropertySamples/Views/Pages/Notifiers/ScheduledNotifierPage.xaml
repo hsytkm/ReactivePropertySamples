@@ -11,17 +11,17 @@
     d:DesignHeight="450" d:DesignWidth="800" >
 
     <ctrl:MyPageControl.Subtitle>
-        進捗報告 (IProgress&lt;int&gt;)
+        進捗報告 (IProgress&lt;double&gt;)
     </ctrl:MyPageControl.Subtitle>
 
     <ctrl:MyPageControl.Description>
-        処理の進捗を ScheduledNotifier&lt;int&gt; で報告する
+        処理の進捗を ScheduledNotifier&lt;double&gt; で報告する
     </ctrl:MyPageControl.Description>
 
     <ctrl:MyPageControl.Keywords>
         <x:Array Type="{x:Type system:String}" >
-            <system:String>ScheduledNotifier&lt;int&gt;</system:String>
-            <system:String>IProgress&lt;int&gt;</system:String>
+            <system:String>ScheduledNotifier&lt;T&gt;</system:String>
+            <system:String>IProgress&lt;T&gt;</system:String>
         </x:Array>
     </ctrl:MyPageControl.Keywords>
 
