@@ -1,5 +1,6 @@
 ﻿using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
+using Reactive.Bindings.Notifiers;
 using ReactivePropertySamples.Infrastructures;
 using System;
 using System.Linq;
@@ -18,33 +19,33 @@ namespace ReactivePropertySamples.Views.Pages
 
     class CombineAllValueViewModel : MyDisposableBindableBase
     {
-        public ReactiveProperty<bool> Check1 { get; } = new ReactiveProperty<bool>();
-        public ReactiveProperty<bool> Check2 { get; } = new ReactiveProperty<bool>(initialValue: true);
-        public ReactiveProperty<bool> Check3 { get; } = new ReactiveProperty<bool>(initialValue: false);
-        public ReadOnlyReactiveProperty<bool> CheckAllTrue { get; }
-        public ReadOnlyReactiveProperty<bool> CheckAllFalse { get; }
-        public ReadOnlyReactiveProperty<bool> CheckOr { get; }
-        public ReadOnlyReactiveProperty<bool> CheckOdd { get; }
+        public IReactiveProperty<bool> Check1 { get; } = new ReactiveProperty<bool>();
+        public IReactiveProperty<bool> Check2 { get; } = new ReactiveProperty<bool>(initialValue: true);
+        public BooleanNotifier Check3 { get; } = new BooleanNotifier(initialValue: false);
+        public IReadOnlyReactiveProperty<bool> CheckAllTrue { get; }
+        public IReadOnlyReactiveProperty<bool> CheckAllFalse { get; }
+        public IReadOnlyReactiveProperty<bool> CheckOr { get; }
+        public IReadOnlyReactiveProperty<bool> CheckOdd { get; }
 
         public CombineAllValueViewModel()
         {
-            CheckAllTrue = new[] { Check1, Check2, Check3 }
+            CheckAllTrue = new IObservable<bool>[] { Check1, Check2, Check3 }
                 .CombineLatestValuesAreAllTrue()
                 .ToReadOnlyReactiveProperty()
                 .AddTo(CompositeDisposable);
 
-            CheckAllFalse = new[] { Check1, Check2, Check3 }
+            CheckAllFalse = new IObservable<bool>[] { Check1, Check2, Check3 }
                 .CombineLatestValuesAreAllFalse()
                 .ToReadOnlyReactiveProperty()
                 .AddTo(CompositeDisposable);
 
-            CheckOr = new[] { Check1, Check2, Check3 }
+            CheckOr = new IObservable<bool>[] { Check1, Check2, Check3 }
                 .CombineLatest()
                 .Select(flags => flags.Any(x => x))
                 .ToReadOnlyReactiveProperty()
                 .AddTo(CompositeDisposable);
 
-            CheckOdd = new[] { Check1, Check2, Check3 }
+            CheckOdd = new IObservable<bool>[] { Check1, Check2, Check3.Inverse().Inverse() }   // NotNotなので意味なし
                 .CombineLatest()
                 .Select(flags =>
                 {

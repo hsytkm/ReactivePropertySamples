@@ -1,5 +1,6 @@
 ﻿using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
+using Reactive.Bindings.Notifiers;
 using ReactivePropertySamples.Infrastructures;
 using System;
 using System.Reactive;
@@ -20,31 +21,31 @@ namespace ReactivePropertySamples.Views.Pages
     class ReactiveCommand1ViewModel : MyDisposableBindableBase
     {
         public ReactiveCommand Command1 { get; } = new ReactiveCommand();
-        public ReactiveProperty<int> Counter1 { get; } = new ReactiveProperty<int>();
+        public CountNotifier Counter1 { get; } = new CountNotifier();
 
-        public ReactiveCommand<int> Command2 { get; } = new ReactiveCommand<int>();
-        public ReactiveProperty<int> Counter2 { get; } = new ReactiveProperty<int>();
+        public ReactiveCommand<int> Command2 { get; } // コンストラクタで生成するので初期化不要
+        public CountNotifier Counter2 { get; } = new CountNotifier();
 
-        public ReactiveCommand Command31 { get; } // ToReactiveCommand() で生成するので初期化不要
-        public ReactiveProperty<bool> CheckFlag31 { get; } = new ReactiveProperty<bool>();
-        public ReactiveProperty<int> Counter3 { get; } = new ReactiveProperty<int>();
+        public ReactiveCommand Command31 { get; } // コンストラクタで生成するので初期化不要
+        public BooleanNotifier CheckFlag31 { get; } = new BooleanNotifier();
+        public CountNotifier Counter3 { get; } = new CountNotifier();
 
-        public ReactiveCommand Command32 { get; } // ToReactiveCommand() で生成するので初期化不要
+        public ReactiveCommand Command32 { get; } // コンストラクタで生成するので初期化不要
 
         public ReactiveCommand1ViewModel()
         {
+            // 宣言時にインスタンスを作ってて、コンストラクタで Subscribe()
             Command1
-                .Subscribe(() => ++Counter1.Value)
+                .Subscribe(() => Counter1.Increment())
                 .AddTo(CompositeDisposable);
 
-            Command2
-                .Subscribe(x => Counter2.Value += x)
-                .AddTo(CompositeDisposable);
+            // View の CommandParameter を加算。 WithSubscribeにより宣言からDispose登録まで一気通貫。
+            Command2 = new ReactiveCommand<int>()
+                .WithSubscribe(x => Counter2.Increment(x), CompositeDisposable.Add);
 
-            // IObservable<bool> から ReactiveCommand を作成
-            // View の CheckBox により、CanExecute  を切り替え
-            Command31 = CheckFlag31.ToReactiveCommand()
-                .WithSubscribe(() => ++Counter3.Value, CompositeDisposable.Add);
+            // CheckBox により（IObservable<bool>）から ReactiveCommand を作成
+            Command31 = CheckFlag31.ToReactiveCommand(initialValue: false)
+                .WithSubscribe(() => Counter3.Increment(), CompositeDisposable.Add);
 
             var updateTimeTrigger = new Subject<Unit>();
             CompositeDisposable.Add(updateTimeTrigger);
@@ -59,7 +60,7 @@ namespace ReactivePropertySamples.Views.Pages
 
             Command32
                 .Do(_ => updateTimeTrigger.OnNext(Unit.Default))
-                .Subscribe(_ => ++Counter3.Value)
+                .Subscribe(_ => Counter3.Increment())
                 .AddTo(CompositeDisposable);
         }
     }

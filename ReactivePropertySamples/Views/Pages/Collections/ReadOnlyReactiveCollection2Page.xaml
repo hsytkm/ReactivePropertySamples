@@ -1,5 +1,5 @@
 ﻿<ctrl:MyPageControl
-    x:Class="ReactivePropertySamples.Views.Pages.ReadOnlyReactiveCollection1Page"
+    x:Class="ReactivePropertySamples.Views.Pages.ReadOnlyReactiveCollection2Page"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -11,11 +11,13 @@
     mc:Ignorable="d" 
     d:DesignHeight="450" d:DesignWidth="800"
     Description="
-TextBox の string を Model の ObservableCollection&lt;string&gt; に追加し、&#xD;&#xA;
-ViewModel の ToReadOnlyReactiveCollection() により表示する。">
+ReadOnlyReactiveCollection1Page を IObservable&lt;T&gt; 版で実装している。&#xD;&#xA;
+こちらは、Model を介していないが、特に意味はない。&#xD;&#xA;
+ReadOnlyReactiveCollection の Clear を コンストラクタの onReset で行っているのがポイント&#xD;&#xA;
+onResetを使ったいせいで、Clear の CanExecute に対応できていない…">
 
     <ctrl:MyPageControl.Subtitle>
-        from ObservableCollection&lt;T&gt;
+        from IObservable&lt;T&gt;
     </ctrl:MyPageControl.Subtitle>
 
     <!-- 改行したいので、記法変える（なぜ上だと動くか説明できない…勘で発見した）
@@ -25,9 +27,10 @@ ViewModel の ToReadOnlyReactiveCollection() により表示する。">
 
     <ctrl:MyPageControl.Keywords>
         <x:Array Type="{x:Type system:String}" >
-            <system:String>ReadOnlyReactiveCollection</system:String>
             <system:String>ToReadOnlyReactiveCollection</system:String>
-            <system:String>ObservableCollection</system:String>
+            <system:String>onReset</system:String>
+            <system:String>ToUnit()</system:String>
+            <system:String>◆実装悩み</system:String>
         </x:Array>
     </ctrl:MyPageControl.Keywords>
 
@@ -51,7 +54,7 @@ ViewModel の ToReadOnlyReactiveCollection() により表示する。">
             <TextBox x:Name="nameTextBox" />
         </DockPanel>
 
-        <ItemsControl Margin="20,10" Background="LightBlue"
+        <ItemsControl Margin="20,10" Background="LightPink"
                       ItemsSource="{Binding People, Mode=OneWay}" >
             <ItemsControl.ItemTemplate>
                 <DataTemplate>

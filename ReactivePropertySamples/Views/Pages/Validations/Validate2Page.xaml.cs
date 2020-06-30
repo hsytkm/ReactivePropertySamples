@@ -31,7 +31,7 @@ namespace ReactivePropertySamples.Views.Pages
     class Validate2ViewModel : MyDisposableBindableBase
     {
         [MyIntEvenValidation("偶数を入力してね")]
-        public ReactiveProperty<string> IntValue { get; } = new ReactiveProperty<string>();
+        public ReactiveProperty<string> IntValue { get; }
 
         public ReactiveCommand ButtonCommand { get; }
 
@@ -46,7 +46,6 @@ namespace ReactivePropertySamples.Views.Pages
                 .Inverse()
                 .ToReactiveCommand()
                 .AddTo(CompositeDisposable);
-
         }
     }
 }

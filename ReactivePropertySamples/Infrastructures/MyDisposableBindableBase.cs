@@ -35,7 +35,7 @@ namespace ReactivePropertySamples.Infrastructures
         // }
 
         // このコードは、破棄可能なパターンを正しく実装できるように追加されました。
-        public void Dispose()
+        public virtual void Dispose()
         {
             // このコードを変更しないでください。クリーンアップ コードを上の Dispose(bool disposing) に記述します。
             Dispose(true);

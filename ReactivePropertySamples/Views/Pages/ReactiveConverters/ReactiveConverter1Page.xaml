@@ -25,7 +25,8 @@
         <x:Array Type="{x:Type system:String}" >
             <system:String>EventToReactiveProperty</system:String>
             <system:String>ReactiveConverter&lt;T, U&gt;</system:String>
-            <system:String>IgnoreEventArgs</system:String>
+            <system:String>Mouse Click / Move</system:String>
+            <system:String>マウスクリック / マウス移動</system:String>
         </x:Array>
     </ctrl:MyPageControl.Keywords>
 

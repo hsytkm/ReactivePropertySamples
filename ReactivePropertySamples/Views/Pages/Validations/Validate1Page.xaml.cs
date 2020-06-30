@@ -20,10 +20,10 @@ namespace ReactivePropertySamples.Views.Pages
 
     class Validate1ViewModel : MyDisposableBindableBase
     {
-        public ReactiveProperty<string> InputText1 { get; }
-        public ReadOnlyReactiveProperty<string> InputText1ErrorMessage { get; }
+        public IReactiveProperty<string> InputText1 { get; }
+        public IReadOnlyReactiveProperty<string> InputText1ErrorMessage { get; }
 
-        [Required(ErrorMessage = "Number is required")]
+        [Required(ErrorMessage = "Please enter the characters!")]
         public ReactiveProperty<string> Name { get; }
 
         [Required(ErrorMessage = "Number is required")]

@@ -28,8 +28,10 @@ namespace ReactivePropertySamples.Views.Pages
     class ScheduledNotifierViewModel : MyDisposableBindableBase
     {
         public ScheduledNotifier<double> ScheduledNotifier { get; } = new ScheduledNotifier<double>();
+        private readonly BusyNotifier _busyNotifier = new BusyNotifier();
 
-        public AsyncReactiveCommand HeavyProcessCommand { get; }
+        public AsyncReactiveCommand HeavyProcessCommand1 { get; }
+        public AsyncReactiveCommand HeavyProcessCommand2 { get; }
 
         public ReadOnlyReactiveProperty<double> ProcessingProgress { get; }
 
@@ -39,12 +41,27 @@ namespace ReactivePropertySamples.Views.Pages
                 .ToReadOnlyReactiveProperty()
                 .AddTo(CompositeDisposable);
 
-            HeavyProcessCommand = new AsyncReactiveCommand()
-                .AddTo(CompositeDisposable);
+            HeavyProcessCommand1 = _busyNotifier.Inverse()
+                .ToAsyncReactiveCommand()
+                .WithSubscribe(async () =>
+                {
+                    using (_busyNotifier.ProcessStart())
+                    {
+                        await HeavyProcessAsync(null);
+                    }
+                },
+                CompositeDisposable.Add);
 
-            HeavyProcessCommand
-                .Subscribe(async () => await HeavyProcessAsync(ScheduledNotifier))
-                .AddTo(CompositeDisposable);
+            HeavyProcessCommand2 = _busyNotifier.Inverse()
+                .ToAsyncReactiveCommand()
+                .WithSubscribe(async () =>
+                {
+                    using (_busyNotifier.ProcessStart())
+                    {
+                        await HeavyProcessAsync(ScheduledNotifier);
+                    }
+                },
+                CompositeDisposable.Add);
 
 #if false
             var scheduledNotifier = new ScheduledNotifier<int>();

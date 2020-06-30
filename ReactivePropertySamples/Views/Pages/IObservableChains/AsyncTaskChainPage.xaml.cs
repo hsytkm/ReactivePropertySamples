@@ -21,18 +21,14 @@ namespace ReactivePropertySamples.Views.Pages
 
     class AsyncTaskChainViewModel : MyDisposableBindableBase
     {
-        public ReadOnlyReactiveProperty<DateTime> TimeNow { get; }
+        public IReadOnlyReactiveProperty<DateTime> TimeNow { get; }
 
-        private readonly AsyncTaskChainModel _model1 = new AsyncTaskChainModel();
-        private readonly AsyncTaskChainModel _model2 = new AsyncTaskChainModel();
-        private readonly AsyncTaskChainModel _model3 = new AsyncTaskChainModel();
-        public ReactiveCommand<Color> SetColor1Command { get; } = new ReactiveCommand<Color>();
-        public ReactiveCommand<Color> SetColor2Command { get; } = new ReactiveCommand<Color>();
-        public ReactiveCommand<Color> SetColor3Command { get; } = new ReactiveCommand<Color>();
-        public ReadOnlyReactiveProperty<SolidColorBrush> FillBrush1 { get; }
-        public ReadOnlyReactiveProperty<SolidColorBrush> FillBrush2 { get; }
-        public ReadOnlyReactiveProperty<SolidColorBrush> FillBrush3 { get; }
-
+        public ReactiveCommand<Color> SetColor1Command { get; }
+        public ReactiveCommand<Color> SetColor2Command { get; }
+        public ReactiveCommand<Color> SetColor3Command { get; }
+        public IReadOnlyReactiveProperty<SolidColorBrush> FillBrush1 { get; }
+        public IReadOnlyReactiveProperty<SolidColorBrush> FillBrush2 { get; }
+        public IReadOnlyReactiveProperty<SolidColorBrush> FillBrush3 { get; }
 
         public AsyncTaskChainViewModel()
         {
@@ -41,23 +37,25 @@ namespace ReactivePropertySamples.Views.Pages
                 .ToReadOnlyReactiveProperty()
                 .AddTo(CompositeDisposable);
 
-            SetColor1Command
-                .Subscribe(x => _model1.UserColor = x)
-                .AddTo(CompositeDisposable);
+            /* 1: UIフリーズする */
+            var model1 = new AsyncTaskChainModel();
+            SetColor1Command = new ReactiveCommand<Color>()
+                .WithSubscribe(x => model1.UserColor = x, CompositeDisposable.Add);
 
-            FillBrush1 = _model1.ObserveProperty(x => x.UserColor, isPushCurrentValueAtFirst: false)
+            FillBrush1 = model1.ObserveProperty(x => x.UserColor, isPushCurrentValueAtFirst: false)
                 .Select(color => ColorToBrushAsync(color))
                 .ToReadOnlyReactiveProperty()
                 .AddTo(CompositeDisposable);
 
 
-            SetColor2Command
-                .Subscribe(x => _model2.UserColor = x)
-                .AddTo(CompositeDisposable);
+            /* 2: UIフリーズしない(Task) */
+            var model2 = new AsyncTaskChainModel();
+            SetColor2Command = new ReactiveCommand<Color>()
+                .WithSubscribe(x => model2.UserColor = x, CompositeDisposable.Add);
 
             // Select 内で Task を使用して、IObservable<T> を流す
             // the second call will start only when the first one is already finished.
-            FillBrush2 = _model2.ObserveProperty(x => x.UserColor, isPushCurrentValueAtFirst: false)
+            FillBrush2 = model2.ObserveProperty(x => x.UserColor, isPushCurrentValueAtFirst: false)
                 .Select(color => Observable.FromAsync(() => Task.Run(() => ColorToBrushAsync(color))))
                 .Concat()
                 .ObserveOnUIDispatcher()
@@ -65,12 +63,13 @@ namespace ReactivePropertySamples.Views.Pages
                 .AddTo(CompositeDisposable);
 
 
-            SetColor3Command
-                .Subscribe(x => _model3.UserColor = x)
-                .AddTo(CompositeDisposable);
+            /* 3: UIフリーズしない(Scheduler) */
+            var model3 = new AsyncTaskChainModel();
+            SetColor3Command = new ReactiveCommand<Color>()
+                .WithSubscribe(x => model3.UserColor = x, CompositeDisposable.Add);
 
             // the second call to the method could start before the end of the first call.
-            FillBrush3 = _model3.ObserveProperty(x => x.UserColor, isPushCurrentValueAtFirst: false)
+            FillBrush3 = model3.ObserveProperty(x => x.UserColor, isPushCurrentValueAtFirst: false)
                 .ObserveOn(Scheduler.Default)
                 .Select(color => ColorToBrushAsync(color))
                 .ObserveOnUIDispatcher()
@@ -80,7 +79,7 @@ namespace ReactivePropertySamples.Views.Pages
 
         private static SolidColorBrush ColorToBrushAsync(Color color)
         {
-            Thread.Sleep(1500);
+            Thread.Sleep(1500);     // 重い処理想定のウェイト（現スレッド）
 
             var brush = new SolidColorBrush(color);
             brush.Freeze();

@@ -23,10 +23,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\Pages\Collections\ObservableCollectionScanPage.xaml.cs">
+    <Compile Update="Views\Pages\IObservableChains\ObservableCollectionScanPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\Collections\ReadOnlyReactiveCollection2Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Pages\IObservableChains\ModelCollectionChainPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\IReactiveProperties\ReactivePropertySlim1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Pages\Notifiers\ScheduledNotifierLoggerPage.xaml.cs">
@@ -80,6 +86,12 @@
     <Compile Update="Views\Pages\Commands\ReactiveCommand1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Pages\ReactiveConverters\ReactiveConverter4Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\ReactiveConverters\ReactiveConverter3Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\ReactiveConverters\ReactiveConverter2Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -116,10 +128,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Views\Pages\Collections\ObservableCollectionScanPage.xaml">
+    <Page Update="Views\Pages\IObservableChains\ObservableCollectionScanPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Collections\ReadOnlyReactiveCollection2Page.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\IObservableChains\ModelCollectionChainPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\IReactiveProperties\ReactivePropertySlim1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\Notifiers\ScheduledNotifierLoggerPage.xaml">
@@ -171,6 +189,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\Commands\ReactiveCommand1Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\ReactiveConverters\ReactiveConverter4Page.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\ReactiveConverters\ReactiveConverter3Page.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\ReactiveConverters\ReactiveConverter2Page.xaml">

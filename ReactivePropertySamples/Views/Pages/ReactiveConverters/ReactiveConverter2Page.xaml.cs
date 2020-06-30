@@ -22,14 +22,14 @@ namespace ReactivePropertySamples.Views.Pages
 
     class ReactiveConverter2ViewModel : MyDisposableBindableBase
     {
-        public ReactiveProperty<Unit> MouseDownUnit { get; } =
+        public IReactiveProperty<Unit> MouseDownUnit { get; } =
             new ReactiveProperty<Unit>(mode: ReactivePropertyMode.None);
-        public ReactiveProperty<Unit> MouseUpUnit { get; } =
+        public IReactiveProperty<Unit> MouseUpUnit { get; } =
             new ReactiveProperty<Unit>(mode: ReactivePropertyMode.None);
-        public ReactiveProperty<Point> MouseMovePoint { get; } =
+        public IReactiveProperty<Point> MouseMovePoint { get; } =
             new ReactiveProperty<Point>(mode: ReactivePropertyMode.DistinctUntilChanged);
 
-        public ReactiveProperty<Point> DragPoint { get; } = new ReactiveProperty<Point>();
+        public IReactiveProperty<Point> DragPoint { get; } = new ReactiveProperty<Point>();
 
         public ReactiveConverter2ViewModel()
         {
@@ -39,6 +39,7 @@ namespace ReactivePropertySamples.Views.Pages
                 .Select(x => (x.NewItem - x.OldItem))
                 .SkipUntil(MouseDownUnit)
                 .TakeUntil(MouseUpUnit)
+                .Finally(() => DragPoint.Value = default)
                 .Repeat()
                 .Subscribe(vec => DragPoint.Value += vec)
                 .AddTo(CompositeDisposable);

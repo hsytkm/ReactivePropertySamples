@@ -22,6 +22,7 @@
         <x:Array Type="{x:Type system:String}" >
             <system:String>ScheduledNotifier&lt;T&gt;</system:String>
             <system:String>IProgress&lt;T&gt;</system:String>
+            <system:String>BusyNotifier</system:String>
         </x:Array>
     </ctrl:MyPageControl.Keywords>
 
@@ -36,8 +37,12 @@
                           DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
 
         <Button DockPanel.Dock="Top" Margin="20" Padding="5"
-                Content="HeavyProcess (6 seconds)"
-                Command="{Binding HeavyProcessCommand, Mode=OneTime}" />
+                Content="HeavyProcess (6 seconds)   進捗報告なし"
+                Command="{Binding HeavyProcessCommand1, Mode=OneTime}" />
+
+        <Button DockPanel.Dock="Top" Margin="20" Padding="5"
+                Content="HeavyProcess (6 seconds)   進捗報告あり"
+                Command="{Binding HeavyProcessCommand2, Mode=OneTime}" />
 
         <ProgressBar DockPanel.Dock="Top" Margin="20" Height="20"
                      Maximum="1"

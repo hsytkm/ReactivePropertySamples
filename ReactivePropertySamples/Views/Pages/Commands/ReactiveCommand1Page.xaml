@@ -41,7 +41,7 @@
                     Content="Counter++"
                     Command="{Binding Command1, Mode=OneTime}" />
             <TextBlock Margin="20,5" VerticalAlignment="Center" FontSize="{StaticResource FontSizeMiddle}"
-                       Text="{Binding Counter1.Value, Mode=OneWay, StringFormat='Count= {0}'}" />
+                       Text="{Binding Counter1.Count, Mode=OneWay, StringFormat='Count= {0}'}" />
         </DockPanel>
 
         <DockPanel DockPanel.Dock="Top" Margin="20,10" Background="LightGreen" >
@@ -56,12 +56,16 @@
                     Command="{Binding Command2, Mode=OneTime}"
                     CommandParameter="{StaticResource IntTwo}"/>
             <TextBlock Margin="20,5" VerticalAlignment="Center" FontSize="{StaticResource FontSizeMiddle}"
-                       Text="{Binding Counter2.Value, Mode=OneWay, StringFormat='Count= {0}'}" />
+                       Text="{Binding Counter2.Count, Mode=OneWay, StringFormat='Count= {0}'}" />
         </DockPanel>
 
         <DockPanel DockPanel.Dock="Top" Margin="20,10" Background="LightPink" >
-            <TextBlock DockPanel.Dock="Top" Margin="5"
-                       Text="CanExecute の切替 (IObservable&lt;bool&gt; から ReactiveCommand を作成)" />
+            <TextBlock DockPanel.Dock="Top" Margin="5" >
+                CanExecute の切替 (IObservable&lt;bool&gt; から ReactiveCommand を作成)
+                <LineBreak/>
+                Subject&lt;T&gt; と TimerDelay により、クリック後 0.5 秒間は無効化している。
+            </TextBlock>
+                      
             <Button DockPanel.Dock="Left" Margin="20,5" Padding="10,5"
                     Content="Switch"
                     Command="{Binding Command31, Mode=OneTime}" />
@@ -74,7 +78,7 @@
                     Command="{Binding Command32, Mode=OneTime}" />
 
             <TextBlock Margin="20,5" VerticalAlignment="Center" FontSize="{StaticResource FontSizeMiddle}"
-                       Text="{Binding Counter3.Value, Mode=OneWay, StringFormat='Count= {0}'}" />
+                       Text="{Binding Counter3.Count, Mode=OneWay, StringFormat='Count= {0}'}" />
         </DockPanel>
 
         <Border/>

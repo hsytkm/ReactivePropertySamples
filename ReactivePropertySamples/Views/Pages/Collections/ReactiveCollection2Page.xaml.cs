@@ -34,13 +34,13 @@ namespace ReactivePropertySamples.Views.Pages
         private ICommand _addRandomDoubleCommand;
 
         // 気まぐれで ReactiveCommand 実装
-        public ReactiveCommand AddRandomTimeNowCommand { get; } = new ReactiveCommand();
+        public ReactiveCommand AddRandomTimeNowCommand { get; }
         #endregion
 
         #region Insert
-        public AsyncReactiveCommand InsertHeadRandomIntCommand { get; } = new AsyncReactiveCommand();
-        public AsyncReactiveCommand InsertHeadRandomDoubleCommand { get; } = new AsyncReactiveCommand();
-        public AsyncReactiveCommand InsertHeadRandomTimeNowCommand { get; } = new AsyncReactiveCommand();
+        public AsyncReactiveCommand InsertHeadRandomIntCommand { get; }
+        public AsyncReactiveCommand InsertHeadRandomDoubleCommand { get; }
+        public AsyncReactiveCommand InsertHeadRandomTimeNowCommand { get; }
         #endregion
 
         #region Remove/Clear
@@ -52,36 +52,35 @@ namespace ReactivePropertySamples.Views.Pages
         public ReactiveCollection2ViewModel()
         {
             #region Add
-            AddRandomTimeNowCommand
-                .Subscribe(() => DataCollection.AddOnScheduler(DateTime.Now.ToString()))
-                .AddTo(CompositeDisposable);
+            AddRandomTimeNowCommand = new ReactiveCommand()
+                .WithSubscribe(() => DataCollection.AddOnScheduler(DateTime.Now.ToString()), CompositeDisposable.Add);
             #endregion
 
             #region Insert
-            InsertHeadRandomIntCommand
-                .Subscribe(async _ =>
+            InsertHeadRandomIntCommand = new AsyncReactiveCommand()
+                .WithSubscribe(async () =>
                 {
                     // BackgroundスレッドからUIスレッド上で要素を追加する
                     await Task.Delay(500);
                     DataCollection.InsertOnScheduler(0, _random.Next(0, 101));
-                })
-                .AddTo(CompositeDisposable);
+                },
+                CompositeDisposable.Add);
 
-            InsertHeadRandomDoubleCommand
-                .Subscribe(async _ =>
+            InsertHeadRandomDoubleCommand = new AsyncReactiveCommand()
+                .WithSubscribe(async () =>
                 {
                     await Task.Delay(500);
                     DataCollection.InsertOnScheduler(0, _random.Next(0, 9999) / 10000.0);
-                })
-                .AddTo(CompositeDisposable);
+                },
+                CompositeDisposable.Add);
 
-            InsertHeadRandomTimeNowCommand
-                .Subscribe(async _ =>
+            InsertHeadRandomTimeNowCommand = new AsyncReactiveCommand()
+                .WithSubscribe(async () =>
                 {
                     await Task.Delay(500);
                     DataCollection.InsertOnScheduler(0, DateTime.Now.ToString());
-                })
-                .AddTo(CompositeDisposable);
+                },
+                CompositeDisposable.Add);
             #endregion
 
             #region Remove
@@ -96,24 +95,26 @@ namespace ReactivePropertySamples.Views.Pages
                 .Select(_ => DataCollection.Any())
                 .ToAsyncReactiveCommand()
                 .WithSubscribe(async () =>
-                    {
-                        await Task.Delay(500);
-                        DataCollection.RemoveAtOnScheduler(DataCollection.Count - 1);
-                    }, CompositeDisposable.Add);
+                {
+                    await Task.Delay(500);
+                    DataCollection.RemoveAtOnScheduler(DataCollection.Count - 1);
+                },
+                CompositeDisposable.Add);
 
             ClearAllItemsCommand = DataCollection
                 .CollectionChangedAsObservable()
                 .Select(_ => DataCollection.Any())
                 .ToAsyncReactiveCommand()
                 .WithSubscribe(async () =>
-                    {
-                        await Task.Delay(500);
-                        DataCollection.ClearOnScheduler();
-                    }, CompositeDisposable.Add);
+                {
+                    await Task.Delay(500);
+                    DataCollection.ClearOnScheduler();
+                },
+                CompositeDisposable.Add);
             #endregion
 
             // Remove 達の CanExecute を false にするため、コレクションを操作する
-            // ◆もっと良い実装ない？
+            // ◆もっと良い実装ない？  ⇒  initialValue: false の実装に変えてもよい。
             DataCollection.Clear();
         }
     }

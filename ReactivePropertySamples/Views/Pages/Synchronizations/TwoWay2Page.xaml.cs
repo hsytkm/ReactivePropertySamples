@@ -31,8 +31,8 @@ namespace ReactivePropertySamples.Views.Pages
         [Range(1.0, 99.99)]
         public ReactiveProperty<string> InputDouble2 { get; }
 
-        public ReadOnlyReactiveProperty<int> CheckModelValueInt2 { get; }
-        public ReadOnlyReactiveProperty<double> CheckModelValueDouble2 { get; }
+        public IReadOnlyReactiveProperty<int> CheckModelValueInt2 { get; }
+        public IReadOnlyReactiveProperty<double> CheckModelValueDouble2 { get; }
 
         public TwoWay2ViewModel()
         {

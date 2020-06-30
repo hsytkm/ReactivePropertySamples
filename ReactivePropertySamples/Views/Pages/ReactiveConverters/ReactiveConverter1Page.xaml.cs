@@ -31,12 +31,16 @@ namespace ReactivePropertySamples.Views.Pages
     class ReactiveConverter1ViewModel : MyDisposableBindableBase
     {
         public MouseEventCounter MouseEventCounter { get; } = new MouseEventCounter();
-        public ReactiveProperty<Unit> PreviewMouseDownUnit { get; } = new ReactiveProperty<Unit>(mode:ReactivePropertyMode.None);
-        public ReactiveProperty<Unit> MouseDownUnit { get; } = new ReactiveProperty<Unit>(mode: ReactivePropertyMode.None);
-        public ReactiveProperty<Unit> MouseUpUnit { get; } = new ReactiveProperty<Unit>(mode: ReactivePropertyMode.None);
-        public ReactiveProperty<Unit> PreviewMouseUpUnit { get; } = new ReactiveProperty<Unit>(mode: ReactivePropertyMode.None);
+        public IReactiveProperty<Unit> PreviewMouseDownUnit { get; } =
+            new ReactiveProperty<Unit>(mode:ReactivePropertyMode.None);
+        public IReactiveProperty<Unit> MouseDownUnit { get; } =
+            new ReactiveProperty<Unit>(mode: ReactivePropertyMode.None);
+        public IReactiveProperty<Unit> MouseUpUnit { get; } =
+            new ReactiveProperty<Unit>(mode: ReactivePropertyMode.None);
+        public IReactiveProperty<Unit> PreviewMouseUpUnit { get; } =
+            new ReactiveProperty<Unit>(mode: ReactivePropertyMode.None);
 
-        public ReactiveProperty<Point> MouseMovePoint { get; } = new ReactiveProperty<Point>();
+        public IReactiveProperty<Point> MouseMovePoint { get; } = new ReactiveProperty<Point>();
 
         public ReactiveConverter1ViewModel()
         {

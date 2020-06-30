@@ -32,19 +32,32 @@ namespace ReactivePropertySamples.Views.Pages
             new ModelCollectionFamily("Fujita"),
         };
 
-        public ReactiveProperty<ModelCollectionFamily> SelectedFamily { get; } =
+        public IReactiveProperty<ModelCollectionFamily> SelectedFamily { get; } =
             new ReactiveProperty<ModelCollectionFamily>();
 
         public ReactiveCommand ClearSelectCommand { get; }
         public ReactiveCommand AddBabyCommand { get; }
 
         // 家族の子供たち。家族の選択状態に応じて、これを更新したい
-        public ReactiveCollection<string> ChildrenSource
+        public ReadOnlyReactiveCollection<string> ChildrenSource
         {
             get => _childrenSource;
-            private set => SetProperty(ref _childrenSource, value);
+            private set
+            {
+                // fieldの上書き前にDisposeする
+                if (!Equals(_childrenSource, value))
+                {
+                    if (_childrenSource != null)
+                    {
+                        _childrenSource.Dispose();
+                        if (CompositeDisposable.Contains(_childrenSource))
+                            CompositeDisposable.Remove(_childrenSource);
+                    }
+                    SetProperty(ref _childrenSource, value);
+                }
+            }
         }
-        private ReactiveCollection<string> _childrenSource;
+        private ReadOnlyReactiveCollection<string> _childrenSource;
 
         public ModelCollectionChainViewModel()
         {
@@ -58,30 +71,12 @@ namespace ReactivePropertySamples.Views.Pages
                 .ToReactiveCommand()
                 .WithSubscribe(() => SelectedFamily.Value.AddChild(), CompositeDisposable.Add);
 
-            // このノリで実装したいけど、入れ子になるのでビルド通らない
-            //ChildrenSource = SelectedFamily
-            //    .Select(x => x.Children)
-            //    .ToReadOnlyReactiveCollection()
-            //    .AddTo(CompositeDisposable);
-
-            // これ以外の実装が思い浮かばない。Dipsoseとか無理やりで納得いっていない…
-            //SelectedFamily
-            //    .Do(_ => ChildrenSource?.Dispose())
-            //    .Do(_ => ChildrenSource = null)
-            //    .Where(x => x != null)
-            //    .Select(x => ChildrenSource = x.Children.ToReadOnlyReactiveCollection().AddTo(CompositeDisposable))
-            //    .Subscribe()
-            //    .AddTo(CompositeDisposable);
-
-            // これやと選択変化時は更新されるけど、変更通知が来ないしなぁ…
-            ChildrenSource = SelectedFamily
-                .Select(x => x?.Children)
-                .Do(x => ChildrenSource?.Clear())
-                .Where(x => x != null)
-                .SelectMany(x => x)
-                .ToReactiveCollection()
+            // VM.Dispose() に備えて、CompositeDisposable に常に追加しておく
+            // ◆これ以外の実装が思い浮かばない。もう少しシンプルにならんかなぁ。Disposeを考えたくない。
+            SelectedFamily
+                .Select(x => ChildrenSource = x?.Children.ToReadOnlyReactiveCollection().AddTo(CompositeDisposable))
+                .Subscribe()
                 .AddTo(CompositeDisposable);
-
         }
     }
 
@@ -94,7 +89,6 @@ namespace ReactivePropertySamples.Views.Pages
             Name = name;
             Children = new ObservableCollection<string>(children);
         }
-
         public void AddChild() => Children.Add("baby");
     }
 }

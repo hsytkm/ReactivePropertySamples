@@ -39,7 +39,7 @@
 
         <TextBlock Margin="30,0"
                    FontSize="{StaticResource FontSizeMiddle}"
-                   Text="{Binding Counter.Value, Mode=OneWay, StringFormat='Using resource count :  {0}'}" />
+                   Text="{Binding Counter.Count, Mode=OneWay, StringFormat='Using resource count :  {0}'}" />
         
     </DockPanel>
 </ctrl:MyPageControl>

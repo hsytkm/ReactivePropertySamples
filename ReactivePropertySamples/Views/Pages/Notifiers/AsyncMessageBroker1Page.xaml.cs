@@ -76,9 +76,7 @@ namespace ReactivePropertySamples.Views.Pages
             UnsubscribeCommand = disposableProperty
                 .Select(x => x != null)
                 .ToReactiveCommand()
-                .AddTo(CompositeDisposable);
-            UnsubscribeCommand
-                .Subscribe(() =>
+                .WithSubscribe(() =>
                 {
                     disposableProperty.Value?.Dispose();
                     disposableProperty.Value = null;

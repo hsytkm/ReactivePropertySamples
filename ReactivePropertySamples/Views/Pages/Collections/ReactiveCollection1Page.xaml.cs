@@ -27,11 +27,10 @@ namespace ReactivePropertySamples.Views.Pages
 
         public ReactiveCollection1ViewModel()
         {
-            AddCommand = new ReactiveCommand()
-                .AddTo(CompositeDisposable);
+            AddCommand = new ReactiveCommand().AddTo(CompositeDisposable);
 
-            // ReactiveCommand から ReactiveCollection<T> を作成
-            // これまであまり使ったことない。逆パターンの方が良いのでは？　と思う
+            // ReactiveCommand（正確には IObservable<T>） から ReactiveCollection<T> を作成
+            // この場合やったら、ReadOnlyReactiveCollection<T> の方がスッキリする。我ながら例が悪い。
             SourceValues = AddCommand
                 .Select(_ => DateTime.Now.ToString("hh:mm:ss.ff"))
                 .ToReactiveCollection()
@@ -41,24 +40,18 @@ namespace ReactivePropertySamples.Views.Pages
             RemoveCommand = SourceValues
                 .CollectionChangedAsObservable()
                 .Select(_ => SourceValues.Any())
-                .ToReactiveCommand()
-                .AddTo(CompositeDisposable);
-            RemoveCommand
-                .Subscribe(_ => SourceValues.RemoveAt(0))
-                .AddTo(CompositeDisposable);
+                .ToReactiveCommand(initialValue: false)
+                .WithSubscribe(() => SourceValues.RemoveAt(0), CompositeDisposable.Add);
 
             ClearCommand = SourceValues
                 .CollectionChangedAsObservable()
                 .Select(_ => SourceValues.Any())
-                .ToReactiveCommand()
-                .AddTo(CompositeDisposable);
-            ClearCommand
-                .Subscribe(_ => SourceValues.Clear())
-                .AddTo(CompositeDisposable);
+                .ToReactiveCommand(initialValue: false)
+                .WithSubscribe(() => SourceValues.Clear(), CompositeDisposable.Add);
 
             // Remove 達の CanExecute を false にするため、コレクションを操作する
-            // ◆もっと良い実装ない？
-            SourceValues.Clear();
+            // ◆もっと良い実装ない？  ⇒  initialValue: false の実装に変えた。
+            //SourceValues.Clear();    
         }
     }
 }

@@ -24,6 +24,7 @@ namespace ReactivePropertySamples.Views.Pages
 
         public AsyncReactiveCommand1ViewModel()
         {
+            // インスタンス作ってから Subscribe するパターン
             ButtonClickAsyncCommand1 = new AsyncReactiveCommand()
                 .AddTo(CompositeDisposable);
             ButtonClickAsyncCommand1

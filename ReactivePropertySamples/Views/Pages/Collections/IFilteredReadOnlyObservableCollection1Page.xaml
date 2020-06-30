@@ -28,9 +28,16 @@
         <ctrl:MyPageTitle DockPanel.Dock="Top"
                           DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
 
-        <Button DockPanel.Dock="Top" Margin="10" Padding="10,5"
-                Content="Add item"
-                Command="{Binding AddCommand, Mode=OneTime}" />
+        <Grid DockPanel.Dock="Top" Margin="10" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Padding="10,5"
+                    Content="Add item" Command="{Binding AddCommand, Mode=OneTime}" />
+            <Button Grid.Column="1" Padding="10,5"
+                    Content="Clear items" Command="{Binding ClearCommand, Mode=OneTime}" />
+        </Grid>
 
         <Grid Margin="10,0" >
             <Grid.ColumnDefinitions>

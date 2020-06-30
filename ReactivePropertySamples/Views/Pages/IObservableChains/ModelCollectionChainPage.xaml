@@ -21,15 +21,13 @@
     <ctrl:MyPageControl.Keywords>
         <x:Array Type="{x:Type system:String}" >
             <system:String>CombineLatestValuesAreAllTrue</system:String>
+            <system:String>◆実装悩み</system:String>
         </x:Array>
     </ctrl:MyPageControl.Keywords>
 
     <DockPanel Margin="5" >
         <ctrl:MyPageTitle DockPanel.Dock="Top"
                           DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
-
-        <TextBlock DockPanel.Dock="Top" FontWeight="Bold" Foreground="Red" Margin="20,20,20,0" FontSize="{StaticResource FontSizeLarge}"
-                   Text="調査中…" />
 
         <StackPanel DockPanel.Dock="Left" Margin="10" MinWidth="160" >
             <TextBlock Margin="0,5"

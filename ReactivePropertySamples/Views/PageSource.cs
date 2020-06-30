@@ -13,42 +13,58 @@ namespace ReactivePropertySamples.Views
         {
             /* 未対応
              *  CatchIgnore ErrorChangedAsObservable 
-             *  ObserveErrorInfo OnErrorRetry ToUnit 
-             *  ReactivePropertySlim
+             *  ObserveErrorInfo OnErrorRetry
              */
-            
-            new PageSource(typeof(ScheduledNotifierLoggerPage)),
-            
-            new PageSource(typeof(ModelCollectionChainPage)),
 
-            new PageSource(typeof(ObservableCollectionScanPage)),
-            new PageSource(typeof(AsyncTaskChainPage)),
-            new PageSource(typeof(ScheduledNotifierPage)),
-            new PageSource(typeof(Validate2Page)),
-            new PageSource(typeof(CanExecuteChangedAsObservablePage)),
-            new PageSource(typeof(AsyncMessageBroker1Page)),
-            new PageSource(typeof(MessageBroker1Page)),
+            // Collections
             new PageSource(typeof(ReactiveCollection1Page)),
-            new PageSource(typeof(IFilteredReadOnlyObservableCollection1Page)),
-            new PageSource(typeof(ReactiveConverter2Page)),
-            new PageSource(typeof(ReactiveConverter1Page)),
-            new PageSource(typeof(ReactiveProperty2Page)),
-            new PageSource(typeof(ObserveElementPropertyChanged1Page)),
-            new PageSource(typeof(ObserveElementProperty1Page)),
-            new PageSource(typeof(ReadOnlyReactiveCollection1Page)),
             new PageSource(typeof(ReactiveCollection2Page)),
-            new PageSource(typeof(TwoWay2Page)),
-            new PageSource(typeof(Validate1Page)),
-            new PageSource(typeof(CountNotifierPage)),
+            new PageSource(typeof(ReadOnlyReactiveCollection1Page)),
+            new PageSource(typeof(ReadOnlyReactiveCollection2Page)),
+            new PageSource(typeof(IFilteredReadOnlyObservableCollection1Page)),
+            new PageSource(typeof(ObserveElementProperty1Page)),
+            new PageSource(typeof(ObserveElementPropertyChanged1Page)),
+
+            // Commands
             new PageSource(typeof(ReactiveCommand1Page)),
-            new PageSource(typeof(BusyNotifierPage)),
-            new PageSource(typeof(FromPocoMode1Page)),
-            new PageSource(typeof(CombineAllValuePage)),
-            new PageSource(typeof(BooleanNotifierPage)),
-            new PageSource(typeof(TwoWay1Page)),
             new PageSource(typeof(AsyncReactiveCommand1Page)),
-            new PageSource(typeof(ObserveProperty1Page)),
+            new PageSource(typeof(CanExecuteChangedAsObservablePage)),
+
+            // IObservableChains
+            new PageSource(typeof(CombineAllValuePage)),
+            new PageSource(typeof(AsyncTaskChainPage)),
+            new PageSource(typeof(ModelCollectionChainPage)),
+            new PageSource(typeof(ObservableCollectionScanPage)),
+
+            // IReactiveProperties
             new PageSource(typeof(ReactiveProperty1Page)),
+            new PageSource(typeof(ReactiveProperty2Page)),
+            new PageSource(typeof(ObserveProperty1Page)),
+            new PageSource(typeof(FromPocoMode1Page)),
+            new PageSource(typeof(ReactivePropertySlim1Page)),
+            
+            // Notifiers
+            new PageSource(typeof(BooleanNotifierPage)),
+            new PageSource(typeof(BusyNotifierPage)),
+            new PageSource(typeof(CountNotifierPage)),
+            new PageSource(typeof(MessageBroker1Page)),
+            new PageSource(typeof(AsyncMessageBroker1Page)),
+            new PageSource(typeof(ScheduledNotifierPage)),
+            new PageSource(typeof(ScheduledNotifierLoggerPage)),
+
+            // ReactiveConverters
+            new PageSource(typeof(ReactiveConverter1Page)),
+            new PageSource(typeof(ReactiveConverter2Page)),
+            new PageSource(typeof(ReactiveConverter3Page)),
+            new PageSource(typeof(ReactiveConverter4Page)),
+
+            // Synchronizations
+            new PageSource(typeof(TwoWay1Page)),
+            new PageSource(typeof(TwoWay2Page)),
+
+            // Validations
+            new PageSource(typeof(Validate1Page)),
+            new PageSource(typeof(Validate2Page)),
 
             //new PageSource(typeof(BlankPage), "Title", "Subtitle", "Description"),
         }

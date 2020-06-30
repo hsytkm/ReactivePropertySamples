@@ -28,7 +28,7 @@ namespace ReactivePropertySamples.Views.Pages
 
     class ScheduledNotifierLoggerViewModel : MyDisposableBindableBase
     {
-        private readonly LogMessageNotifier _logger  = new LogMessageNotifier();
+        private readonly MyLogMessageNotifier _logger  = new MyLogMessageNotifier();
         public ReadOnlyReactiveCollection<LogMessage> AllLogs { get; }
         public ReadOnlyReactiveCollection<LogMessage> ErrorLogs { get; }
         public ReactiveCommand OnUIThreadCommand { get; }
@@ -67,13 +67,13 @@ namespace ReactivePropertySamples.Views.Pages
 
             // 全てのログ
             AllLogs = _logger
-                .ToReadOnlyReactiveCollection()
+                .ToReadOnlyReactiveCollection(onReset: ClearErrorLogsCommand.ToUnit())
                 .AddTo(CompositeDisposable);
 
             // Warn以上のログ (ReactiveCommand.ToUnit() を渡すせば要素をクリアできる）
             ErrorLogs = _logger
                 .Where(x => x.Level >= LogLevel.Warn)
-                .ToReadOnlyReactiveCollection(ClearErrorLogsCommand.ToUnit())
+                .ToReadOnlyReactiveCollection(onReset: ClearErrorLogsCommand.ToUnit())
                 .AddTo(CompositeDisposable);
         }
     }
@@ -135,10 +135,10 @@ namespace ReactivePropertySamples.Views.Pages
         public static LogMessage CreateFatalLog(string message, Exception e = null) => new LogMessage(message, LogLevel.Fatal, e);
     }
 
-    class LogMessageNotifier : ScheduledNotifier<LogMessage>, ILogger
+    class MyLogMessageNotifier : ScheduledNotifier<LogMessage>, ILogger
     {
-        public LogMessageNotifier(IScheduler scheduler) : base(scheduler) { }
-        public LogMessageNotifier() : base() { }
+        public MyLogMessageNotifier(IScheduler scheduler) : base(scheduler) { }
+        public MyLogMessageNotifier() : base() { }
 
         public void Trace(string message) => Report(LogMessage.CreateTraceLog(message));
         public void Debug(string message) => Report(LogMessage.CreateDebugLog(message));

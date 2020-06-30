@@ -16,13 +16,13 @@ namespace ReactivePropertySamples.Views.Pages
 
     class TwoWay1ViewModel : MyDisposableBindableBase
     {
-        private readonly TwoWay1Model _model = new TwoWay1Model();
-
-        public ReactiveProperty<bool> IsFunctionEnable { get; }
+        public IReactiveProperty<bool> IsFunctionEnable { get; }
 
         public TwoWay1ViewModel()
         {
-            IsFunctionEnable = _model
+            var model = new TwoWay1Model();
+
+            IsFunctionEnable = model
                 .ToReactivePropertyAsSynchronized(x => x.UserSettingFlag)
                 .AddTo(CompositeDisposable);
         }

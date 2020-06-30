@@ -1,4 +1,5 @@
 ﻿using Reactive.Bindings.Extensions;
+using ReactivePropertySamples.Extensions;
 using ReactivePropertySamples.Infrastructures;
 using System;
 using System.Collections.Generic;
@@ -68,20 +69,13 @@ namespace ReactivePropertySamples.Views.Pages
 
     class ObserveElementProperty1ViewModel : MyDisposableBindableBase
     {
-        public ObservableCollection<DQPlayer> Players { get; } =
-            new ObservableCollection<DQPlayer>(DQPlayer.Party);
+        public ObservableCollection<DQPlayer> Players { get; } = DQPlayer.Party.ToObservableCollection();
 
         // ◆StringBuilder を使ったけど、Rp でログを TextBox に表示するには、どう実装するのだろうか…
         public StringBuilder PlayersStatusLog { get; } = new StringBuilder();
 
         public ObserveElementProperty1ViewModel()
         {
-            // 各プロパティの変更を監視する（知れるのは インスタンス と 変化プロパティ で、変更後の値 は取れなさげ）
-            //Players.ObserveElementPropertyChanged()
-            //    //.Do(x => Debug.WriteLine($"{x.Sender.Name} は {x.EventArgs.PropertyName} が上がった。"))
-            //    .Subscribe(x => Debug.WriteLine($"ObserveElementPropertyChanged() : {x.EventArgs} {x.Sender}"))
-            //    .AddTo(CompositeDisposable);
-
             // 特定のプロパティの変更を監視する (LV変化時に HP/MP も表示)
             Players.ObserveElementProperty(x => x.Lv)
                 .Where(x => x.Value > 1)

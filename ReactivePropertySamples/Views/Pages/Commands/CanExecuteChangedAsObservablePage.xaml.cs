@@ -30,19 +30,15 @@ namespace ReactivePropertySamples.Views.Pages
         public ReactiveProperty<bool> IsChecked1 { get; } = new ReactiveProperty<bool>();
         public ReactiveProperty<bool> IsChecked2 { get; } = new ReactiveProperty<bool>();
         public ReactiveCommand IncrementCommand { get; }
-        public ReadOnlyReactiveProperty<bool> CanExecuteIncrementCommand { get; }
-        public ReactiveProperty<int> Counter { get; } = new ReactiveProperty<int>();
+        public IReadOnlyReactiveProperty<bool> CanExecuteIncrementCommand { get; }
+        public CountNotifier Counter { get; } = new CountNotifier();
 
         public CanExecuteChangedAsObservableViewModel()
         {
             IncrementCommand = new[] { IsChecked1, IsChecked2 }
                 .CombineLatestValuesAreAllTrue()
                 .ToReactiveCommand()
-                .AddTo(CompositeDisposable);
-
-            IncrementCommand
-                .Subscribe(() => ++Counter.Value)
-                .AddTo(CompositeDisposable);
+                .WithSubscribe(() => Counter.Increment(), CompositeDisposable.Add);
 
             CanExecuteIncrementCommand = IncrementCommand.CanExecuteChangedAsObservable()
                 .Select(_ => IncrementCommand.CanExecute())

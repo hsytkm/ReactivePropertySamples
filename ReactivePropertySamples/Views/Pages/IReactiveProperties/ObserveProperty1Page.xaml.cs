@@ -21,16 +21,14 @@ namespace ReactivePropertySamples.Views.Pages
 
     class ObserveProperty1ViewModel : MyDisposableBindableBase
     {
-        private readonly ObserveProperty1Model _model;
         public StringBuilder LogBuilder { get; } = new StringBuilder();
 
         public ObserveProperty1ViewModel()
         {
-            _model = new ObserveProperty1Model();
-            CompositeDisposable.Add(_model);
+            var model = new ObserveProperty1Model().AddTo(CompositeDisposable);
 
             // Model のプロパティを購読
-            _model.ObserveProperty(x => x.EventLog)
+            model.ObserveProperty(x => x.EventLog)
                 .Subscribe(x =>
                 {
                     LogBuilder.Insert(0, x + Environment.NewLine);

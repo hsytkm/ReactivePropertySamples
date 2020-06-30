@@ -25,7 +25,7 @@ namespace ReactivePropertySamples.Views.Pages
         }
     }
 
-    class ValueHolder : MyDisposableBindableBase
+    class ValueHolder : MyDisposableBindableBase, IDisposable
     {
         public int Id { get; }
         public int Value
@@ -44,22 +44,31 @@ namespace ReactivePropertySamples.Views.Pages
                 .Subscribe(_ => ++Value)
                 .AddTo(CompositeDisposable);
         }
+
+        public override void Dispose()
+        {
+            Debug.WriteLine($"ValueHolder.Dispose() : {Id}");   // Disposeチェック用
+            base.Dispose();
+        }
     }
 
     class IFilteredReadOnlyObservableCollection1ViewModel : MyDisposableBindableBase
     {
         public ReactiveCommand AddCommand { get; }
-        public ReactiveCollection<ValueHolder> SourceValues { get; }
+        public ReactiveCommand ClearCommand { get; }
+
+        // ReadOnlyReactiveCollection は、Clear() 時にキッチリ Dispose してくれる
+        public ReadOnlyReactiveCollection<ValueHolder> SourceValues { get; }
         public IFilteredReadOnlyObservableCollection<ValueHolder> FilteredValues { get; }
 
         public IFilteredReadOnlyObservableCollection1ViewModel()
         {
-            AddCommand = new ReactiveCommand()
-                .AddTo(CompositeDisposable);
+            AddCommand = new ReactiveCommand().AddTo(CompositeDisposable);
+            ClearCommand = new ReactiveCommand().AddTo(CompositeDisposable);
 
             SourceValues = AddCommand
                 .Select(_ => new ValueHolder(SourceValues.Count))
-                .ToReactiveCollection()
+                .ToReadOnlyReactiveCollection(onReset: ClearCommand.ToUnit())
                 .AddTo(CompositeDisposable);
 
             FilteredValues = SourceValues

@@ -19,7 +19,7 @@ namespace ReactivePropertySamples.Views.Pages
 
     class BooleanNotifierViewModel : MyDisposableBindableBase
     {
-        public ReactiveProperty<double> InputValue { get; }
+        public IReactiveProperty<double> InputValue { get; }
             = new ReactiveProperty<double>(initialValue: 6);
 
         // 2の倍数チェック

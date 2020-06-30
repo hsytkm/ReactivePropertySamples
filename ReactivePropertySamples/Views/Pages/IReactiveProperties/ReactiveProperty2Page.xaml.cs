@@ -29,8 +29,9 @@ namespace ReactivePropertySamples.Views.Pages
 
     class ReactiveProperty2ViewModel : MyDisposableBindableBase
     {
+        // 大文字/小文字の差であれば、値を更新しない。変更通知が発行されない。
         // Can change comparer logic by the equalityComparer argument of constructor and factory methods.
-        public ReactiveProperty<string> InputText { get; } =
+        public IReactiveProperty<string> InputText { get; } =
             new ReactiveProperty<string>(equalityComparer: new IgnoreCaseComparer());
 
         public ICommand SetStringCommand => _setStringCommand ??=
@@ -48,7 +49,6 @@ namespace ReactivePropertySamples.Views.Pages
                     NotifyPropertyChanged(nameof(OutputTexts));
                 })
                 .AddTo(CompositeDisposable);
-
         }
     }
 }
