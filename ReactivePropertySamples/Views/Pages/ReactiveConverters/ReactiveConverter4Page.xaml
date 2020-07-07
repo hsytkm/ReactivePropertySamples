@@ -24,9 +24,8 @@
     <ctrl:MyPageControl.Keywords>
         <x:Array Type="{x:Type system:String}" >
             <system:String>EventToReactiveProperty</system:String>
-            <system:String>Mouse Doble Click</system:String>
-            <system:String>マウスダブルクリック</system:String>
-            <system:String>◆実装中</system:String>
+            <system:String>Mouse DobleClick</system:String>
+            <system:String>TimeInterval()</system:String>
         </x:Array>
     </ctrl:MyPageControl.Keywords>
 
@@ -37,10 +36,6 @@
         <TextBlock DockPanel.Dock="Top" Margin="20,20,20,0"
                    FontSize="{StaticResource FontSizeMiddle}"
                    Text="ダブルクリック判定（左：WPF標準イベント、右：自作Rx）" />
-
-        <TextBlock DockPanel.Dock="Top" Margin="20,0"
-                   FontSize="{StaticResource FontSizeMiddle}" FontWeight="Bold" Foreground="Red"
-                   Text="◆実装中" />
 
         <Grid Margin="30,10" >
             <Grid.Resources>
@@ -66,9 +61,6 @@
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
                         <rp:EventToReactiveProperty ReactiveProperty="{Binding MouseDownUnit, Mode=OneTime}" IgnoreEventArgs="True" />
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="MouseUp">
-                        <rp:EventToReactiveProperty ReactiveProperty="{Binding MouseUpUnit, Mode=OneTime}" IgnoreEventArgs="True" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 

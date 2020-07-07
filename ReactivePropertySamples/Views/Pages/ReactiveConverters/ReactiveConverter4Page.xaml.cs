@@ -34,31 +34,33 @@ namespace ReactivePropertySamples.Views.Pages
 
         public IReactiveProperty<Unit> MouseDownUnit { get; } =
             new ReactiveProperty<Unit>(mode: ReactivePropertyMode.None);
-        public IReactiveProperty<Unit> MouseUpUnit { get; } =
-            new ReactiveProperty<Unit>(mode: ReactivePropertyMode.None);
 
         public ReactiveConverter4ViewModel()
         {
-            // ◆ダブルクリック実装中…
+            // Reactive Framework / DoubleClick https://stackoverflow.com/questions/5228364/reactive-framework-doubleclick
 
-            // ダブルクリックイベントの自作  http://y-maeyama.hatenablog.com/entry/20110313/1300002095
-            var preDoubleClick = MouseDownUnit
-                //.Do(x => Debug.WriteLine($"SingleClick: {x.Time} {x.Point.X} x {x.Point.Y}"))
-                .Select(_ => DateTime.Now)
-                .Pairwise()
-                .Select(pair => pair.NewItem.Subtract(pair.OldItem))
-                .Where(span => span <= TimeSpan.FromMilliseconds(500))
-                .Select(_ => DateTime.Now)
-                .ToReadOnlyReactivePropertySlim(mode: ReactivePropertyMode.RaiseLatestValueOnSubscribe)
-                .AddTo(CompositeDisposable);
+            // ダブクリの判定にローカル変数を使ってるのがイマイチ…
+            var eventAcceptedTime = DateTime.Now;
 
-            // ダブルクリックの2回が、3クリック目で2度目のダブルクリックになる対策
-            // (ダブルクリック後に一定時間が経過するまでダブルクリックを採用しない)
-            preDoubleClick
-                .Pairwise()
-                .Select(pair => pair.NewItem.Subtract(pair.OldItem))
-                .Where(span => span >= TimeSpan.FromMilliseconds(200))
-                .ToUnit()
+            MouseDownUnit
+                .TimeInterval()
+                .Skip(1)
+                .Where(ti =>
+                {
+                    // 前回の MouseDown から一定時間が経過していればダブクリと言わない
+                    if (ti.Interval > TimeSpan.FromMilliseconds(500))
+                        return false;
+
+                    var now = DateTime.Now;
+
+                    // 前回のダブクリ受付から一定時間が経過するまでは、次のダブクリを受け付けない
+                    if (now - eventAcceptedTime < TimeSpan.FromMilliseconds(500))
+                        return false;
+
+                    // ダブクリ受付時間の更新
+                    eventAcceptedTime = now;
+                    return true;
+                })
                 .Subscribe(_ => MouseDoubleClickCounter.Increment())
                 .AddTo(CompositeDisposable);
         }
