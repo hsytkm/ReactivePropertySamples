@@ -44,16 +44,16 @@ namespace ReactivePropertySamples.Views.Pages
             get => _childrenSource;
             private set
             {
-                // fieldの上書き前にDisposeする
-                if (!Equals(_childrenSource, value))
+                var oldItem = _childrenSource;
+                if (SetProperty(ref _childrenSource, value))
                 {
-                    if (_childrenSource != null)
+                    // 古いアイテムをDisposeする
+                    if (oldItem != null)
                     {
-                        _childrenSource.Dispose();
-                        if (CompositeDisposable.Contains(_childrenSource))
-                            CompositeDisposable.Remove(_childrenSource);
+                        oldItem.Dispose();
+                        if (CompositeDisposable.Contains(oldItem))
+                            CompositeDisposable.Remove(oldItem);
                     }
-                    SetProperty(ref _childrenSource, value);
                 }
             }
         }

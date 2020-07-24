@@ -23,6 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\Pages\Collections\AggregateItemsPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\IObservableChains\ObservableCollectionScanPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -128,6 +131,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Views\Pages\Collections\AggregateItemsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Pages\IObservableChains\ObservableCollectionScanPage.xaml">
       <SubType>Designer</SubType>
     </Page>

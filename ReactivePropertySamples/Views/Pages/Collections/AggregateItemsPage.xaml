@@ -1,0 +1,146 @@
+﻿<ctrl:MyPageControl
+    x:Class="ReactivePropertySamples.Views.Pages.AggregateItemsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:local="clr-namespace:ReactivePropertySamples.Views.Pages"
+    xmlns:ctrl="clr-namespace:ReactivePropertySamples.Views.Controls"
+    mc:Ignorable="d" 
+    d:DesignHeight="450" d:DesignWidth="800" >
+
+    <ctrl:MyPageControl.Subtitle>
+        Aggregate Collection Items
+    </ctrl:MyPageControl.Subtitle>
+
+    <ctrl:MyPageControl.Description>
+        複数の Collection の 各要素 を 1つの Collection にまとめる。
+    </ctrl:MyPageControl.Description>
+
+    <ctrl:MyPageControl.Keywords>
+        <x:Array Type="{x:Type system:String}" >
+            <system:String>ObserveAddChangedItems()</system:String>
+        </x:Array>
+    </ctrl:MyPageControl.Keywords>
+
+    <ctrl:MyPageControl.Resources>
+        <DataTemplate x:Key="colorListTemplate" >
+            <StackPanel Orientation="Horizontal" Width="55" Height="25" Margin="3"
+                        Background="{Binding Color, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" >
+                <CheckBox VerticalAlignment="Center" Margin="5,0"
+                          Command="{Binding ReverseCommand, Mode=OneTime}" />
+                <Button VerticalAlignment="Center" Content="Del" FontSize="10" Padding="3,0" >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click" >
+                            <i:RemoveItemInListBoxAction  />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </StackPanel>
+        </DataTemplate>
+        <ItemsPanelTemplate x:Key="colorListPanelTemplate" >
+            <WrapPanel />
+        </ItemsPanelTemplate>
+        <Style x:Key="colorsControlStyle" TargetType="{x:Type ItemsControl}" >
+            <Setter Property="Margin" Value="0,0,0,10" />
+            <Setter Property="Background" Value="LightGray" />
+            <Setter Property="ItemTemplate" Value="{StaticResource colorListTemplate}" />
+            <Setter Property="ItemsPanel" Value="{StaticResource colorListPanelTemplate}" />
+        </Style>
+        <Style x:Key="addButtonStyle" TargetType="{x:Type Button}" >
+            <Setter Property="Margin" Value="2,5,2,0" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="25" />
+            <Setter Property="Content" Value="Add" />
+        </Style>
+        <Style x:Key="clearButtonStyle" TargetType="{x:Type Button}"
+               BasedOn="{StaticResource addButtonStyle}">
+            <Setter Property="Content" Value="Clear" />
+        </Style>
+        <Style x:Key="titleTextBlockStyle" TargetType="{x:Type TextBlock}" >
+            <Setter Property="FontSize" Value="{StaticResource FontSizeMiddle}" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Margin" Value="0,0,0,5" />
+        </Style>
+    </ctrl:MyPageControl.Resources>
+
+    <DockPanel Margin="5" >
+        <ctrl:MyPageTitle DockPanel.Dock="Top"
+                          DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
+
+        <Grid Margin="10" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Style="{StaticResource titleTextBlockStyle}"
+                           Text="Source Colors" />
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" >
+                    <Button Style="{StaticResource addButtonStyle}"
+                            Command="{Binding Parents[0].AddItemCommand, Mode=OneTime}" />
+                    <Button Style="{StaticResource clearButtonStyle}"
+                            Command="{Binding Parents[0].ClearItemsCommand, Mode=OneTime}" />
+                </StackPanel>
+                <ItemsControl Grid.Row="2" Style="{StaticResource colorsControlStyle}"
+                              ItemsSource="{Binding Parents[0].Items}" />
+
+                <StackPanel Grid.Row="3" Orientation="Horizontal" >
+                    <Button Style="{StaticResource addButtonStyle}"
+                            Command="{Binding Parents[1].AddItemCommand, Mode=OneTime}" />
+                    <Button Style="{StaticResource clearButtonStyle}"
+                            Command="{Binding Parents[1].ClearItemsCommand, Mode=OneTime}" />
+                </StackPanel>
+                <ItemsControl Grid.Row="4" Style="{StaticResource colorsControlStyle}"
+                              ItemsSource="{Binding Parents[1].Items}" />
+
+                <StackPanel Grid.Row="5" Orientation="Horizontal" >
+                    <Button Style="{StaticResource addButtonStyle}"
+                            Command="{Binding Parents[2].AddItemCommand, Mode=OneTime}" />
+                    <Button Style="{StaticResource clearButtonStyle}"
+                            Command="{Binding Parents[2].ClearItemsCommand, Mode=OneTime}" />
+                </StackPanel>
+                <ItemsControl Grid.Row="6" Style="{StaticResource colorsControlStyle}"
+                              ItemsSource="{Binding Parents[2].Items}" />
+            </Grid>
+
+            <Grid Grid.Column="1" Margin="10,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Style="{StaticResource titleTextBlockStyle}"
+                           Text="Aggregate Colors" />
+
+                <ItemsControl Grid.Row="1" Background="LightGray"
+                              ItemsPanel="{StaticResource colorListPanelTemplate}" 
+                              ItemsSource="{Binding AggregateItems, Mode=OneWay}" >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Width="55" Height="20" Margin="3"
+                                    Background="{Binding Color, Mode=OneWay, Converter={StaticResource ColorToBrushConverter}}" >
+                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Text="{Binding GroupName, Mode=OneTime}" />
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</ctrl:MyPageControl>
