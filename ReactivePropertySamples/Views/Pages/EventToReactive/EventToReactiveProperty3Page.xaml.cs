@@ -12,16 +12,16 @@ using System.Windows;
 
 namespace ReactivePropertySamples.Views.Pages
 {
-    public partial class ReactiveConverter3Page : Controls.MyPageControl
+    public partial class EventToReactiveProperty3Page : Controls.MyPageControl
     {
-        public ReactiveConverter3Page()
+        public EventToReactiveProperty3Page()
         {
             InitializeComponent();
-            DataContext = new ReactiveConverter3ViewModel();
+            DataContext = new EventToReactiveProperty3ViewModel();
         }
     }
 
-    class ReactiveConverter3ViewModel : MyDisposableBindableBase
+    class EventToReactiveProperty3ViewModel : MyDisposableBindableBase
     {
         public BooleanNotifier MouseLongPushing1 { get; } = new BooleanNotifier(false);
         public IReactiveProperty<bool> MouseLongPushing2 { get; }
@@ -32,7 +32,7 @@ namespace ReactivePropertySamples.Views.Pages
         public IReactiveProperty<Unit> MouseUpUnit { get; } =
             new ReactiveProperty<Unit>(mode: ReactivePropertyMode.None);
 
-        public ReactiveConverter3ViewModel()
+        public EventToReactiveProperty3ViewModel()
         {
             // Throttleメソッドは指定した間、新たな値が発行されなかったら最後に発行された値を後続に流す
             var pushingSpanMsec = 300.0;

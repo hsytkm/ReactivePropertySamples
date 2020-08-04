@@ -1,5 +1,5 @@
 ﻿<ctrl:MyPageControl
-    x:Class="ReactivePropertySamples.Views.Pages.ReactiveConverter2Page"
+    x:Class="ReactivePropertySamples.Views.Pages.EventToReactiveProperty2Page"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

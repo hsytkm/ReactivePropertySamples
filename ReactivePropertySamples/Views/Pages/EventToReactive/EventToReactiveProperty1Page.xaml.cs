@@ -11,12 +11,12 @@ using System.Windows;
 
 namespace ReactivePropertySamples.Views.Pages
 {
-    public partial class ReactiveConverter1Page : Controls.MyPageControl
+    public partial class EventToReactiveProperty1Page : Controls.MyPageControl
     {
-        public ReactiveConverter1Page()
+        public EventToReactiveProperty1Page()
         {
             InitializeComponent();
-            DataContext = new ReactiveConverter1ViewModel();
+            DataContext = new EventToReactiveProperty1ViewModel();
         }
     }
 
@@ -28,7 +28,7 @@ namespace ReactivePropertySamples.Views.Pages
         public int PreviewMouseUpCounter { get; set; }
     }
 
-    class ReactiveConverter1ViewModel : MyDisposableBindableBase
+    class EventToReactiveProperty1ViewModel : MyDisposableBindableBase
     {
         public MouseEventCounter MouseEventCounter { get; } = new MouseEventCounter();
         public IReactiveProperty<Unit> PreviewMouseDownUnit { get; } =
@@ -40,9 +40,10 @@ namespace ReactivePropertySamples.Views.Pages
         public IReactiveProperty<Unit> PreviewMouseUpUnit { get; } =
             new ReactiveProperty<Unit>(mode: ReactivePropertyMode.None);
 
-        public IReactiveProperty<Point> MouseMovePoint { get; } = new ReactiveProperty<Point>();
+        public IReactiveProperty<Point> MouseMovePoint1 { get; } = new ReactiveProperty<Point>();
+        public IReactiveProperty<Point> MouseMovePoint2 { get; } = new ReactiveProperty<Point>();
 
-        public ReactiveConverter1ViewModel()
+        public EventToReactiveProperty1ViewModel()
         {
             PreviewMouseDownUnit
                 .Select(_ => nameof(PreviewMouseDownUnit).Replace("Unit", ""))

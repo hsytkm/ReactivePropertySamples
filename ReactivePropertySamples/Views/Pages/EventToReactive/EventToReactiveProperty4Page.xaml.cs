@@ -13,14 +13,14 @@ using System.Windows.Input;
 
 namespace ReactivePropertySamples.Views.Pages
 {
-    public partial class ReactiveConverter4Page : Controls.MyPageControl
+    public partial class EventToReactiveProperty4Page : Controls.MyPageControl
     {
-        public ReactiveConverter4Page()
+        public EventToReactiveProperty4Page()
         {
             InitializeComponent();
 
             UpdateTextBlock(0);
-            DataContext = new ReactiveConverter4ViewModel();
+            DataContext = new EventToReactiveProperty4ViewModel();
         }
 
         private int _counter;
@@ -28,14 +28,14 @@ namespace ReactivePropertySamples.Views.Pages
         private void ContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e) => UpdateTextBlock(++_counter);
     }
 
-    class ReactiveConverter4ViewModel : MyDisposableBindableBase
+    class EventToReactiveProperty4ViewModel : MyDisposableBindableBase
     {
         public CountNotifier MouseDoubleClickCounter { get; } = new CountNotifier();
 
         public IReactiveProperty<Unit> MouseDownUnit { get; } =
             new ReactiveProperty<Unit>(mode: ReactivePropertyMode.None);
 
-        public ReactiveConverter4ViewModel()
+        public EventToReactiveProperty4ViewModel()
         {
             // Reactive Framework / DoubleClick https://stackoverflow.com/questions/5228364/reactive-framework-doubleclick
 

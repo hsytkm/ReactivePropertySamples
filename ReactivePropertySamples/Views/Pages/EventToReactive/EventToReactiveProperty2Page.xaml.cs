@@ -11,16 +11,16 @@ using System.Windows;
 
 namespace ReactivePropertySamples.Views.Pages
 {
-    public partial class ReactiveConverter2Page : Controls.MyPageControl
+    public partial class EventToReactiveProperty2Page : Controls.MyPageControl
     {
-        public ReactiveConverter2Page()
+        public EventToReactiveProperty2Page()
         {
             InitializeComponent();
-            DataContext = new ReactiveConverter2ViewModel();
+            DataContext = new EventToReactiveProperty2ViewModel();
         }
     }
 
-    class ReactiveConverter2ViewModel : MyDisposableBindableBase
+    class EventToReactiveProperty2ViewModel : MyDisposableBindableBase
     {
         public IReactiveProperty<Unit> MouseDownUnit { get; } =
             new ReactiveProperty<Unit>(mode: ReactivePropertyMode.None);
@@ -31,7 +31,7 @@ namespace ReactivePropertySamples.Views.Pages
 
         public IReactiveProperty<Point> DragPoint { get; } = new ReactiveProperty<Point>();
 
-        public ReactiveConverter2ViewModel()
+        public EventToReactiveProperty2ViewModel()
         {
             // 前回と最新のマウス位置の差分を流す
             MouseMovePoint

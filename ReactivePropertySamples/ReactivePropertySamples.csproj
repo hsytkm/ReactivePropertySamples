@@ -26,6 +26,9 @@
     <Compile Update="Views\Pages\Collections\AggregateItemsPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Pages\EventToReactive\EventToReactiveCommand1Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\IObservableChains\ObservableCollectionScanPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -89,13 +92,13 @@
     <Compile Update="Views\Pages\Commands\ReactiveCommand1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\ReactiveConverters\ReactiveConverter4Page.xaml.cs">
+    <Compile Update="Views\Pages\EventToReactive\EventToReactiveProperty4Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\ReactiveConverters\ReactiveConverter3Page.xaml.cs">
+    <Compile Update="Views\Pages\EventToReactive\EventToReactiveProperty3Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\ReactiveConverters\ReactiveConverter2Page.xaml.cs">
+    <Compile Update="Views\Pages\EventToReactive\EventToReactiveProperty2Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Pages\IReactiveProperties\ReactiveProperty2Page.xaml.cs">
@@ -113,7 +116,7 @@
     <Compile Update="Views\Pages\Synchronizations\TwoWay2Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\ReactiveConverters\ReactiveConverter1Page.xaml.cs">
+    <Compile Update="Views\Pages\EventToReactive\EventToReactiveProperty1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Pages\Validations\Validate2Page.xaml.cs">
@@ -132,6 +135,9 @@
 
   <ItemGroup>
     <Page Update="Views\Pages\Collections\AggregateItemsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\EventToReactive\EventToReactiveCommand1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\IObservableChains\ObservableCollectionScanPage.xaml">
@@ -197,13 +203,13 @@
     <Page Update="Views\Pages\Commands\ReactiveCommand1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\ReactiveConverters\ReactiveConverter4Page.xaml">
+    <Page Update="Views\Pages\EventToReactive\EventToReactiveProperty4Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\ReactiveConverters\ReactiveConverter3Page.xaml">
+    <Page Update="Views\Pages\EventToReactive\EventToReactiveProperty3Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\ReactiveConverters\ReactiveConverter2Page.xaml">
+    <Page Update="Views\Pages\EventToReactive\EventToReactiveProperty2Page.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\IReactiveProperties\ReactiveProperty2Page.xaml">
@@ -221,7 +227,7 @@
     <Page Update="Views\Pages\Synchronizations\TwoWay2Page.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\ReactiveConverters\ReactiveConverter1Page.xaml">
+    <Page Update="Views\Pages\EventToReactive\EventToReactiveProperty1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\Validations\Validate2Page.xaml">

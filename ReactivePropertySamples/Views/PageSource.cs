@@ -53,11 +53,12 @@ namespace ReactivePropertySamples.Views
             new PageSource(typeof(ScheduledNotifierPage)),
             new PageSource(typeof(ScheduledNotifierLoggerPage)),
 
-            // ReactiveConverters
-            new PageSource(typeof(ReactiveConverter1Page)),
-            new PageSource(typeof(ReactiveConverter2Page)),
-            new PageSource(typeof(ReactiveConverter3Page)),
-            new PageSource(typeof(ReactiveConverter4Page)),
+            // EventToReactive
+            new PageSource(typeof(EventToReactiveProperty1Page)),
+            new PageSource(typeof(EventToReactiveProperty2Page)),
+            new PageSource(typeof(EventToReactiveProperty3Page)),
+            new PageSource(typeof(EventToReactiveProperty4Page)),
+            new PageSource(typeof(EventToReactiveCommand1Page)),
 
             // Synchronizations
             new PageSource(typeof(TwoWay1Page)),

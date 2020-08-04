@@ -24,6 +24,10 @@ namespace ReactivePropertySamples.Views.Pages
         public IReadOnlyReactiveProperty<string> InputText1ErrorMessage { get; }
 
         [Required(ErrorMessage = "Please enter the characters!")]
+        [StringLength(5, ErrorMessage = "Up to 5 characters")]
+        public ReactiveProperty<string> InputText2 { get; }
+
+        [Required(ErrorMessage = "Please enter the characters!")]
         public ReactiveProperty<string> Name { get; }
 
         [Required(ErrorMessage = "Number is required")]
@@ -43,6 +47,10 @@ namespace ReactivePropertySamples.Views.Pages
                 .ObserveErrorChanged
                 .Select(x => x?.Cast<string>()?.FirstOrDefault())   // 正常時は null が入る
                 .ToReadOnlyReactiveProperty()
+                .AddTo(CompositeDisposable);
+
+            InputText2 = new ReactiveProperty<string>()
+                .SetValidateAttribute(() => InputText2)
                 .AddTo(CompositeDisposable);
 
             Name = new ReactiveProperty<string>()

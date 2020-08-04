@@ -33,11 +33,20 @@
         <DockPanel DockPanel.Dock="Top" Margin="20,10" Background="LightBlue" >
             <TextBlock DockPanel.Dock="Top" Margin="5"
                        Text="TextBox の Empty チェック" />
-            <TextBlock DockPanel.Dock="Right" Margin="10,0" Foreground="Red"
-                       Text="{Binding InputText1ErrorMessage.Value, Mode=OneWay}" />
-            <TextBox Margin="15,0,0,5"
-                     Text="{Binding InputText1.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     ToolTip="{Binding (Validation.Errors)/ErrorContent, RelativeSource={RelativeSource Self}}" />
+            <DockPanel DockPanel.Dock="Top" >
+                <TextBlock DockPanel.Dock="Right" Margin="10,0" Foreground="Red"
+                           Text="{Binding InputText1ErrorMessage.Value, Mode=OneWay}" />
+                <TextBox Margin="15,0,0,5"
+                         Text="{Binding InputText1.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         ToolTip="{Binding (Validation.Errors)/ErrorContent, RelativeSource={RelativeSource Self}}" />
+            </DockPanel>
+            <DockPanel DockPanel.Dock="Top" >
+                <TextBlock DockPanel.Dock="Right" Margin="10,0" Foreground="Red"
+                           Text="8文字まで入力できて、5文字超はNG" />
+                <TextBox Margin="15,0,0,5" MaxLength="8"
+                         Text="{Binding InputText2.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         ToolTip="{Binding (Validation.Errors)/ErrorContent, RelativeSource={RelativeSource Self}}" />
+            </DockPanel>
         </DockPanel>
 
         <DockPanel DockPanel.Dock="Top" Margin="20,10" Background="LightPink" >

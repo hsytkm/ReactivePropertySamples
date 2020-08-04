@@ -1,4 +1,6 @@
-﻿using ReactivePropertySamples.Infrastructures;
+﻿using ReactivePropertySamples.Extensions;
+using ReactivePropertySamples.Infrastructures;
+using ReactivePropertySamples.Views.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +30,10 @@ namespace ReactivePropertySamples.Views
             collectionView.Filter = string.IsNullOrEmpty(pattern)
                 ? default(Predicate<object>)                    // clear
                 : x => (x as PageSource).IsContain(pattern);
+
+            // フィルタリング後の先頭アイテムに移動させる
+            if (collectionView.Cast<object>().First() is PageSource page)
+                SelectedPageSource = page;
         });
         private ICommand _filterCommand;
 
