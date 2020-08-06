@@ -22,8 +22,16 @@ namespace ReactivePropertySamples.Views.Pages
 
     class EventToReactiveCommand1ViewModel : MyDisposableBindableBase
     {
+        public IReactiveProperty<Point> MouseMovePoint1 { get; } = new ReactiveProperty<Point>();
+        public ReactiveCommand<Point> MouseMoveCommandFromViewEvents { get; } = new ReactiveCommand<Point>();
+        public IReactiveProperty<string> MouseMoveMessage { get; } = new ReactiveProperty<string>();
+
         public EventToReactiveCommand1ViewModel()
         {
+            MouseMoveCommandFromViewEvents
+                .Subscribe(p => MouseMoveMessage.Value = $"EventToReactiveCommand: {p:f2}")
+                .AddTo(CompositeDisposable);
         }
+
     }
 }
