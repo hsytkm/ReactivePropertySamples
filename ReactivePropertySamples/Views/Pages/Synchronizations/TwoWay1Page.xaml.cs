@@ -23,7 +23,13 @@ namespace ReactivePropertySamples.Views.Pages
             var model = new TwoWay1Model();
 
             IsFunctionEnable = model
+#if false
                 .ToReactivePropertyAsSynchronized(x => x.UserSettingFlag)
+#else
+                // ReactiveProperty 7.4.0 以上
+                // RpSlimなので Validation は使えない。割と使いたいかも…
+                .ToReactivePropertySlimAsSynchronized(x => x.UserSettingFlag)
+#endif
                 .AddTo(CompositeDisposable);
         }
     }

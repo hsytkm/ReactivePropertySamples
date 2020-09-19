@@ -1,5 +1,6 @@
 ﻿using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
+using Reactive.Bindings.Notifiers;
 using ReactivePropertySamples.Infrastructures;
 using System;
 using System.Diagnostics;
@@ -34,6 +35,12 @@ namespace ReactivePropertySamples.Views.Pages
             // WithSubscribe() : インスタンス化 + Disposable 登録
             ButtonClickAsyncCommand2 = new AsyncReactiveCommand()
                 .WithSubscribe(async () => await Task.Delay(3000), CompositeDisposable.Add);
+
+            // IObservable<bool>から作成する例
+            var boolean = new BooleanNotifier();
+            var command = boolean
+                .ToAsyncReactiveCommand()
+                .WithSubscribe(() => Task.CompletedTask, CompositeDisposable.Add);
         }
     }
 }
