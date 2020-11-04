@@ -30,6 +30,7 @@ namespace ReactivePropertySamples.Views
             new PageSource(typeof(ReactiveCommand1Page)),
             new PageSource(typeof(AsyncReactiveCommand1Page)),
             new PageSource(typeof(CanExecuteChangedAsObservablePage)),
+            new PageSource(typeof(TimerStartCommandPage)),
 
             // IObservableChains
             new PageSource(typeof(CombineAllValuePage)),
