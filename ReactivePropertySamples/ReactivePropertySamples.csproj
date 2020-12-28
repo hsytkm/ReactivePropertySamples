@@ -47,6 +47,9 @@
     <Compile Update="Views\Pages\IReactiveProperties\ReactivePropertySlim1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Pages\Notifiers\BooleanNotifier2Page.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\Notifiers\ScheduledNotifierLoggerPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -86,7 +89,7 @@
     <Compile Update="Views\Pages\IObservableChains\CombineAllValuePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\Notifiers\BooleanNotifierPage.xaml.cs">
+    <Compile Update="Views\Pages\Notifiers\BooleanNotifier1Page.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Pages\Collections\ObserveElementProperty1Page.xaml.cs">
@@ -164,6 +167,10 @@
     <Page Update="Views\Pages\IReactiveProperties\ReactivePropertySlim1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\Pages\Notifiers\BooleanNotifier2Page.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Pages\Notifiers\ScheduledNotifierLoggerPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -203,7 +210,7 @@
     <Page Update="Views\Pages\IObservableChains\CombineAllValuePage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\Notifiers\BooleanNotifierPage.xaml">
+    <Page Update="Views\Pages\Notifiers\BooleanNotifier1Page.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\Collections\ObserveElementProperty1Page.xaml">

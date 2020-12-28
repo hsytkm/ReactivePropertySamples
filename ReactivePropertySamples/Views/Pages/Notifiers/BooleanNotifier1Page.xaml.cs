@@ -8,16 +8,16 @@ using System.Reactive.Linq;
 
 namespace ReactivePropertySamples.Views.Pages
 {
-    public partial class BooleanNotifierPage : Controls.MyPageControl
+    public partial class BooleanNotifier1Page : Controls.MyPageControl
     {
-        public BooleanNotifierPage()
+        public BooleanNotifier1Page()
         {
             InitializeComponent();
-            DataContext = new BooleanNotifierViewModel();
+            DataContext = new BooleanNotifier1ViewModel();
         }
     }
 
-    class BooleanNotifierViewModel : MyDisposableBindableBase
+    class BooleanNotifier1ViewModel : MyDisposableBindableBase
     {
         public IReactiveProperty<double> InputValue { get; }
             = new ReactiveProperty<double>(initialValue: 6);
@@ -28,7 +28,7 @@ namespace ReactivePropertySamples.Views.Pages
         // 3の倍数チェック
         public BooleanNotifier BoolNotifierMultiple3 { get; } = new BooleanNotifier();
 
-        public BooleanNotifierViewModel()
+        public BooleanNotifier1ViewModel()
         {
             InputValue
                 .Subscribe(x =>

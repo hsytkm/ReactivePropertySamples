@@ -1,0 +1,71 @@
+﻿<ctrl:MyPageControl
+    x:Class="ReactivePropertySamples.Views.Pages.BooleanNotifier2Page"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:local="clr-namespace:ReactivePropertySamples.Views.Pages"
+    xmlns:ctrl="clr-namespace:ReactivePropertySamples.Views.Controls"
+    mc:Ignorable="d" 
+    d:DesignHeight="450" d:DesignWidth="800" >
+
+    <!-- 【WPF】BooleanNotifierをToReactiveCommandしたときの挙動について【ReactiveProperty7.5.1】
+            https://qiita.com/t13801206/items/c6093059aa7fd81ee3e5
+    -->
+
+    <ctrl:MyPageControl.Subtitle>
+        ToReactiveCommandの初期値
+    </ctrl:MyPageControl.Subtitle>
+
+    <ctrl:MyPageControl.Description>
+        BooleanNotifier は Subscribe で OnNext されない現象
+    </ctrl:MyPageControl.Description>
+
+    <ctrl:MyPageControl.Keywords>
+        <x:Array Type="{x:Type system:String}" >
+            <system:String>BooleanNotifier</system:String>
+            <system:String>ToReactiveCommand</system:String>
+        </x:Array>
+    </ctrl:MyPageControl.Keywords>
+
+    <ctrl:MyPageControl.Resources>
+        <Style TargetType="{x:Type Button}" >
+            <Setter Property="Margin" Value="10,5" />
+            <Setter Property="Padding" Value="0,5" />
+        </Style>
+    </ctrl:MyPageControl.Resources>
+    
+    <DockPanel Margin="5" >
+        <ctrl:MyPageTitle DockPanel.Dock="Top"
+                          DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
+
+        <StackPanel DockPanel.Dock="Top" Margin="10" Background="LightPink" >
+            <TextBlock Margin="10,5"
+                       Text="BooleanNotifier から作った Command は有効になっている。" />
+
+            <Button Command="{Binding BooleanNotifierButtonCommand0, Mode=OneTime}"
+                    Content="BooleanNotifier(false).ToReactiveCommand()" />
+          
+            <Button Command="{Binding ReactivePropertyButtonCommand, Mode=OneTime}"
+                    Content="ReactiveProperty&lt;bool&gt;(false).ToReactiveCommand()" />
+        </StackPanel>
+
+        <StackPanel DockPanel.Dock="Top" Margin="10" Background="LightBlue" >
+            <TextBlock Margin="10,5"
+                       Text="対応1: ToReactiveCommand() に初期値を指定する" />
+
+            <Button Command="{Binding BooleanNotifierButtonCommand1, Mode=OneTime}"
+                    Content="BooleanNotifier(false).ToReactiveCommand(value)" />
+        </StackPanel>
+
+        <StackPanel Margin="10" Background="LightGreen" >
+            <TextBlock Margin="10,5"
+                       Text="対応2: StartWith() で 値を伝搬させる" />
+
+            <Button Command="{Binding BooleanNotifierButtonCommand2, Mode=OneTime}"
+                    Content="BooleanNotifier(false).StartWith(value).ToReactiveCommand()" />
+        </StackPanel>
+
+    </DockPanel>
+</ctrl:MyPageControl>

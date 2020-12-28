@@ -16,6 +16,8 @@ namespace ReactivePropertySamples.Views
         {
             InitializeComponent();
             DataContext = new PagesListBoxViewModel();
+
+            Loaded += (_, __) => filterTextBox.Focus();
         }
     }
 
@@ -32,7 +34,7 @@ namespace ReactivePropertySamples.Views
                 : x => (x as PageSource).IsContain(pattern);
 
             // フィルタリング後の先頭アイテムに移動させる
-            if (collectionView.Cast<object>().First() is PageSource page)
+            if (collectionView.Cast<object>().FirstOrDefault() is PageSource page)
                 SelectedPageSource = page;
         });
         private ICommand _filterCommand;

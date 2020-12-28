@@ -15,7 +15,7 @@ namespace ReactivePropertySamples.Views
              *  CatchIgnore ErrorChangedAsObservable 
              *  ObserveErrorInfo OnErrorRetry
              */
-            
+
             // Collections
             new PageSource(typeof(ReactiveCollection1Page)),
             new PageSource(typeof(ReactiveCollection2Page)),
@@ -47,7 +47,8 @@ namespace ReactivePropertySamples.Views
             new PageSource(typeof(DisposePreviousValuePage)),
 
             // Notifiers
-            new PageSource(typeof(BooleanNotifierPage)),
+            new PageSource(typeof(BooleanNotifier1Page)),
+            new PageSource(typeof(BooleanNotifier2Page)),
             new PageSource(typeof(BusyNotifierPage)),
             new PageSource(typeof(CountNotifierPage)),
             new PageSource(typeof(MessageBroker1Page)),

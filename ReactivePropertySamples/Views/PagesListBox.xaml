@@ -22,7 +22,7 @@
                       VerticalAlignment="Center"
                       Content="SubTitle" IsChecked="True" />
             
-            <ctrl:WatermarkTextBox Text="" WatermarkText="Search ..." >
+            <ctrl:WatermarkTextBox x:Name="filterTextBox" Text="" WatermarkText="Search ..." >
                 <i:Interaction.Triggers>
                     <i:PropertyChangedTrigger Binding="{Binding Text, RelativeSource={RelativeSource AncestorType={x:Type ctrl:WatermarkTextBox}}}">
                         <i:InvokeCommandAction Command="{Binding FilterCommand}"
