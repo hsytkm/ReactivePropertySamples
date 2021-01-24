@@ -15,7 +15,7 @@ namespace ReactivePropertySamples.Views
              *  CatchIgnore ErrorChangedAsObservable 
              *  ObserveErrorInfo OnErrorRetry
              */
-
+            
             // Collections
             new PageSource(typeof(ReactiveCollection1Page)),
             new PageSource(typeof(ReactiveCollection2Page)),
@@ -70,6 +70,9 @@ namespace ReactivePropertySamples.Views
             // Validations
             new PageSource(typeof(Validate1Page)),
             new PageSource(typeof(Validate2Page)),
+
+            // Samples
+            new PageSource(typeof(SelectRectanglePage)),
 
             //new PageSource(typeof(BlankPage), "Title", "Subtitle", "Description"),
         }

@@ -12,6 +12,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Image1.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\Image1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="ReactiveProperty.WPF" Version="7.4.0" />
   </ItemGroup>
 
@@ -19,7 +29,6 @@
     <Folder Include="Models\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Views\Resources\" />
-    <Folder Include="Assets\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -120,6 +129,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Pages\IObservableChains\AsyncTaskChainPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\Samples\SelectRectanglePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Pages\Synchronizations\TwoWay2Page.xaml.cs">
@@ -241,6 +253,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\IObservableChains\AsyncTaskChainPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Samples\SelectRectanglePage.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\Synchronizations\TwoWay2Page.xaml">

@@ -1,0 +1,139 @@
+﻿<ctrl:MyPageControl
+    x:Class="ReactivePropertySamples.Views.Pages.SelectRectanglePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:rp="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.WPF"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:local="clr-namespace:ReactivePropertySamples.Views.Pages"
+    xmlns:vc="clr-namespace:ReactivePropertySamples.Views.Converters"
+    xmlns:ctrl="clr-namespace:ReactivePropertySamples.Views.Controls"
+    xmlns:rconv="clr-namespace:ReactivePropertySamples.Views.ReactiveConverters"
+    mc:Ignorable="d" 
+    d:DesignHeight="450" d:DesignWidth="800" >
+
+    <ctrl:MyPageControl.Subtitle>
+        マウス操作により画像上の枠を選択
+    </ctrl:MyPageControl.Subtitle>
+
+    <ctrl:MyPageControl.Description>
+        MouseEvent の ReactiveConverter と 座標変換用の SizeChangedEvent
+    </ctrl:MyPageControl.Description>
+
+    <ctrl:MyPageControl.Keywords>
+        <x:Array Type="{x:Type system:String}" >
+            <system:String>Mouse + Image Sample</system:String>
+            <system:String>SkipUntil / TakeUntil / Finally</system:String>
+        </x:Array>
+    </ctrl:MyPageControl.Keywords>
+
+    <UserControl.Resources>
+        <vc:PointsToPointCollectionConverter x:Key="PointsToPointCollectionConverter" />
+
+        <Style x:Key="dashPolygonStyle" TargetType="{x:Type Polygon}" >
+            <Setter Property="IsHitTestVisible" Value="False" />
+            <Setter Property="Fill" Value="Transparent" />
+            <Setter Property="Stroke" Value="LightGray" />
+            <Setter Property="Opacity" Value="0.7" />
+            <Setter Property="StrokeThickness" Value="1" />
+            <Setter Property="StrokeDashArray" Value="5 2" />
+        </Style>
+
+        <Style x:Key="selectedPolygonStyle" TargetType="{x:Type Polygon}" >
+            <Setter Property="IsHitTestVisible" Value="False" />
+            <Setter Property="Fill" Value="Transparent" />
+            <Setter Property="Stroke" Value="Magenta" />
+            <Setter Property="Opacity" Value="0.3" />
+            <Setter Property="StrokeThickness" Value="2" />
+        </Style>
+    </UserControl.Resources>
+
+    <DockPanel Margin="5" >
+        <ctrl:MyPageTitle DockPanel.Dock="Top"
+                          DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
+
+        <StackPanel DockPanel.Dock="Top" Margin="10,5" >
+            <TextBlock Foreground="Red" FontWeight="Bold" 
+                       Text="◆コントロールサイズ変化時の枠サイズの更新は未実装" />
+            <TextBlock Margin="0,0,20,0" >
+                <Run Text="Image Pixel Size : " />
+                <Run Text="{Binding MyImage.PixelWidth, Mode=OneTime}" />
+                <Run Text=" x " />
+                <Run Text="{Binding MyImage.PixelHeight, Mode=OneTime}" />
+            </TextBlock>
+            <TextBlock Margin="0,0,20,0" >
+                <Run Text="Image View Size : " />
+                <Run Text="{Binding ViewImageSize.Value.Width, Mode=OneWay, StringFormat={}{0:f2}}" />
+                <Run Text=" x " />
+                <Run Text="{Binding ViewImageSize.Value.Height, Mode=OneWay, StringFormat={}{0:f2}}" />
+            </TextBlock>
+            <TextBlock>
+                <Run Text="Rectangle : LeftTop=(" />
+                <Run Text="{Binding SelectedRectangle.Value.X, Mode=OneWay}" />
+                <Run Text=" x " />
+                <Run Text="{Binding SelectedRectangle.Value.Y, Mode=OneWay}" />
+                <Run Text=") ,  Size=(" />
+                <Run Text="{Binding SelectedRectangle.Value.Width, Mode=OneWay}" />
+                <Run Text=" x " />
+                <Run Text="{Binding SelectedRectangle.Value.Height, Mode=OneWay}" />
+                <Run Text=")" />
+            </TextBlock>
+        </StackPanel>
+        
+        <Grid ClipToBounds="True" Margin="10,5" Background="LightGray" >
+            <Image x:Name="image" Source="{Binding MyImage, Mode=OneTime}" >
+                <i:Interaction.Triggers>
+                    <!-- Get Mouse -->
+                    <i:EventTrigger EventName="PreviewMouseLeftButtonDown" >
+                        <rp:EventToReactiveProperty ReactiveProperty="{Binding MouseDownPoint, Mode=OneTime}" >
+                            <rconv:MouseMoveEventToPointDelegateConverter />
+                        </rp:EventToReactiveProperty>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="PreviewMouseLeftButtonUp" >
+                        <rp:EventToReactiveProperty IgnoreEventArgs="True"
+                                                    ReactiveProperty="{Binding MouseUpUnit, Mode=OneTime}" />
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseMove" >
+                        <rp:EventToReactiveProperty ReactiveProperty="{Binding MouseMovePoint, Mode=OneTime}" >
+                            <rconv:MouseMoveEventToPointDelegateConverter />
+                        </rp:EventToReactiveProperty>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseLeave" >
+                        <rp:EventToReactiveProperty IgnoreEventArgs="True"
+                                                    ReactiveProperty="{Binding MouseUpUnit, Mode=OneTime}" />
+                    </i:EventTrigger>
+
+                    <!-- Get size of Image control -->
+                    <i:EventTrigger EventName="Loaded" >
+                        <rp:EventToReactiveProperty ReactiveProperty="{Binding ViewImageSize, Mode=OneTime}" >
+                            <rconv:LoadedEventToControlSizeDelegateConverter />
+                        </rp:EventToReactiveProperty>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="SizeChanged" >
+                        <rp:EventToReactiveProperty ReactiveProperty="{Binding ViewImageSize, Mode=OneTime}" >
+                            <rconv:SizeChangedEventToControlSizeDelegateConverter />
+                        </rp:EventToReactiveProperty>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Image>
+
+            <!-- Imageと同じ位置に Polygon を配置するため Border で包む。 Border で包まないと Polygon が親Gridの左上基準になってしまう。 -->
+            <Border Width="{Binding ActualWidth, ElementName=image}"
+                    Height="{Binding ActualHeight, ElementName=image}" >
+                <Polygon Points="{Binding PreviewRectanglePoints.Value, Mode=OneWay, Converter={StaticResource PointsToPointCollectionConverter}}" >
+                    <i:Interaction.Triggers>
+                        <i:DataTrigger Binding="{Binding IsFinishedSelectingRectangle.Value, Mode=OneWay}" Value="False" >
+                            <i:ChangePropertyAction PropertyName="Style" Value="{StaticResource dashPolygonStyle}" />
+                        </i:DataTrigger>
+                        <i:DataTrigger Binding="{Binding IsFinishedSelectingRectangle.Value, Mode=OneWay}" Value="True" >
+                            <i:ChangePropertyAction PropertyName="Style" Value="{StaticResource selectedPolygonStyle}" />
+                        </i:DataTrigger>
+                    </i:Interaction.Triggers>
+                </Polygon>
+            </Border>
+        </Grid>
+
+    </DockPanel>
+</ctrl:MyPageControl>
