@@ -8,6 +8,7 @@
     xmlns:rp="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.WPF"
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
     xmlns:local="clr-namespace:ReactivePropertySamples.Views.Pages"
+    xmlns:action="clr-namespace:ReactivePropertySamples.Views.Actions"
     xmlns:vc="clr-namespace:ReactivePropertySamples.Views.Converters"
     xmlns:ctrl="clr-namespace:ReactivePropertySamples.Views.Controls"
     xmlns:rconv="clr-namespace:ReactivePropertySamples.Views.ReactiveConverters"
@@ -30,13 +31,14 @@
     </ctrl:MyPageControl.Keywords>
 
     <UserControl.Resources>
-        <vc:PointsToPointCollectionConverter x:Key="PointsToPointCollectionConverter" />
+        <!--<vc:PointsToPointCollectionConverter x:Key="PointsToPointCollectionConverter" />-->
+        <vc:RectToPointCollectionConverter x:Key="RectToPointCollectionConverter" />
 
         <Style x:Key="dashPolygonStyle" TargetType="{x:Type Polygon}" >
             <Setter Property="IsHitTestVisible" Value="False" />
             <Setter Property="Fill" Value="Transparent" />
             <Setter Property="Stroke" Value="LightGray" />
-            <Setter Property="Opacity" Value="0.7" />
+            <Setter Property="Opacity" Value="0.8" />
             <Setter Property="StrokeThickness" Value="1" />
             <Setter Property="StrokeDashArray" Value="5 2" />
         </Style>
@@ -45,7 +47,7 @@
             <Setter Property="IsHitTestVisible" Value="False" />
             <Setter Property="Fill" Value="Transparent" />
             <Setter Property="Stroke" Value="Magenta" />
-            <Setter Property="Opacity" Value="0.3" />
+            <Setter Property="Opacity" Value="0.5" />
             <Setter Property="StrokeThickness" Value="2" />
         </Style>
     </UserControl.Resources>
@@ -55,8 +57,6 @@
                           DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
 
         <StackPanel DockPanel.Dock="Top" Margin="10,5" >
-            <TextBlock Foreground="Red" FontWeight="Bold" 
-                       Text="◆コントロールサイズ変化時の枠サイズの更新は未実装" />
             <TextBlock Margin="0,0,20,0" >
                 <Run Text="Image Pixel Size : " />
                 <Run Text="{Binding MyImage.PixelWidth, Mode=OneTime}" />
@@ -70,14 +70,25 @@
                 <Run Text="{Binding ViewImageSize.Value.Height, Mode=OneWay, StringFormat={}{0:f2}}" />
             </TextBlock>
             <TextBlock>
-                <Run Text="Rectangle : LeftTop=(" />
-                <Run Text="{Binding SelectedRectangle.Value.X, Mode=OneWay}" />
+                <Run Text="Rectangle View Size : LeftTop=(" />
+                <Run Text="{Binding SelectedRectangle.Value.X, Mode=OneWay, StringFormat={}{0:f2}}" />
                 <Run Text=" x " />
-                <Run Text="{Binding SelectedRectangle.Value.Y, Mode=OneWay}" />
+                <Run Text="{Binding SelectedRectangle.Value.Y, Mode=OneWay, StringFormat={}{0:f2}}" />
                 <Run Text=") ,  Size=(" />
-                <Run Text="{Binding SelectedRectangle.Value.Width, Mode=OneWay}" />
+                <Run Text="{Binding SelectedRectangle.Value.Width, Mode=OneWay, StringFormat={}{0:f2}}" />
                 <Run Text=" x " />
-                <Run Text="{Binding SelectedRectangle.Value.Height, Mode=OneWay}" />
+                <Run Text="{Binding SelectedRectangle.Value.Height, Mode=OneWay, StringFormat={}{0:f2}}" />
+                <Run Text=")" />
+            </TextBlock>
+            <TextBlock>
+                <Run Text="Rectangle Image Size : LeftTop=(" />
+                <Run Text="{Binding FixedRectangle.Value.X, Mode=OneWay, StringFormat={}{0:f2}}" />
+                <Run Text=" x " />
+                <Run Text="{Binding FixedRectangle.Value.Y, Mode=OneWay, StringFormat={}{0:f2}}" />
+                <Run Text=") ,  Size=(" />
+                <Run Text="{Binding FixedRectangle.Value.Width, Mode=OneWay, StringFormat={}{0:f2}}" />
+                <Run Text=" x " />
+                <Run Text="{Binding FixedRectangle.Value.Height, Mode=OneWay, StringFormat={}{0:f2}}" />
                 <Run Text=")" />
             </TextBlock>
         </StackPanel>
@@ -86,12 +97,16 @@
             <Image x:Name="image" Source="{Binding MyImage, Mode=OneTime}" >
                 <i:Interaction.Triggers>
                     <!-- Get Mouse -->
-                    <i:EventTrigger EventName="PreviewMouseLeftButtonDown" >
+                    <i:EventTrigger EventName="MouseLeftButtonDown" >
+                        <action:MouseCaptureAction />
+                        
                         <rp:EventToReactiveProperty ReactiveProperty="{Binding MouseDownPoint, Mode=OneTime}" >
                             <rconv:MouseMoveEventToPointDelegateConverter />
                         </rp:EventToReactiveProperty>
                     </i:EventTrigger>
-                    <i:EventTrigger EventName="PreviewMouseLeftButtonUp" >
+                    <i:EventTrigger EventName="MouseLeftButtonUp" >
+                        <action:MouseCaptureAction />
+                        
                         <rp:EventToReactiveProperty IgnoreEventArgs="True"
                                                     ReactiveProperty="{Binding MouseUpUnit, Mode=OneTime}" />
                     </i:EventTrigger>
@@ -99,10 +114,6 @@
                         <rp:EventToReactiveProperty ReactiveProperty="{Binding MouseMovePoint, Mode=OneTime}" >
                             <rconv:MouseMoveEventToPointDelegateConverter />
                         </rp:EventToReactiveProperty>
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="MouseLeave" >
-                        <rp:EventToReactiveProperty IgnoreEventArgs="True"
-                                                    ReactiveProperty="{Binding MouseUpUnit, Mode=OneTime}" />
                     </i:EventTrigger>
 
                     <!-- Get size of Image control -->
@@ -122,7 +133,7 @@
             <!-- Imageと同じ位置に Polygon を配置するため Border で包む。 Border で包まないと Polygon が親Gridの左上基準になってしまう。 -->
             <Border Width="{Binding ActualWidth, ElementName=image}"
                     Height="{Binding ActualHeight, ElementName=image}" >
-                <Polygon Points="{Binding PreviewRectanglePoints.Value, Mode=OneWay, Converter={StaticResource PointsToPointCollectionConverter}}" >
+                <Polygon Points="{Binding SelectedRectangle.Value, Mode=OneWay, Converter={StaticResource RectToPointCollectionConverter}}" >
                     <i:Interaction.Triggers>
                         <i:DataTrigger Binding="{Binding IsFinishedSelectingRectangle.Value, Mode=OneWay}" Value="False" >
                             <i:ChangePropertyAction PropertyName="Style" Value="{StaticResource dashPolygonStyle}" />

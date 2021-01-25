@@ -15,7 +15,7 @@ namespace ReactivePropertySamples.Views
              *  CatchIgnore ErrorChangedAsObservable 
              *  ObserveErrorInfo OnErrorRetry
              */
-            
+
             // Collections
             new PageSource(typeof(ReactiveCollection1Page)),
             new PageSource(typeof(ReactiveCollection2Page)),

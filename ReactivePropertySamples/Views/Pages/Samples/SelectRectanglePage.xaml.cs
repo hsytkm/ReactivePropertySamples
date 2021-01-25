@@ -27,21 +27,25 @@ namespace ReactivePropertySamples.Views.Pages
         public IReactiveProperty<Point> MouseDownPoint { get; }
         public IReactiveProperty<Unit> MouseUpUnit { get; }
         public IReactiveProperty<Point> MouseMovePoint { get; }
-        public IReadOnlyReactiveProperty<IReadOnlyCollection<Point>> PreviewRectanglePoints { get; }
-        public IReactiveProperty<bool> IsFinishedSelectingRectangle  { get; }
         public IReactiveProperty<Size> ViewImageSize { get; }
+        public IReactiveProperty<bool> IsFinishedSelectingRectangle { get; }
+
+        /// <summary>Viewの座標系</summary>
         public IReactiveProperty<Rect> SelectedRectangle { get; }
+
+        /// <summary>原画像の座標系</summary>
+        public IReactiveProperty<Rect> FixedRectangle { get; }
 
         public SelectRectangleViewModel()
         {
-            MouseDownPoint = new ReactiveProperty<Point>(mode: ReactivePropertyMode.None).AddTo(CompositeDisposable);
-            MouseUpUnit = new ReactiveProperty<Unit>(mode: ReactivePropertyMode.None).AddTo(CompositeDisposable);
-            MouseMovePoint = new ReactiveProperty<Point>().AddTo(CompositeDisposable);
-            IsFinishedSelectingRectangle = new ReactiveProperty<bool>().AddTo(CompositeDisposable);
-            ViewImageSize = new ReactiveProperty<Size>().AddTo(CompositeDisposable);
-            SelectedRectangle = new ReactiveProperty<Rect>().AddTo(CompositeDisposable);
-
-            var draggingVector = new ReactiveProperty<Vector>().AddTo(CompositeDisposable);
+            MouseDownPoint = new ReactivePropertySlim<Point>(mode: ReactivePropertyMode.None).AddTo(CompositeDisposable);
+            MouseUpUnit = new ReactivePropertySlim<Unit>(mode: ReactivePropertyMode.None).AddTo(CompositeDisposable);
+            MouseMovePoint = new ReactivePropertySlim<Point>().AddTo(CompositeDisposable);
+            ViewImageSize = new ReactivePropertySlim<Size>().AddTo(CompositeDisposable);
+            IsFinishedSelectingRectangle = new ReactivePropertySlim<bool>().AddTo(CompositeDisposable);
+            SelectedRectangle = new ReactivePropertySlim<Rect>().AddTo(CompositeDisposable);
+            FixedRectangle = new ReactivePropertySlim<Rect>().AddTo(CompositeDisposable);
+            var draggingVector = new ReactivePropertySlim<Vector>().AddTo(CompositeDisposable);
 
             // マウス操作開始時の初期化
             MouseDownPoint
@@ -67,42 +71,65 @@ namespace ReactivePropertySamples.Views.Pages
                     IsFinishedSelectingRectangle.Value = true;
 
                     // 実画像の座標系に変換
-                    var viewRect = new Rect(MouseDownPoint.Value, draggingVector.Value);
+                    var viewRect = ClipRectangle(new Rect(MouseDownPoint.Value, draggingVector.Value), ViewImageSize.Value);
                     var imagePixelSize = new Size(MyImage.PixelWidth, MyImage.PixelHeight);
-                    SelectedRectangle.Value = ConvertCoordinate(viewRect, ViewImageSize.Value, imagePixelSize);
+                    var imagePixelRect = ConvertCoordinate(viewRect, ViewImageSize.Value, imagePixelSize);
+                    FixedRectangle.Value = imagePixelRect;
                 })
                 .Repeat()
                 .Subscribe(v => draggingVector.Value += v)
                 .AddTo(CompositeDisposable);
 
-            // Viewの選択範囲プレビュー
-            PreviewRectanglePoints = draggingVector
-                .Select(v => ToConerPoints(MouseDownPoint.Value, v).ToArray())
-                .ToReadOnlyReactiveProperty()
+            // 選択枠のプレビュー
+            draggingVector
+                .Select(v => ClipRectangle(new Rect(MouseDownPoint.Value, v), ViewImageSize.Value))
+                .Subscribe(r => SelectedRectangle.Value = r)
+                .AddTo(CompositeDisposable);
+
+            // Viewのサイズ変更に枠サイズを追従
+            ViewImageSize
+                .Pairwise()
+                .Where(x => x.OldItem.Width != 0 && x.OldItem.Height != 0)
+                .Select(x => (X: x.NewItem.Width / x.OldItem.Width, Y: x.NewItem.Height / x.OldItem.Height))
+                .Subscribe(ratio => SelectedRectangle.Value = MultipleRectangle(SelectedRectangle.Value, ratio.X, ratio.Y))
                 .AddTo(CompositeDisposable);
         }
 
-        private static IEnumerable<Point> ToConerPoints(Point leftTop, Vector vector)
+        /// <summary>引数の四角形を指定範囲に制限する</summary>
+        private static Rect ClipRectangle(in Rect rect, in Size sizeMax)
         {
-            if (vector == default) yield break;
+            static double Clamp(double value, double min, double max) => Math.Max(min, Math.Min(max, value));
+            static double GetSizeOffset(double value, double min, double max)
+            {
+                if (value < min) return value - min;
+                if (value > max) return value - max;
+                return 0;
+            }
 
-            yield return leftTop;
-            yield return new Point(leftTop.X + vector.X, leftTop.Y);
-            yield return new Point(leftTop.X + vector.X, leftTop.Y + vector.Y);
-            yield return new Point(leftTop.X, leftTop.Y + vector.Y);
-        }
-
-        private static Rect ConvertCoordinate(Rect srcRect, Size srcSize, Size destSize)
-        {
-            if (srcSize.Width == 0 || srcSize.Height == 0) throw new ArgumentException();
-            if (destSize.Width == 0 || destSize.Height == 0) throw new ArgumentException();
-
-            var x = Math.Round(srcRect.X * destSize.Width / srcSize.Width);
-            var y = Math.Round(srcRect.Y * destSize.Height / srcSize.Height);
-            var width = Math.Round(srcRect.Width * destSize.Width / srcSize.Width);
-            var height = Math.Round(srcRect.Height * destSize.Height / srcSize.Height);
+            var x = Clamp(rect.X, 0, sizeMax.Width - 1);
+            var y = Clamp(rect.Y, 0, sizeMax.Height - 1);
+            var width = Clamp(rect.Width + GetSizeOffset(rect.X, 0, sizeMax.Width - 1), 1, sizeMax.Width - x);
+            var height = Clamp(rect.Height + GetSizeOffset(rect.Y, 0, sizeMax.Height - 1), 1, sizeMax.Height - y);
             return new Rect(x, y, width, height);
         }
 
+        /// <summary>引数の四角形を指定の座標系を正規化する</summary>
+        private static Rect ConvertCoordinate(in Rect srcRect, in Size srcSize, in Size destSize)
+        {
+            static int Clamp(double value, double min, double max) => (int)Math.Round(Math.Max(min, Math.Min(max, value)));
+
+            if (srcSize.Width < 1 || srcSize.Height < 1) throw new ArgumentException(null, nameof(srcSize));
+            if (destSize.Width < 1 || destSize.Height < 1) throw new ArgumentException(null, nameof(destSize));
+
+            var x = Clamp(srcRect.X * destSize.Width / srcSize.Width, 0, destSize.Width - 1);
+            var y = Clamp(srcRect.Y * destSize.Height / srcSize.Height, 0, destSize.Height - 1);
+            var width = Clamp(srcRect.Width * destSize.Width / srcSize.Width, 1, destSize.Width - x);
+            var height = Clamp(srcRect.Height * destSize.Height / srcSize.Height, 1, destSize.Height - y);
+            return new Rect(x, y, width, height);
+        }
+
+        /// <summary>Rectを倍率で伸縮する</summary>
+        private static Rect MultipleRectangle(in Rect srcRect, double ratioX, double ratioY)
+            => new Rect(srcRect.X * ratioX, srcRect.Y * ratioY, srcRect.Width * ratioX, srcRect.Height * ratioY);
     }
 }
