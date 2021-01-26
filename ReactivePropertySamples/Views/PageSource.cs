@@ -9,7 +9,7 @@ namespace ReactivePropertySamples.Views
     static class PageSourceStore
     {
         // Viewに表示されるコントロールのリスト
-        public static IList<PageSource> AllPageList { get; } = new[]
+        public static IReadOnlyCollection<PageSource> AllPageList { get; } = new[]
         {
             /* 未対応
              *  CatchIgnore ErrorChangedAsObservable 
@@ -76,7 +76,7 @@ namespace ReactivePropertySamples.Views
 
             //new PageSource(typeof(BlankPage), "Title", "Subtitle", "Description"),
         }
-        .ToList();
+        .ToArray();
     }
 
     class PageSource
@@ -84,14 +84,14 @@ namespace ReactivePropertySamples.Views
         public string Title { get; }
         public string Subtitle { get; }
         public string Description { get; }
-        public IList<string> Keywords { get; }
+        public IReadOnlyCollection<string> Keywords { get; }
         public Type ControlType { get; }
         public string TypeName { get; }
 
         public PageSource(Type controlType)
         {
             ControlType = controlType;
-            TypeName = controlType.ToString().Split('.').Last();        // Typeから名前空間を除去する
+            TypeName = controlType.ToString().Split('.')[^1];        // Typeから名前空間を除去する
 
             // 一度インスタンス化して、内部情報を吸い上げる
             if (Activator.CreateInstance(controlType) is MyPageControl control)
@@ -121,7 +121,7 @@ namespace ReactivePropertySamples.Views
             var ss = new[] { Title, Subtitle, Description, TypeName };
             if (ss.Any(x => x.ToLower().Contains(pat))) return true;
 
-            if (Keywords != null) return Keywords.Any(x => x.ToLower().Contains(pat));
+            if (Keywords is not null) return Keywords.Any(x => x.ToLower().Contains(pat));
             return false;
         }
     }

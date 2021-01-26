@@ -74,7 +74,7 @@ namespace ReactivePropertySamples.Views.Pages
 
             // 3. 一度だけ Dispose(Unsubscribe)できるCommand
             UnsubscribeCommand = disposableProperty
-                .Select(x => x != null)
+                .Select(x => x is not null)
                 .ToReactiveCommand()
                 .WithSubscribe(() =>
                 {

@@ -37,19 +37,15 @@
                    FontSize="{StaticResource FontSizeMiddle}"
                    Text="ダブルクリック判定（左：WPF標準イベント、右：自作Rx）" />
 
-        <Grid Margin="30,10" >
-            <Grid.Resources>
+        <UniformGrid Margin="30,10" Columns="2" >
+            <Panel.Resources>
                 <Style TargetType="{x:Type TextBlock}" >
                     <Setter Property="IsHitTestVisible" Value="False" />
                     <Setter Property="FontSize" Value="{StaticResource FontSizeMiddle}" />
                     <Setter Property="HorizontalAlignment" Value="Center" />
                     <Setter Property="VerticalAlignment" Value="Center" />
                 </Style>
-            </Grid.Resources>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+            </Panel.Resources>
 
             <ContentControl MouseDoubleClick="ContentControl_MouseDoubleClick" >
                 <Border Background="LightSalmon" >
@@ -57,7 +53,7 @@
                 </Border>
             </ContentControl>
            
-            <Border Grid.Column="1" Background="LightSteelBlue" >
+            <Border Background="LightSteelBlue" >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
                         <rp:EventToReactiveProperty ReactiveProperty="{Binding MouseDownUnit, Mode=OneTime}" IgnoreEventArgs="True" />
@@ -66,6 +62,6 @@
                 
                 <TextBlock Text="{Binding MouseDoubleClickCounter.Count, Mode=OneWay, StringFormat='Rx Double click counter = {0}'}" />
             </Border>
-        </Grid>
+        </UniformGrid>
     </DockPanel>
 </ctrl:MyPageControl>

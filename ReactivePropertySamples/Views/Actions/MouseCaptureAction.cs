@@ -12,8 +12,8 @@ namespace ReactivePropertySamples.Views.Actions
 
         protected override void Invoke(object parameter)
         {
-            if (!(parameter is MouseEventArgs e)) return;
-            if (!(AssociatedObject is IInputElement inputElement)) return;
+            if (parameter is not MouseEventArgs e) return;
+            if (AssociatedObject is not IInputElement inputElement) return;
 
             if (_captureButton == CaptureButton.None)
             {

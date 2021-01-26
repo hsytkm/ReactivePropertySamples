@@ -2,9 +2,11 @@
 
 ReactiveProperty Samples for WPF
 
+.NET 5 + C# 9
+
 Created in 2020/06
 
-Version 7.2.0
+Updated in 2021/01
 
 ## Reference Website
 

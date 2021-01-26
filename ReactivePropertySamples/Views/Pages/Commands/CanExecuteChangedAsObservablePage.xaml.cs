@@ -27,8 +27,8 @@ namespace ReactivePropertySamples.Views.Pages
 
     class CanExecuteChangedAsObservableViewModel : MyDisposableBindableBase
     {
-        public ReactiveProperty<bool> IsChecked1 { get; } = new ReactiveProperty<bool>();
-        public ReactiveProperty<bool> IsChecked2 { get; } = new ReactiveProperty<bool>();
+        public IReactiveProperty<bool> IsChecked1 { get; } = new ReactiveProperty<bool>();
+        public IReactiveProperty<bool> IsChecked2 { get; } = new ReactiveProperty<bool>();
         public ReactiveCommand IncrementCommand { get; }
         public IReadOnlyReactiveProperty<bool> CanExecuteIncrementCommand { get; }
         public CountNotifier Counter { get; } = new CountNotifier();

@@ -46,7 +46,7 @@ namespace ReactivePropertySamples.Views.Controls
                 for (int i = 0; i < count; i++)
                 {
                     var child = VisualTreeHelper.GetChild(dependencyObject, i);
-                    if (child != null)
+                    if (child is not null)
                         yield return child;
                 }
             }

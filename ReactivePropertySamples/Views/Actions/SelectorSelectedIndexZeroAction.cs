@@ -11,7 +11,7 @@ namespace ReactivePropertySamples.Views.Actions
     {
         protected override void Invoke(object parameter)
         {
-            if (!(this.AssociatedObject is Selector selector)) return;
+            if (this.AssociatedObject is not Selector selector) return;
             selector.SelectedIndex = 0;
         }
     }

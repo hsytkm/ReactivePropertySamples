@@ -6,6 +6,7 @@ using System;
 using System.Diagnostics;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace ReactivePropertySamples.Views.Pages
 {
@@ -21,7 +22,7 @@ namespace ReactivePropertySamples.Views.Pages
     class AsyncReactiveCommand1ViewModel : MyDisposableBindableBase
     {
         public AsyncReactiveCommand ButtonClickAsyncCommand1 { get; }
-        public AsyncReactiveCommand ButtonClickAsyncCommand2 { get; }
+        public ICommand ButtonClickAsyncCommand2 { get; }
 
         public AsyncReactiveCommand1ViewModel()
         {

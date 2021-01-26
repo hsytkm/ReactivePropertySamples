@@ -17,13 +17,13 @@ namespace ReactivePropertySamples.Views
             InitializeComponent();
             DataContext = new PagesListBoxViewModel();
 
-            Loaded += (_, __) => filterTextBox.Focus();
+            Loaded += (_, _) => filterTextBox.Focus();
         }
     }
 
     class PagesListBoxViewModel : MyBindableBase
     {
-        public IList<PageSource> PagesSource { get; } = PageSourceStore.AllPageList;
+        public IReadOnlyCollection<PageSource> PagesSource => PageSourceStore.AllPageList;
 
         // リストの文字列による絞り込み
         public ICommand FilterCommand => _filterCommand ??= new MyCommand<string>(pattern =>
@@ -48,7 +48,7 @@ namespace ReactivePropertySamples.Views
                 // 選択変更でViewコントロールを更新
                 if (SetProperty(ref _selectedPageSource, value))
                 {
-                    if (!(value is null))
+                    if (value is not null)
                         TargetUserControl = (UserControl)Activator.CreateInstance(value.ControlType);
                 }
             }

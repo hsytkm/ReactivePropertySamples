@@ -37,17 +37,17 @@ namespace ReactivePropertySamples.Views.Controls
 
         // キーワードリスト
         public static readonly DependencyProperty KeywordsProperty =
-            DependencyProperty.Register(nameof(Keywords), typeof(IList<string>), typeof(MyPageControl));
-        public IList<string> Keywords
+            DependencyProperty.Register(nameof(Keywords), typeof(IReadOnlyCollection<string>), typeof(MyPageControl));
+        public IReadOnlyCollection<string> Keywords
         {
-            get => (IList<string>)GetValue(KeywordsProperty);
+            get => (IReadOnlyCollection<string>)GetValue(KeywordsProperty);
             set => SetValue(KeywordsProperty, value);
         }
 
         public MyPageControl()
         {
             // 型名から名前空間を削除して、クラス名のPageを削除
-            Title = this.GetType().ToString().Split('.').Last().Replace("Page", "");
+            Title = this.GetType().ToString().Split('.')[^1].Replace("Page", "");
         }
     }
 }

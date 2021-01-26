@@ -118,7 +118,7 @@ namespace ReactivePropertySamples.Views.Pages
         public string Message { get; }
         public LogLevel Level { get; }
         public Exception Exception { get; }
-        public bool HasError => Exception != null;
+        public bool HasError => Exception is not null;
 
         private LogMessage(string message, LogLevel level, Exception e) =>
             (CreatedAt, Message, Level, Exception) = (DateTime.Now, message, level, e);

@@ -22,7 +22,7 @@ namespace ReactivePropertySamples.Views.Pages
 
     class DisposePreviousValueViewModel : MyDisposableBindableBase
     {
-        public IList<string> Items { get; } = Enumerable.Range(0, 5).Select(x => $"Data{x}").ToList();
+        public IReadOnlyCollection<string> Items { get; } = Enumerable.Range(0, 5).Select(x => $"Data{x}").ToArray();
         public IReactiveProperty<string> SelectedItem { get; }
 
         public StringBuilder LogBuilder { get; } = new StringBuilder();

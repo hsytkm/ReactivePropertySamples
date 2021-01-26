@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Windows.Input;
 
 namespace ReactivePropertySamples.Views.Pages
 {
@@ -21,7 +22,7 @@ namespace ReactivePropertySamples.Views.Pages
 
     class TimerStartCommandViewModel : MyDisposableBindableBase
     {
-        public ReactiveCommand StartCommand { get; }
+        public ICommand StartCommand { get; }
         public IReadOnlyReactiveProperty<TimeSpan> MyTimer1 { get; }
         public IReadOnlyReactiveProperty<TimeSpan> MyTimer2 { get; }
 
@@ -33,7 +34,6 @@ namespace ReactivePropertySamples.Views.Pages
                 .Select(_ => DateTime.Now - ctorDateTime)
                 .ToReadOnlyReactivePropertySlim()
                 .AddTo(CompositeDisposable);
-
 
             // Command.Executeからカウント  ◆もう少しかっちょよい実装ない？
             var clickDateTime = DateTime.MinValue;

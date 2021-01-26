@@ -48,7 +48,7 @@ namespace ReactivePropertySamples.Views.Pages
                 if (SetProperty(ref _childrenSource, value))
                 {
                     // 古いアイテムをDisposeする
-                    if (oldItem != null)
+                    if (oldItem is not null)
                     {
                         oldItem.Dispose();
                         if (CompositeDisposable.Contains(oldItem))
@@ -62,20 +62,19 @@ namespace ReactivePropertySamples.Views.Pages
         public ModelCollectionChainViewModel()
         {
             // 家族の選択を 未選択(null) に切り替えるコマンド
-            ClearSelectCommand = SelectedFamily.Select(x => x != null)
+            ClearSelectCommand = SelectedFamily.Select(x => x is not null)
                 .ToReactiveCommand()
                 .WithSubscribe(() => SelectedFamily.Value = null, CompositeDisposable.Add);
 
             // 選択中の家族に子供を追加するコマンド
-            AddBabyCommand = SelectedFamily.Select(x => x != null)
+            AddBabyCommand = SelectedFamily.Select(x => x is not null)
                 .ToReactiveCommand()
                 .WithSubscribe(() => SelectedFamily.Value.AddChild(), CompositeDisposable.Add);
 
             // VM.Dispose() に備えて、CompositeDisposable に常に追加しておく
             // ◆これ以外の実装が思い浮かばない。もう少しシンプルにならんかなぁ。Disposeを考えたくない。
             SelectedFamily
-                .Select(x => ChildrenSource = x?.Children.ToReadOnlyReactiveCollection().AddTo(CompositeDisposable))
-                .Subscribe()
+                .Subscribe(x => ChildrenSource = x?.Children.ToReadOnlyReactiveCollection().AddTo(CompositeDisposable))
                 .AddTo(CompositeDisposable);
         }
     }

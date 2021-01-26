@@ -26,7 +26,7 @@ namespace ReactivePropertySamples.Views.Controls
         public WatermarkTextBox()
         {
             InitializeComponent();
-            this.GotFocus += (_, __) => textBox1.Focus();
+            this.GotFocus += (_, _) => textBox1.Focus();
         }
     }
 }

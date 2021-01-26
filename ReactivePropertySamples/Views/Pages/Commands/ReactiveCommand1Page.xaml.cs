@@ -6,6 +6,7 @@ using System;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Windows.Input;
 
 namespace ReactivePropertySamples.Views.Pages
 {
@@ -26,7 +27,7 @@ namespace ReactivePropertySamples.Views.Pages
         public ReactiveCommand<int> Command2 { get; } // コンストラクタで生成するので初期化不要
         public CountNotifier Counter2 { get; } = new CountNotifier();
 
-        public ReactiveCommand Command31 { get; } // コンストラクタで生成するので初期化不要
+        public ICommand Command31 { get; } // コンストラクタで生成するので初期化不要
         public BooleanNotifier CheckFlag31 { get; } = new BooleanNotifier();
         public CountNotifier Counter3 { get; } = new CountNotifier();
 

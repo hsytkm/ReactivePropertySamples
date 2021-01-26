@@ -58,7 +58,7 @@ namespace ReactivePropertySamples.Views.Pages
         private ICommand _lvUpCommand;
 
         public static IEnumerable<DQPlayer> Party { get; } =
-            new List<DQPlayer>()
+            new[]
             {
                 new DQPlayer("勇者", 15, 5),
                 new DQPlayer("戦士", 25, 0),
