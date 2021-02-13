@@ -9,7 +9,7 @@ namespace ReactivePropertySamples.Views
     static class PageSourceStore
     {
         // Viewに表示されるコントロールのリスト
-        public static IReadOnlyCollection<PageSource> AllPageList { get; } = new[]
+        public static IReadOnlyCollection<PageSource> AllPageList { get; } = new PageSource[]
         {
             /* 未対応
              *  CatchIgnore ErrorChangedAsObservable 
@@ -17,66 +17,66 @@ namespace ReactivePropertySamples.Views
              */
 
             // Collections
-            new PageSource(typeof(ReactiveCollection1Page)),
-            new PageSource(typeof(ReactiveCollection2Page)),
-            new PageSource(typeof(ReadOnlyReactiveCollection1Page)),
-            new PageSource(typeof(ReadOnlyReactiveCollection2Page)),
-            new PageSource(typeof(IFilteredReadOnlyObservableCollection1Page)),
-            new PageSource(typeof(ObserveElementProperty1Page)),
-            new PageSource(typeof(ObserveElementPropertyChanged1Page)),
-            new PageSource(typeof(AggregateItemsPage)),
+            new(typeof(ReactiveCollection1Page)),
+            new(typeof(ReactiveCollection2Page)),
+            new(typeof(ReadOnlyReactiveCollection1Page)),
+            new(typeof(ReadOnlyReactiveCollection2Page)),
+            new(typeof(IFilteredReadOnlyObservableCollection1Page)),
+            new(typeof(ObserveElementProperty1Page)),
+            new(typeof(ObserveElementPropertyChanged1Page)),
+            new(typeof(AggregateItemsPage)),
 
             // Commands
-            new PageSource(typeof(ReactiveCommand1Page)),
-            new PageSource(typeof(AsyncReactiveCommand1Page)),
-            new PageSource(typeof(CanExecuteChangedAsObservablePage)),
-            new PageSource(typeof(TimerStartCommandPage)),
+            new(typeof(ReactiveCommand1Page)),
+            new(typeof(AsyncReactiveCommand1Page)),
+            new(typeof(CanExecuteChangedAsObservablePage)),
+            new(typeof(TimerStartCommandPage)),
 
             // IObservableChains
-            new PageSource(typeof(CombineAllValuePage)),
-            new PageSource(typeof(AsyncTaskChainPage)),
-            new PageSource(typeof(ModelCollectionChainPage)),
-            new PageSource(typeof(ObservableCollectionScanPage)),
+            new(typeof(CombineAllValuePage)),
+            new(typeof(AsyncTaskChainPage)),
+            new(typeof(ModelCollectionChainPage)),
+            new(typeof(ObservableCollectionScanPage)),
 
             // IReactiveProperties
-            new PageSource(typeof(ReactiveProperty1Page)),
-            new PageSource(typeof(ReactiveProperty2Page)),
-            new PageSource(typeof(ObserveProperty1Page)),
-            new PageSource(typeof(FromPocoMode1Page)),
-            new PageSource(typeof(ReactivePropertySlim1Page)),
-            new PageSource(typeof(DisposePreviousValuePage)),
+            new(typeof(ReactiveProperty1Page)),
+            new(typeof(ReactiveProperty2Page)),
+            new(typeof(ObserveProperty1Page)),
+            new(typeof(FromPocoMode1Page)),
+            new(typeof(ReactivePropertySlim1Page)),
+            new(typeof(DisposePreviousValuePage)),
 
             // Notifiers
-            new PageSource(typeof(BooleanNotifier1Page)),
-            new PageSource(typeof(BooleanNotifier2Page)),
-            new PageSource(typeof(BusyNotifierPage)),
-            new PageSource(typeof(CountNotifierPage)),
-            new PageSource(typeof(MessageBroker1Page)),
-            new PageSource(typeof(AsyncMessageBroker1Page)),
-            new PageSource(typeof(ScheduledNotifierPage)),
-            new PageSource(typeof(ScheduledNotifierLoggerPage)),
+            new(typeof(BooleanNotifier1Page)),
+            new(typeof(BooleanNotifier2Page)),
+            new(typeof(BusyNotifierPage)),
+            new(typeof(CountNotifierPage)),
+            new(typeof(MessageBroker1Page)),
+            new(typeof(AsyncMessageBroker1Page)),
+            new(typeof(ScheduledNotifierPage)),
+            new(typeof(ScheduledNotifierLoggerPage)),
 
             // EventToReactive
-            new PageSource(typeof(EventToReactiveProperty1Page)),
-            new PageSource(typeof(EventToReactiveProperty2Page)),
-            new PageSource(typeof(EventToReactiveProperty3Page)),
-            new PageSource(typeof(EventToReactiveProperty4Page)),
-            new PageSource(typeof(EventToReactiveCommand1Page)),
+            new(typeof(EventToReactiveProperty1Page)),
+            new(typeof(EventToReactiveProperty2Page)),
+            new(typeof(EventToReactiveProperty3Page)),
+            new(typeof(EventToReactiveProperty4Page)),
+            new(typeof(EventToReactiveCommand1Page)),
 
             // Synchronizations
-            new PageSource(typeof(TwoWay1Page)),
-            new PageSource(typeof(TwoWay2Page)),
+            new(typeof(TwoWay1Page)),
+            new(typeof(TwoWay2Page)),
 
             // Validations
-            new PageSource(typeof(Validate1Page)),
-            new PageSource(typeof(Validate2Page)),
+            new(typeof(Validate1Page)),
+            new(typeof(Validate2Page)),
 
             // Samples
-            new PageSource(typeof(SelectRectanglePage)),
+            new(typeof(SelectRectanglePage)),
+            new(typeof(PeriodicInvokePage)),
 
-            //new PageSource(typeof(BlankPage), "Title", "Subtitle", "Description"),
-        }
-        .ToArray();
+            //new(typeof(BlankPage), "Title", "Subtitle", "Description"),
+        };
     }
 
     class PageSource

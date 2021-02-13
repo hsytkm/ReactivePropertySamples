@@ -24,7 +24,7 @@
     <ctrl:MyPageControl.Keywords>
         <x:Array Type="{x:Type system:String}" >
             <system:String>EventToReactiveProperty</system:String>
-            <system:String>Throttle</system:String>
+            <system:String>Throttle / Repeat</system:String>
             <system:String>Mouse Long Push</system:String>
             <system:String>マウス長押し</system:String>
             <system:String>◆実装悩み</system:String>

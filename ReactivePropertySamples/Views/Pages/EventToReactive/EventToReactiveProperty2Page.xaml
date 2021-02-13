@@ -24,7 +24,7 @@
     <ctrl:MyPageControl.Keywords>
         <x:Array Type="{x:Type system:String}" >
             <system:String>EventToReactiveProperty</system:String>
-            <system:String>Pairwise</system:String>
+            <system:String>Pairwise / Repeat</system:String>
             <system:String>Mouse Drag</system:String>
             <system:String>マウス移動 / ドラッグ</system:String>
         </x:Array>
