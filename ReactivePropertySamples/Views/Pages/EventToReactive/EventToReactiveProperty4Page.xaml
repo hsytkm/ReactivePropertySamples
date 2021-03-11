@@ -24,7 +24,7 @@
     <ctrl:MyPageControl.Keywords>
         <x:Array Type="{x:Type system:String}" >
             <system:String>EventToReactiveProperty</system:String>
-            <system:String>Mouse DobleClick</system:String>
+            <system:String>Mouse DoubleClick</system:String>
             <system:String>TimeInterval()</system:String>
         </x:Array>
     </ctrl:MyPageControl.Keywords>

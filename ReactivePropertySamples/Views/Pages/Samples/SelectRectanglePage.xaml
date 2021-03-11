@@ -106,9 +106,10 @@
                     </i:EventTrigger>
                     <i:EventTrigger EventName="MouseLeftButtonUp" >
                         <action:MouseCaptureAction />
-                        
-                        <rp:EventToReactiveProperty IgnoreEventArgs="True"
-                                                    ReactiveProperty="{Binding MouseUpUnit, Mode=OneTime}" />
+
+                        <rp:EventToReactiveProperty ReactiveProperty="{Binding MouseUpPoint, Mode=OneTime}" >
+                            <rconv:MouseMoveEventToPointDelegateConverter />
+                        </rp:EventToReactiveProperty>
                     </i:EventTrigger>
                     <i:EventTrigger EventName="MouseMove" >
                         <rp:EventToReactiveProperty ReactiveProperty="{Binding MouseMovePoint, Mode=OneTime}" >

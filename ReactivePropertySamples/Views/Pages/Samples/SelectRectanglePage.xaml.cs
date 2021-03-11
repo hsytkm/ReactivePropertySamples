@@ -25,7 +25,7 @@ namespace ReactivePropertySamples.Views.Pages
     {
         public BitmapSource MyImage { get; } = BitmapFrame.Create(new Uri("pack://application:,,,/ReactivePropertySamples;component/Assets/Image1.jpg"));
         public IReactiveProperty<Point> MouseDownPoint { get; }
-        public IReactiveProperty<Unit> MouseUpUnit { get; }
+        public IReactiveProperty<Point> MouseUpPoint { get; }
         public IReactiveProperty<Point> MouseMovePoint { get; }
         public IReactiveProperty<Size> ViewImageSize { get; }
         public IReactiveProperty<bool> IsFinishedSelectingRectangle { get; }
@@ -39,51 +39,37 @@ namespace ReactivePropertySamples.Views.Pages
         public SelectRectangleViewModel()
         {
             MouseDownPoint = new ReactivePropertySlim<Point>(mode: ReactivePropertyMode.None).AddTo(CompositeDisposable);
-            MouseUpUnit = new ReactivePropertySlim<Unit>(mode: ReactivePropertyMode.None).AddTo(CompositeDisposable);
+            MouseUpPoint = new ReactivePropertySlim<Point>(mode: ReactivePropertyMode.None).AddTo(CompositeDisposable);
             MouseMovePoint = new ReactivePropertySlim<Point>().AddTo(CompositeDisposable);
             ViewImageSize = new ReactivePropertySlim<Size>().AddTo(CompositeDisposable);
             IsFinishedSelectingRectangle = new ReactivePropertySlim<bool>().AddTo(CompositeDisposable);
             SelectedRectangle = new ReactivePropertySlim<Rect>().AddTo(CompositeDisposable);
             FixedRectangle = new ReactivePropertySlim<Rect>().AddTo(CompositeDisposable);
-            var draggingVector = new ReactivePropertySlim<Vector>().AddTo(CompositeDisposable);
-
-            // マウス操作開始時の初期化
-            MouseDownPoint
-                .Subscribe(_ =>
-                {
-                    IsFinishedSelectingRectangle.Value = false;
-                    draggingVector.Value = default;
-                })
-                .AddTo(CompositeDisposable);
 
             // マウス操作中に移動量を流す + 操作完了時に枠位置を通知する
             MouseMovePoint
-                .Pairwise()
-                .Select(x => x.NewItem - x.OldItem)
+                .Select(movePoint => (startPoint: MouseDownPoint.Value, latestPoint: movePoint))
                 .SkipUntil(MouseDownPoint.ToUnit())
-                .TakeUntil(MouseUpUnit)
+                .TakeUntil(MouseUpPoint.ToUnit())
                 .Finally(() =>
                 {
-                    //Debug.WriteLine($"LeftTop: {MouseDownPoint.Value:f2}, Vector: {draggingVector:f2}");
-                    if (draggingVector.Value == default) return;
-
-                    // 枠の確定
-                    IsFinishedSelectingRectangle.Value = true;
+                    var (startPoint, latestPoint) = (MouseDownPoint.Value, MouseUpPoint.Value);
+                    if (startPoint == latestPoint) return;
 
                     // 実画像の座標系に変換
-                    var viewRect = ClipRectangle(new Rect(MouseDownPoint.Value, draggingVector.Value), ViewImageSize.Value);
+                    var viewRect = ClipRectangle(new Rect(startPoint, latestPoint), ViewImageSize.Value);
                     var imagePixelSize = new Size(MyImage.PixelWidth, MyImage.PixelHeight);
                     var imagePixelRect = ConvertCoordinate(viewRect, ViewImageSize.Value, imagePixelSize);
                     FixedRectangle.Value = imagePixelRect;
+
+                    IsFinishedSelectingRectangle.Value = true;
                 })
                 .Repeat()
-                .Subscribe(v => draggingVector.Value += v)
-                .AddTo(CompositeDisposable);
-
-            // 選択枠のプレビュー
-            draggingVector
-                .Select(v => ClipRectangle(new Rect(MouseDownPoint.Value, v), ViewImageSize.Value))
-                .Subscribe(r => SelectedRectangle.Value = r)
+                .Subscribe(x =>
+                {
+                    SelectedRectangle.Value = ClipRectangle(new Rect(x.startPoint, x.latestPoint), ViewImageSize.Value);
+                    IsFinishedSelectingRectangle.Value = false;
+                })
                 .AddTo(CompositeDisposable);
 
             // Viewのサイズ変更に枠サイズを追従

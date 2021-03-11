@@ -70,6 +70,7 @@ namespace ReactivePropertySamples.Views
             // Validations
             new(typeof(Validate1Page)),
             new(typeof(Validate2Page)),
+            new(typeof(Validate3Page)),
 
             // Samples
             new(typeof(SelectRectanglePage)),
