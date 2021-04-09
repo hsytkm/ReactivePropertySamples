@@ -75,6 +75,7 @@ namespace ReactivePropertySamples.Views
             // Samples
             new(typeof(SelectRectanglePage)),
             new(typeof(PeriodicInvokePage)),
+            new(typeof(FpsCounterPage)),
 
             //new(typeof(BlankPage), "Title", "Subtitle", "Description"),
         };
