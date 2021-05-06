@@ -1,0 +1,80 @@
+﻿<ctrl:MyPageControl
+    x:Class="ReactivePropertySamples.Views.Pages.ThrottleFirstPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctrl="clr-namespace:ReactivePropertySamples.Views.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <ctrl:MyPageControl.Subtitle>
+        自作Throttle
+    </ctrl:MyPageControl.Subtitle>
+
+    <ctrl:MyPageControl.Description>
+        シーケンスから値を受け取ってから時間に応じて以降に値を流します。
+    </ctrl:MyPageControl.Description>
+
+    <ctrl:MyPageControl.Keywords>
+        <x:Array Type="{x:Type system:String}">
+            <system:String>ThrottleFirst</system:String>
+            <system:String>Sample</system:String>
+            <system:String>TimeSpan</system:String>
+        </x:Array>
+    </ctrl:MyPageControl.Keywords>
+
+    <DockPanel Margin="5">
+        <ctrl:MyPageTitle
+            DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"
+            DockPanel.Dock="Top" />
+
+        <StackPanel Margin="20">
+            <Panel.Resources>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="FontSize" Value="{StaticResource FontSizeMiddle}" />
+                </Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="FontSize" Value="{StaticResource FontSizeMiddle}" />
+                </Style>
+            </Panel.Resources>
+
+            <StackPanel
+                Margin="0,10"
+                Background="LightGray">
+                <TextBlock Text="入力終了から4秒したらクリアします" />
+                <TextBox Text="{Binding InputText.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+
+            <StackPanel
+                Margin="0,10"
+                Background="LightBlue">
+                <TextBlock Text="最後に値が流れてきてから2秒経過したら次に流します (Throttle)" />
+                <TextBlock
+                    Margin="10,0,0,0"
+                    Text="{Binding ThrottleText.Value, Mode=OneWay}" />
+            </StackPanel>
+
+            <StackPanel
+                Margin="0,10"
+                Background="LightGreen">
+                <TextBlock Text="値が流れてきてから2秒経過した時点の値を流します (Sample)" />
+                <TextBlock
+                    Margin="10,0,0,0"
+                    Text="{Binding SampleText.Value, Mode=OneWay}" />
+            </StackPanel>
+
+            <StackPanel
+                Margin="0,10"
+                Background="LightPink">
+                <TextBlock Text="値を直ちに流しますが、次は2秒経過するまでは流しません (自作ThrottleFirst)" />
+                <TextBlock
+                    Margin="10,0,0,0"
+                    Text="{Binding ThrottleFirstText.Value, Mode=OneWay}" />
+            </StackPanel>
+        </StackPanel>
+
+    </DockPanel>
+</ctrl:MyPageControl>

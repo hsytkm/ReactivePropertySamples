@@ -26,6 +26,7 @@ namespace ReactivePropertySamples.Views.Pages
         private const int _bufferLength = 6;
         public IReadOnlyReactiveProperty<double> FpsCounter1 { get; }
         public IReadOnlyReactiveProperty<double> FpsCounter2 { get; }
+        public IReadOnlyReactiveProperty<double> FpsCounter3 { get; }
 
         public FpsCounterViewModel()
         {
@@ -44,57 +45,68 @@ namespace ReactivePropertySamples.Views.Pages
                 .AddTo(CompositeDisposable);
 
             FpsCounter2 = MouseDownUnit
-                .Framerate(_bufferLength)
+                .TimeInterval()
+                .Buffer(count: _bufferLength, skip: 1)
+                .Select(xs => 1000d / xs.Select(x => x.Interval.Milliseconds).Average())
                 .ToReadOnlyReactivePropertySlim()
                 .AddTo(CompositeDisposable);
 
+            FpsCounter3 = MouseDownUnit
+                .Framerate(_bufferLength)
+                .ToReadOnlyReactivePropertySlim()
+                .AddTo(CompositeDisposable);
         }
     }
 
     static class MyObservableFpsExtension
     {
-        public static IObservable<double> Framerate(this IObservable<Unit> source, int count)
-            => source.Select(_ => DateTime.Now).Framerate(count);
+        /// <summary>
+        /// Observable シーケンスのフレームレート(fps)を計算します。
+        /// </summary>
+        /// <param name="source">元シーケンス</param>
+        /// <param name="bufferCount">フレームレートを計算するためのバッファ数</param>
+        /// <returns>fps数(異常時は0)</returns>
+        public static IObservable<double> Framerate(this IObservable<Unit> source, int bufferCount)
+            => source.Select(_ => DateTime.Now).Framerate(bufferCount);
 
-        public static IObservable<double> Framerate(this IObservable<DateTime> source, int count)
+        /// <summary>
+        /// Observable シーケンスのフレームレート(fps)を計算します。
+        /// </summary>
+        /// <param name="source">元シーケンス</param>
+        /// <param name="bufferCount">フレームレートを計算するためのバッファ数</param>
+        /// <returns>fps数(異常時は0)</returns>
+        private static IObservable<double> Framerate(this IObservable<DateTime> source, int bufferCount)
         {
-            var result = Observable.Create<double>(observer =>
+            return Observable.Create<double>(observer =>
             {
-                var bufferMSec = new List<double>(Math.Max(2, count));  // count minimum = 2
+                var bufferMSec = new List<double>(Math.Max(2, bufferCount));  // count minimum = 2
                 (bool isFirst, DateTime time) prev = (true, default);
 
                 return source.Subscribe(time =>
                 {
                     if (prev.isFirst)
                     {
-                        prev.time = time;
-                        prev.isFirst = false;
+                        prev = (false, time);
                         return;
                     }
 
                     var msec = (time - prev.time).TotalMilliseconds;
                     prev.time = time;
 
-                    if (bufferMSec.Count < bufferMSec.Capacity)
-                    {
-                        bufferMSec.Add(msec);
-                        return;
-                    }
+                    if (bufferMSec.Count >= bufferMSec.Capacity)
+                        bufferMSec.RemoveAt(0);
 
-                    bufferMSec.RemoveAt(0);
                     bufferMSec.Add(msec);
 
+                    if (bufferMSec.Count < bufferMSec.Capacity)
+                        return;
+
                     var ave = bufferMSec.Average();
-                    var fps = 0d;
-                    if (ave > 0)
-                    {
-                        fps = 1000d / ave;
-                    }
+                    var fps = (ave > 0) ? 1000d / ave : 0;
 
                     observer.OnNext(fps);
                 }, observer.OnError, observer.OnCompleted);
             });
-            return result;
         }
     }
 }

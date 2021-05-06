@@ -15,6 +15,7 @@ namespace ReactivePropertySamples.Views
              *  CatchIgnore ErrorChangedAsObservable 
              *  ObserveErrorInfo OnErrorRetry
              */
+            //new(typeof(Page)),
 
             // Collections
             new(typeof(ReactiveCollection1Page)),
@@ -76,6 +77,7 @@ namespace ReactivePropertySamples.Views
             new(typeof(SelectRectanglePage)),
             new(typeof(PeriodicInvokePage)),
             new(typeof(FpsCounterPage)),
+            new(typeof(ThrottleFirstPage)),
 
             //new(typeof(BlankPage), "Title", "Subtitle", "Description"),
         };

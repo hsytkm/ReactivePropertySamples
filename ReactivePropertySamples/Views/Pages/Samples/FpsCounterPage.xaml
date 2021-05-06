@@ -2,14 +2,15 @@
     x:Class="ReactivePropertySamples.Views.Pages.FpsCounterPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:ctrl="clr-namespace:ReactivePropertySamples.Views.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:rp="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.WPF"
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
-    xmlns:ctrl="clr-namespace:ReactivePropertySamples.Views.Controls"
-    mc:Ignorable="d" 
-    d:DesignHeight="450" d:DesignWidth="800" >
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
 
     <ctrl:MyPageControl.Subtitle>
         イベントのfps計算
@@ -20,45 +21,56 @@
     </ctrl:MyPageControl.Description>
 
     <ctrl:MyPageControl.Keywords>
-        <x:Array Type="{x:Type system:String}" >
-            <system:String>Buffer / TimeSpan</system:String>
+        <x:Array Type="{x:Type system:String}">
+            <system:String>Buffer / TimeInterval</system:String>
             <system:String>ObservableExtension</system:String>
         </x:Array>
     </ctrl:MyPageControl.Keywords>
 
-    <DockPanel Margin="5" >
-        <ctrl:MyPageTitle DockPanel.Dock="Top"
-                          DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"/>
+    <DockPanel Margin="5">
+        <ctrl:MyPageTitle
+            DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}"
+            DockPanel.Dock="Top" />
 
-        <Border DockPanel.Dock="Top" Background="LightBlue"
-                Height="100" Margin="10">
+        <Border
+            Height="100"
+            Margin="10"
+            Background="LightBlue"
+            DockPanel.Dock="Top">
             <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeftButtonDown" >
+                <i:EventTrigger EventName="MouseLeftButtonDown">
                     <rp:EventToReactiveProperty
                         IgnoreEventArgs="True"
                         ReactiveProperty="{Binding MouseDownUnit, Mode=OneTime}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 
-            <TextBlock IsHitTestVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                このエリアがクリックされた fps 数を計測します。
-                <LineBreak/>
-                Buffer が 6個 溜まるまで fps 数は計算されません。(0fps)
-            </TextBlock>
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                IsHitTestVisible="False">
+                このエリアがクリックされた fps 数を計測します。<LineBreak />
+                Buffer が 6個 溜まるまで fps 数は計算されません。(0fps)</TextBlock>
         </Border>
 
-        <TextBlock DockPanel.Dock="Top" 
-                   FontSize="{StaticResource FontSizeLarge}"
-                   HorizontalAlignment="Center"
-                   Text="{Binding FpsCounter1.Value, Mode=OneWay, StringFormat='Buffer 使用版： {0:f2} fps'}" />
+        <TextBlock
+            HorizontalAlignment="Center"
+            DockPanel.Dock="Top"
+            FontSize="{StaticResource FontSizeLarge}"
+            Text="{Binding FpsCounter1.Value, Mode=OneWay, StringFormat='Pairwise + Buffer： {0:f2} fps'}" />
 
-        <TextBlock DockPanel.Dock="Top" 
-                   FontSize="{StaticResource FontSizeLarge}"
-                   HorizontalAlignment="Center"
-                   Text="{Binding FpsCounter2.Value, Mode=OneWay, StringFormat='自作 Extension 版： {0:f2} fps'}" />
+        <TextBlock
+            Margin="0,20"
+            HorizontalAlignment="Center"
+            DockPanel.Dock="Top"
+            FontSize="{StaticResource FontSizeLarge}"
+            Text="{Binding FpsCounter2.Value, Mode=OneWay, StringFormat='TimeInterval + Buffer (怪しい)： {0:f2} fps'}" />
 
-        <TextBlock HorizontalAlignment="Center"
-                   Text="最初の fps出るタイミングが自作の方が 1回遅いけどまぁOK" />
+        <TextBlock
+            HorizontalAlignment="Center"
+            DockPanel.Dock="Top"
+            FontSize="{StaticResource FontSizeLarge}"
+            Text="{Binding FpsCounter3.Value, Mode=OneWay, StringFormat='自作 Extension： {0:f2} fps'}" />
 
         <!--<Border/>-->
     </DockPanel>
