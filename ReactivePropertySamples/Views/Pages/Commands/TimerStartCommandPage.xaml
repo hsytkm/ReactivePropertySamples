@@ -34,8 +34,12 @@
             <TextBlock DockPanel.Dock="Top" Margin="5" FontSize="{StaticResource FontSizeMiddle}"
                        Text="Click をトリガにタイマーをカウント" />
 
-            <Button DockPanel.Dock="Right" Margin="20,5" Padding="30,5"
-                    Content="Start Timer"
+            <Button DockPanel.Dock="Right" Margin="10,5" Padding="20,5"
+                    Content="Stop"
+                    Command="{Binding StopCommand, Mode=OneTime}" />
+
+            <Button DockPanel.Dock="Right" Margin="10,5" Padding="20,5"
+                    Content="Start"
                     Command="{Binding StartCommand, Mode=OneTime}" />
 
             <TextBlock DockPanel.Dock="Top" Margin="20,10" 

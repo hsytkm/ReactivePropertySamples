@@ -6,7 +6,7 @@ ReactiveProperty Samples for WPF
 
 Created in 2020/06
 
-Updated in 2021/01
+Updated in 2021/05
 
 ## Reference Website
 

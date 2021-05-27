@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Reactive.Bindings;
+using Reactive.Bindings.Schedulers;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -11,6 +13,13 @@ namespace ReactivePropertySamples
 {
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            // [ReactiveProperty 7.10.0 をリリースしました](https://zenn.dev/okazuki/articles/62a6c6c9d1a12baccc93)
+            // WPFに最適化されたScheduler (デフォルトで問題が起きる Windowの ctor や Loadedイベント時の Validation を改善）
+            ReactivePropertyScheduler.SetDefault(new ReactivePropertyWpfScheduler(Dispatcher));
+        }
+
         // ここで例外をハンドルしなければアプリ死にます
         // http://gushwell.ldblog.jp/archives/52335498.html
         private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
@@ -21,6 +30,5 @@ namespace ReactivePropertySamples
             MessageBox.Show(message, "Exception occurred", MessageBoxButton.OK, MessageBoxImage.Error);
             e.Handled = true;
         }
-
     }
 }

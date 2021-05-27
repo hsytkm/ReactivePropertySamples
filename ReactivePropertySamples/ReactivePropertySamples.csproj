@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ReactiveProperty.WPF" Version="7.4.0" />
+    <PackageReference Include="ReactiveProperty.WPF" Version="7.10.0" />
   </ItemGroup>
 
 </Project>
