@@ -1,4 +1,5 @@
-﻿using Reactive.Bindings;
+﻿#nullable enable
+using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using ReactivePropertySamples.Infrastructures;
 using System;
@@ -13,18 +14,22 @@ namespace ReactivePropertySamples.Views.Pages
     {
         public ReactiveProperty2Page()
         {
-            InitializeComponent();
             DataContext = new ReactiveProperty2ViewModel();
+            InitializeComponent();
         }
     }
 
     class IgnoreCaseComparer : EqualityComparer<string>
     {
-        public override bool Equals(string x, string y)
-            => x?.ToLower() == y?.ToLower();
+        public override bool Equals(string? x, string? y)
+        {
+            if (x is null && y is null) return true;
+            if (x is null || y is null) return false;
+            return x.ToLowerInvariant() == y.ToLowerInvariant();
+        }
 
-        public override int GetHashCode(string obj)
-            => (obj?.ToLower()).GetHashCode();
+        public override int GetHashCode(string? obj)
+            => (obj is null) ? 0 : obj.ToLowerInvariant().GetHashCode();
     }
 
     class ReactiveProperty2ViewModel : MyDisposableBindableBase
@@ -34,9 +39,8 @@ namespace ReactivePropertySamples.Views.Pages
         public IReactiveProperty<string> InputText { get; } =
             new ReactiveProperty<string>(equalityComparer: new IgnoreCaseComparer());
 
-        public ICommand SetStringCommand => _setStringCommand ??=
-            new MyCommand<string>(x => InputText.Value = x);
-        private ICommand _setStringCommand;
+        public ICommand SetStringCommand => _setStringCommand ??= new MyCommand<string>(x => InputText.Value = x);
+        private ICommand _setStringCommand = default!;
 
         public StringBuilder OutputTexts { get; } = new StringBuilder();
 

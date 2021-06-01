@@ -1,4 +1,5 @@
-﻿using Reactive.Bindings;
+﻿#nullable enable
+using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Reactive.Bindings.Notifiers;
 using ReactivePropertySamples.Infrastructures;
@@ -15,8 +16,8 @@ namespace ReactivePropertySamples.Views.Pages
     {
         public TimerStartCommandPage()
         {
-            InitializeComponent();
             DataContext = new TimerStartCommandViewModel();
+            InitializeComponent();
         }
     }
 
@@ -53,7 +54,7 @@ namespace ReactivePropertySamples.Views.Pages
 
 #else
             // 2. BooleanNotifier で管理。Command.CanExecute も取れるので良い感じ
-            var timerRunning = new BooleanNotifier();       // BooleanNotifier は IDisposable じゃないので良い！
+            var timerRunning = new BooleanNotifier();       // BooleanNotifier は IDisposable じゃないので Good！
             //var timerRunning = new ReactivePropertySlim<bool>(initialValue: false).AddTo(CompositeDisposable);
 
             MyTimer2 = Observable.Interval(TimeSpan.FromSeconds(1))
@@ -64,15 +65,13 @@ namespace ReactivePropertySamples.Views.Pages
                 .AddTo(CompositeDisposable);
 
             StartCommand = timerRunning.Inverse()
-                .ToReactiveCommand()
+                .ToReactiveCommand(!timerRunning.Value)
                 .WithSubscribe(() => timerRunning.TurnOn(), CompositeDisposable.Add);
 
+            // ◆BooleanNotifier は (Rpと違って) Subscribe 時に LatestValue を発行しないので初期値の指定が必要する
             StopCommand = timerRunning
-                .ToReactiveCommand()
+                .ToReactiveCommand(timerRunning.Value)
                 .WithSubscribe(() => timerRunning.TurnOff(), CompositeDisposable.Add);
-
-            // ◆BooleanNotifierの状態が CanExecute に反映されないので、1回 On->Off しとく。
-            timerRunning.SwitchValue(); timerRunning.SwitchValue();
 #endif
         }
     }
