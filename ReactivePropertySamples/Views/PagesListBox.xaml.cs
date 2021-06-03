@@ -1,4 +1,5 @@
-﻿using ReactivePropertySamples.Extensions;
+﻿#nullable disable
+using ReactivePropertySamples.Extensions;
 using ReactivePropertySamples.Infrastructures;
 using ReactivePropertySamples.Views.Controls;
 using System;
@@ -29,8 +30,7 @@ namespace ReactivePropertySamples.Views
         public ICommand FilterCommand => _filterCommand ??= new MyCommand<string>(pattern =>
         {
             var collectionView = CollectionViewSource.GetDefaultView(PagesSource);
-            collectionView.Filter = string.IsNullOrEmpty(pattern)
-                ? default(Predicate<object>)                    // clear
+            collectionView.Filter = string.IsNullOrEmpty(pattern) ? default     // clear
                 : x => (x as PageSource).IsContain(pattern);
 
             // フィルタリング後の先頭アイテムに移動させる

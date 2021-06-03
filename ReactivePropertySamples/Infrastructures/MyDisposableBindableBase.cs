@@ -5,7 +5,7 @@ namespace ReactivePropertySamples.Infrastructures
 {
     abstract class MyDisposableBindableBase : MyBindableBase, IDisposable
     {
-        protected readonly CompositeDisposable CompositeDisposable = new CompositeDisposable();
+        protected readonly CompositeDisposable CompositeDisposable = new();
 
         #region IDisposable Support
         private bool disposedValue = false; // 重複する呼び出しを検出するには
