@@ -1,4 +1,4 @@
-﻿#nullable disable
+#nullable enable
 using ReactivePropertySamples.Views.Controls;
 using ReactivePropertySamples.Views.Pages;
 using System;
@@ -43,6 +43,7 @@ namespace ReactivePropertySamples.Views
             // IReactiveProperties
             new(typeof(ReactiveProperty1Page)),
             new(typeof(ReactiveProperty2Page)),
+            new(typeof(ReactiveProperty3Page)),
             new(typeof(ObserveProperty1Page)),
             new(typeof(FromPocoMode1Page)),
             new(typeof(ReactivePropertySlim1Page)),
@@ -86,10 +87,10 @@ namespace ReactivePropertySamples.Views
 
     class PageSource
     {
-        public string Title { get; }
-        public string Subtitle { get; }
-        public string Description { get; }
-        public IReadOnlyCollection<string> Keywords { get; }
+        public string Title { get; } = "";
+        public string Subtitle { get; } = "";
+        public string Description { get; } = "";
+        public IReadOnlyCollection<string>? Keywords { get; }
         public Type ControlType { get; }
         public string TypeName { get; }
 
@@ -121,13 +122,12 @@ namespace ReactivePropertySamples.Views
         // 指定文字列がfieldに含まれるか判定する
         public bool IsContain(string pat)
         {
-            pat = pat.ToLower();
+            pat = pat.ToLowerInvariant();
 
             var ss = new[] { Title, Subtitle, Description, TypeName };
-            if (ss.Any(x => x.ToLower().Contains(pat))) return true;
+            if (ss.Any(x => x.ToLowerInvariant().Contains(pat))) return true;
 
-            if (Keywords is not null) return Keywords.Any(x => x.ToLower().Contains(pat));
-            return false;
+            return Keywords is null ? false : Keywords.Any(x => x.ToLowerInvariant().Contains(pat));
         }
     }
 }
