@@ -1,5 +1,4 @@
-﻿#nullable disable
-using System;
+﻿using System;
 using System.Reactive.Disposables;
 using System.Windows.Controls;
 
@@ -7,7 +6,7 @@ namespace ReactivePropertySamples.Views.Controls
 {
     public abstract class DisposableMyControl : UserControl, IDisposable
     {
-        protected readonly CompositeDisposable CompositeDisposable = new CompositeDisposable();
+        protected readonly CompositeDisposable CompositeDisposable = new();
 
         #region IDisposable Support
         private bool disposedValue = false; // 重複する呼び出しを検出するには

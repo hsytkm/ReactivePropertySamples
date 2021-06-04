@@ -1,5 +1,4 @@
-﻿#nullable disable
-using Reactive.Bindings;
+﻿using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using ReactivePropertySamples.Infrastructures;
 using System;
@@ -30,14 +29,14 @@ namespace ReactivePropertySamples.Views.Pages
         // Value の変更ない場面で、強制的に PropertyChanged を発生させる
         public ICommand ForceNotifyCommand => _forceNotifyCommand ??=
             new MyCommand(() => InputText.ForceNotify());
-        private ICommand _forceNotifyCommand;
+        private ICommand _forceNotifyCommand = default!;
 
         public StringBuilder OutputTexts { get; } = new StringBuilder();
 
         public ReactiveProperty1ViewModel()
         {
             InputText
-                .Select(x => x.ToUpper())
+                .Select(x => x.ToUpperInvariant())
                 .Delay(TimeSpan.FromSeconds(1))
                 .Select(x => $"{DateTime.Now:hh:mm:ss.ff} : {x}"+ Environment.NewLine)
                 .Subscribe(x =>

@@ -1,4 +1,3 @@
-#nullable enable
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Reactive.Bindings.Notifiers;

@@ -1,5 +1,4 @@
-﻿#nullable disable
-using Reactive.Bindings;
+﻿using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using ReactivePropertySamples.Infrastructures;
 using System;
@@ -28,11 +27,11 @@ namespace ReactivePropertySamples.Views.Pages
         #region Add
         public ICommand AddRandomIntCommand => _addRandomIntCommand ??=
             new MyCommand(() => DataCollection.AddOnScheduler(_random.Next(0, 101)));
-        private ICommand _addRandomIntCommand;
+        private ICommand _addRandomIntCommand = default!;
 
         public ICommand AddRandomDoubleCommand => _addRandomDoubleCommand ??=
             new MyCommand(() => DataCollection.AddOnScheduler(_random.Next(0, 9999) / 10000.0));
-        private ICommand _addRandomDoubleCommand;
+        private ICommand _addRandomDoubleCommand = default!;
 
         // 気まぐれで ReactiveCommand 実装
         public ReactiveCommand AddRandomTimeNowCommand { get; }

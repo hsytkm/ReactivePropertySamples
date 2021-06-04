@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-﻿#nullable disable
-=======
-﻿#nullable enable
->>>>>>> db59c076b43c6f71b8d3a178700fd46b3ba9b8ff
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using ReactivePropertySamples.Infrastructures;

@@ -1,5 +1,4 @@
-﻿#nullable disable
-using Reactive.Bindings;
+﻿using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Reactive.Bindings.Notifiers;
 using ReactivePropertySamples.Infrastructures;

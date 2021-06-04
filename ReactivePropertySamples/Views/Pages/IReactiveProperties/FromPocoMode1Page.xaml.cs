@@ -1,5 +1,4 @@
-﻿#nullable disable
-using Reactive.Bindings;
+﻿using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using ReactivePropertySamples.Infrastructures;
 using System;
@@ -27,12 +26,12 @@ namespace ReactivePropertySamples.Views.Pages
         // ViewModel.Rp.Valueを書き替える(VMからMが更新される)
         public ICommand ChangeRpNameCommand => _changeRpNameCommand ??=
             new MyCommand<string>(x => PersonName.Value = x);
-        private ICommand _changeRpNameCommand;
+        private ICommand _changeRpNameCommand = default!;
 
         // Modelプロパティを直接書き替える(MからVMへの通知こない。POCOなので)
         public ICommand ChangeModelNameCommand => _changeModelNameCommand ??=
             new MyCommand<string>(x => _model.Name = x);
-        private ICommand _changeModelNameCommand;
+        private ICommand _changeModelNameCommand = default!;
 
         public FromPocoMode1ViewModel()
         {

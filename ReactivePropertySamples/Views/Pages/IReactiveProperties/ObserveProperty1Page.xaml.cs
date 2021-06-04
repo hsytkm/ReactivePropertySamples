@@ -1,5 +1,4 @@
-﻿#nullable disable
-using Reactive.Bindings;
+﻿using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using ReactivePropertySamples.Infrastructures;
 using System;
@@ -46,7 +45,7 @@ namespace ReactivePropertySamples.Views.Pages
             get => _eventLog;
             private set => SetProperty(ref _eventLog, value);
         }
-        private string _eventLog;
+        private string _eventLog = "";
 
         public ObserveProperty1Model()
         {

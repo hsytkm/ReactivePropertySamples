@@ -1,4 +1,3 @@
-#nullable enable
 using ReactivePropertySamples.Views.Controls;
 using ReactivePropertySamples.Views.Pages;
 using System;

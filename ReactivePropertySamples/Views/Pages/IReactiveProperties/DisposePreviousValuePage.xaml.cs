@@ -1,5 +1,4 @@
-﻿#nullable disable
-using Reactive.Bindings;
+﻿using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using ReactivePropertySamples.Infrastructures;
 using System;
@@ -34,7 +33,7 @@ namespace ReactivePropertySamples.Views.Pages
                 LogBuilder.AppendLine(message);
                 NotifyPropertyChanged(nameof(LogBuilder));
             });
-        private ICommand _addLogCommand;
+        private ICommand _addLogCommand = default!;
 
         public DisposePreviousValueViewModel()
         {

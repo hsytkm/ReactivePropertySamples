@@ -1,5 +1,4 @@
-﻿#nullable disable
-using Reactive.Bindings.Extensions;
+﻿using Reactive.Bindings.Extensions;
 using ReactivePropertySamples.Extensions;
 using ReactivePropertySamples.Infrastructures;
 using System;
@@ -56,7 +55,7 @@ namespace ReactivePropertySamples.Views.Pages
                 // LVの変化時に情報を表示するので、LVは最後に更新すること
                 Lv++;
             });
-        private ICommand _lvUpCommand;
+        private ICommand _lvUpCommand = default!;
 
         public static IEnumerable<DQPlayer> Party { get; } =
             new[]
