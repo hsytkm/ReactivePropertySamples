@@ -19,12 +19,12 @@ using System.Windows.Threading;
 
 namespace ReactivePropertySamples.Views.Pages
 {
-    public partial class AggregateItemsPage : Controls.MyPageControl
+    public partial class AggregateItems1Page : Controls.MyPageControl
     {
-        public AggregateItemsPage()
+        public AggregateItems1Page()
         {
+            DataContext = new AggregateItems1ViewModel();
             InitializeComponent();
-            DataContext = new AggregateItemsViewModel();
         }
     }
 
@@ -51,14 +51,14 @@ namespace ReactivePropertySamples.Views.Pages
         public ParentAg(string name) => Name = name;
         public void AddColor(Color color) => Items.Add(new ItemAg(color, Name));
         private static readonly Random _random = new Random();
-        private static byte GetRandomByte() => (byte)_random.Next(256);
-        private static Color GetRandomColor() =>
-            Color.FromRgb(GetRandomByte(), GetRandomByte(), GetRandomByte());
-        public ICommand AddItemCommand => _addItemCommand ??=
-            new MyCommand(() => AddColor(GetRandomColor()));
+        private static Color GetRandomColor()
+        {
+            static byte GetRandomByte() => (byte)_random.Next(256);
+            return Color.FromRgb(GetRandomByte(), GetRandomByte(), GetRandomByte());
+        }
+        public ICommand AddItemCommand => _addItemCommand ??= new MyCommand(() => AddColor(GetRandomColor()));
         private ICommand _addItemCommand;
-        public ICommand ClearItemsCommand => _clearItemsCommand ??=
-            new MyCommand(() =>
+        public ICommand ClearItemsCommand => _clearItemsCommand ??= new MyCommand(() =>
             {
                 // Clear() だと何が消えたか把握できないので1つずつ消す
                 for (int i = Items.Count - 1; i >= 0; --i) Items.RemoveAt(i);
@@ -67,14 +67,14 @@ namespace ReactivePropertySamples.Views.Pages
         public override string ToString() => Name;
     }
 
-    class AggregateItemsViewModel : MyDisposableBindableBase
+    class AggregateItems1ViewModel : MyDisposableBindableBase
     {
         // 各Parent の Items(Color) を Aggregate して、1つの Items にする
         public ObservableCollection<ItemAg> AggregateItems { get; } = new ObservableCollection<ItemAg>();
 
         public ObservableCollection<ParentAg> Parents { get; }
 
-        public AggregateItemsViewModel()
+        public AggregateItems1ViewModel()
         {
             var parentRed = CreateParentInstance("Group 1");
             var parentGreen = CreateParentInstance("Group 2");
@@ -96,7 +96,7 @@ namespace ReactivePropertySamples.Views.Pages
             Parents = new ObservableCollection<ParentAg>(parents);
         }
 
-        // インスタンスを作成して、イベントをアタッチする
+        // インスタンスを作成して、コレクション変化イベントをアタッチする
         private ParentAg CreateParentInstance(string name)
         {
             var parent = new ParentAg(name);

@@ -25,7 +25,8 @@ namespace ReactivePropertySamples.Views
             new(typeof(IFilteredReadOnlyObservableCollection1Page)),
             new(typeof(ObserveElementProperty1Page)),
             new(typeof(ObserveElementPropertyChanged1Page)),
-            new(typeof(AggregateItemsPage)),
+            new(typeof(AggregateItems1Page)),
+            new(typeof(AggregateItems2Page)),
 
             // Commands
             new(typeof(ReactiveCommand1Page)),

@@ -1,0 +1,102 @@
+﻿<ctrl:MyPageControl
+    x:Class="ReactivePropertySamples.Views.Pages.AggregateItems2Page"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctrl="clr-namespace:ReactivePropertySamples.Views.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:ReactivePropertySamples.Views.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <!--  https://github.com/runceel/ReactiveProperty/issues/275#issuecomment-887197452  -->
+
+    <ctrl:MyPageControl.Subtitle>
+        Aggregate Collection Items
+    </ctrl:MyPageControl.Subtitle>
+
+    <ctrl:MyPageControl.Description>
+        複数の Collection の 各要素 を 1つの Collection にまとめる。
+    </ctrl:MyPageControl.Description>
+
+    <ctrl:MyPageControl.Keywords>
+        <x:Array Type="{x:Type system:String}">
+            <system:String>ObserveAddChangedItems()</system:String>
+            <system:String>Merge() / Switch()</system:String>
+        </x:Array>
+    </ctrl:MyPageControl.Keywords>
+
+    <ctrl:MyPageControl.Resources>
+        <system:Int32 x:Key="Zero">0</system:Int32>
+        <system:Int32 x:Key="One">1</system:Int32>
+        <system:Int32 x:Key="Two">2</system:Int32>
+
+        <DataTemplate x:Key="ItemDataTemplate">
+            <TextBlock
+                Margin="5"
+                FontSize="10"
+                Text="{Binding Item.Value, Mode=OneTime}" />
+        </DataTemplate>
+
+        <Style x:Key="ItemsPanelStyle" TargetType="{x:Type StackPanel}">
+            <Setter Property="Background" Value="Gray" />
+            <Setter Property="Margin" Value="5" />
+        </Style>
+
+        <Style x:Key="LayersItemsStyle" TargetType="{x:Type ItemsControl}">
+            <Setter Property="Background" Value="LightGray" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="ItemTemplate" Value="{StaticResource ItemDataTemplate}" />
+        </Style>
+
+        <Style x:Key="AddButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Content" Value="Add" />
+            <Setter Property="Command" Value="{Binding AddLayterItemCommand, Mode=OneTime}" />
+        </Style>
+
+        <Style x:Key="RemoveButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Content" Value="Remove" />
+            <Setter Property="Command" Value="{Binding RemoveLayterItemCommand, Mode=OneTime}" />
+        </Style>
+    </ctrl:MyPageControl.Resources>
+
+    <DockPanel Margin="5">
+        <ctrl:MyPageTitle DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}" DockPanel.Dock="Top" />
+
+        <UniformGrid
+            Width="100"
+            Margin="20,10,0,0"
+            DockPanel.Dock="Left"
+            Rows="3">
+            <StackPanel Style="{StaticResource ItemsPanelStyle}">
+                <Button CommandParameter="{StaticResource Zero}" Style="{StaticResource AddButtonStyle}" />
+                <Button CommandParameter="{StaticResource Zero}" Style="{StaticResource RemoveButtonStyle}" />
+                <ItemsControl ItemsSource="{Binding Layers[0].Items, Mode=OneWay}" Style="{StaticResource LayersItemsStyle}" />
+            </StackPanel>
+
+            <StackPanel Style="{StaticResource ItemsPanelStyle}">
+                <Button CommandParameter="{StaticResource One}" Style="{StaticResource AddButtonStyle}" />
+                <Button CommandParameter="{StaticResource One}" Style="{StaticResource RemoveButtonStyle}" />
+                <ItemsControl ItemsSource="{Binding Layers[1].Items, Mode=OneWay}" Style="{StaticResource LayersItemsStyle}" />
+            </StackPanel>
+
+            <StackPanel Style="{StaticResource ItemsPanelStyle}">
+                <Button CommandParameter="{StaticResource Two}" Style="{StaticResource AddButtonStyle}" />
+                <Button CommandParameter="{StaticResource Two}" Style="{StaticResource RemoveButtonStyle}" />
+                <ItemsControl ItemsSource="{Binding Layers[2].Items, Mode=OneWay}" Style="{StaticResource LayersItemsStyle}" />
+            </StackPanel>
+        </UniformGrid>
+
+        <ItemsControl Margin="15" ItemsSource="{Binding AllItems.Value, Mode=OneWay}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Background="Beige" Text="{Binding ., Mode=OneTime}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+    </DockPanel>
+</ctrl:MyPageControl>
