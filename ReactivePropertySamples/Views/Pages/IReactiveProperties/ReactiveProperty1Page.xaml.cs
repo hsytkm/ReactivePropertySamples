@@ -23,7 +23,7 @@ namespace ReactivePropertySamples.Views.Pages
         // nullアクセスになるので、RaiseLatestValueOnSubscribe の設定を除去する。
         // x?.ToUpper() にすれば済むんやけど、勉強サンプルやからね。
         // Skip(1) でも解消するけど、Mode 変える方がスマートやね。
-        public ReactiveProperty<string> InputText { get; } =
+        public IReactiveProperty<string> InputText { get; } =
             new ReactiveProperty<string>(mode: ReactivePropertyMode.DistinctUntilChanged);
 
         // Value の変更ない場面で、強制的に PropertyChanged を発生させる

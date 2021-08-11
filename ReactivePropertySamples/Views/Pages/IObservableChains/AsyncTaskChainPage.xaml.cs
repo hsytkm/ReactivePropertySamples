@@ -44,7 +44,7 @@ namespace ReactivePropertySamples.Views.Pages
                 .WithSubscribe(x => model1.UserColor = x, CompositeDisposable.Add);
 
             FillBrush1 = model1.ObserveProperty(x => x.UserColor, isPushCurrentValueAtFirst: false)
-                .Select(color => ColorToBrushAsync(color))
+                .Select(color => ColorToBrush_Heavy(color))
                 .ToReadOnlyReactiveProperty()
                 .AddTo(CompositeDisposable);
 
@@ -57,7 +57,7 @@ namespace ReactivePropertySamples.Views.Pages
             // Select 内で Task を使用して、IObservable<T> を流す
             // the second call will start only when the first one is already finished.
             FillBrush2 = model2.ObserveProperty(x => x.UserColor, isPushCurrentValueAtFirst: false)
-                .Select(color => Observable.FromAsync(() => Task.Run(() => ColorToBrushAsync(color))))
+                .Select(color => Observable.FromAsync(() => Task.Run(() => ColorToBrush_Heavy(color))))
                 .Concat()
                 .ObserveOnUIDispatcher()
                 .ToReadOnlyReactiveProperty()
@@ -72,13 +72,13 @@ namespace ReactivePropertySamples.Views.Pages
             // the second call to the method could start before the end of the first call.
             FillBrush3 = model3.ObserveProperty(x => x.UserColor, isPushCurrentValueAtFirst: false)
                 .ObserveOn(Scheduler.Default)
-                .Select(color => ColorToBrushAsync(color))
+                .Select(color => ColorToBrush_Heavy(color))
                 .ObserveOnUIDispatcher()
                 .ToReadOnlyReactiveProperty()
                 .AddTo(CompositeDisposable);
         }
 
-        private static SolidColorBrush ColorToBrushAsync(Color color)
+        private static SolidColorBrush ColorToBrush_Heavy(Color color)
         {
             Thread.Sleep(1500);     // 重い処理想定のウェイト（現スレッド）
 

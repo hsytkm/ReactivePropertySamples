@@ -67,7 +67,7 @@ namespace ReactivePropertySamples.Views.Pages
                 .ToReactiveCommand(!timerRunning.Value)
                 .WithSubscribe(() => timerRunning.TurnOn(), CompositeDisposable.Add);
 
-            // ◆BooleanNotifier は (Rpと違って) Subscribe 時に LatestValue を発行しないので初期値の指定が必要する
+            // ◆BooleanNotifier は (Rpと違って) Subscribe 時に LatestValue を発行しないので初期値の指定が必要になる
             StopCommand = timerRunning
                 .ToReactiveCommand(timerRunning.Value)
                 .WithSubscribe(() => timerRunning.TurnOff(), CompositeDisposable.Add);
