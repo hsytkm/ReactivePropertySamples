@@ -22,6 +22,7 @@ namespace ReactivePropertySamples.Views
             new(typeof(ReactiveCollection2Page)),
             new(typeof(ReadOnlyReactiveCollection1Page)),
             new(typeof(ReadOnlyReactiveCollection2Page)),
+            new(typeof(ReadOnlyReactiveCollection3Page)),
             new(typeof(IFilteredReadOnlyObservableCollection1Page)),
             new(typeof(ObserveElementProperty1Page)),
             new(typeof(ObserveElementPropertyChanged1Page)),

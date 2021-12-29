@@ -40,7 +40,7 @@ namespace ReactivePropertySamples.Views.Pages
             // Reactive Framework / DoubleClick https://stackoverflow.com/questions/5228364/reactive-framework-doubleclick
 
             // ダブクリの判定にローカル変数を使ってるのがイマイチ…
-            var eventAcceptedTime = DateTime.Now;
+            var eventAcceptedTime = DateTime.MaxValue;
 
             MouseDownUnit
                 .TimeInterval()
@@ -54,7 +54,8 @@ namespace ReactivePropertySamples.Views.Pages
                     var now = DateTime.Now;
 
                     // 前回のダブクリ受付から一定時間が経過するまでは、次のダブクリを受け付けない
-                    if (now - eventAcceptedTime < TimeSpan.FromMilliseconds(500))
+                    if (eventAcceptedTime != DateTime.MaxValue
+                        && now - eventAcceptedTime < TimeSpan.FromMilliseconds(500))
                         return false;
 
                     // ダブクリ受付時間の更新

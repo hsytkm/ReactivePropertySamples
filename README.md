@@ -8,6 +8,44 @@ Created in 2020/06
 
 Updated in 2021/05
 
+
+
+## Memo
+
+##### `Select()` で `Task` を実行する
+
+投げっぱなしなので注意。
+
+```cs
+_observable
+    .ObserveOn(Scheduler.Default)
+    .Select(x => Observable.FromAsync(x.CalcAsync))  // await不要
+    .Concat()
+    .ObserveOnUIDispatcher()
+    .ToReadOnlyReactivePropertySlim();
+```
+
+以下の方が良さげ？（Switchは新しい処理が入ったら以前の非同期処理はキャンセルして新しい処理のみを後続に流す）
+
+```cs
+_observable
+    .ObserveOn(Scheduler.Default)
+    .Select(x => x.CalcAsync)  // await不要
+    .Switch()
+    .ObserveOnUIDispatcher()
+    .ToReadOnlyReactivePropertySlim();
+```
+
+##### コレクションの変更
+
+```cs
+collection.ObserveAddChangedItems().ToUnit()
+    .Merge(collection.ObserveRemoveChangedItems().ToUnit())
+    .Merge(collection.ObserveResetChanged().ToUnit())
+    .Subscribe(_ => Debug.WriteLine(collection.Count))
+    .AddTo(_disposables);
+```
+
 ## Reference Website
 
 [runceel/ReactiveProperty](https://github.com/runceel/ReactiveProperty)

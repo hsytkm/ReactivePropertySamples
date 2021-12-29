@@ -48,11 +48,12 @@ namespace ReactivePropertySamples.Views.Pages
                 .WithSubscribe(() => model.ClearPersons(), CompositeDisposable.Add);
         }
     }
-
+    
     class PersonRORC : MyBindableBase
     {
         public string Name { get; }
         public PersonRORC(string name) => Name = name;
+        public override string ToString() => Name;
     }
 
     class ReadOnlyReactiveCollection1Model : MyBindableBase
