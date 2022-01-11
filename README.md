@@ -2,7 +2,7 @@
 
 ReactiveProperty Samples for WPF
 
-.NET 5 + C# 9
+.NET 6.0 + C# 9
 
 Created in 2020/06
 
@@ -39,8 +39,8 @@ _observable
 ##### コレクションの変更
 
 ```cs
-collection.ObserveAddChangedItems().ToUnit()
-    .Merge(collection.ObserveRemoveChangedItems().ToUnit())
+collection.ObserveAddChanged().ToUnit()
+    .Merge(collection.ObserveRemoveChanged().ToUnit())
     .Merge(collection.ObserveResetChanged().ToUnit())
     .Subscribe(_ => Debug.WriteLine(collection.Count))
     .AddTo(_disposables);
