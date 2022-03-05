@@ -37,7 +37,8 @@ namespace ReactivePropertySamples.Views.Pages
                     {
                         await Task.Delay(500);
                     }
-                }, CompositeDisposable.Add);
+                }, CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             HeavyProcessCommand = _busyNotifier
                 .Inverse()
@@ -51,7 +52,8 @@ namespace ReactivePropertySamples.Views.Pages
                     {
                         await Task.Delay(2000);
                     }
-                }, CompositeDisposable.Add);
+                }, CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
         }
     }
 }

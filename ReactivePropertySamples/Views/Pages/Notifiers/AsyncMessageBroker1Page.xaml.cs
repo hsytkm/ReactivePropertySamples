@@ -71,7 +71,8 @@ namespace ReactivePropertySamples.Views.Pages
             SendMessageCommand = new AsyncReactiveCommand<string>()
                 .WithSubscribe(async s =>
                     await AsyncMessageBroker.Default.PublishAsync(new MessagePayload1(s)),
-                    CompositeDisposable.Add);
+                    CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             // 3. 一度だけ Dispose(Unsubscribe)できるCommand
             UnsubscribeCommand = disposableProperty

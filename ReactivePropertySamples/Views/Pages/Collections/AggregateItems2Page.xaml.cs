@@ -51,14 +51,16 @@ namespace ReactivePropertySamples.Views.Pages
                 .AddTo(CompositeDisposable);
 
             AddLayterItemCommand = new ReactiveCommand<int>()
-                .WithSubscribe(x => Layers[x].Items.Add(new LayerItem()), CompositeDisposable.Add);
+                .WithSubscribe(x => Layers[x].Items.Add(new LayerItem()), CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             RemoveLayterItemCommand = new ReactiveCommand<int>()
                 .WithSubscribe(x =>
                 {
                     if (Layers[x].Items.Count > 0)
                         Layers[x].Items.RemoveAt(0);
-                }, CompositeDisposable.Add);
+                }, CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             InitLayers();
         }

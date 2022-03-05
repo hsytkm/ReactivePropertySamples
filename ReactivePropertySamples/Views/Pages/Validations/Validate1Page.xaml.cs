@@ -69,7 +69,8 @@ namespace ReactivePropertySamples.Views.Pages
                 }
                 .CombineLatestValuesAreAllFalse()
                 .ToReactiveCommand()
-                .WithSubscribe(() => Debug.WriteLine("Entry"), CompositeDisposable.Add);
+                .WithSubscribe(() => Debug.WriteLine("Entry"), CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
         }
     }
 }

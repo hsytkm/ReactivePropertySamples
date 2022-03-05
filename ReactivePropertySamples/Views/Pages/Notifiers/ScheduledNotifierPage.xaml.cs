@@ -50,8 +50,8 @@ namespace ReactivePropertySamples.Views.Pages
                     {
                         await HeavyProcessAsync(null);
                     }
-                },
-                CompositeDisposable.Add);
+                }, CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             HeavyProcessCommand2 = _busyNotifier.Inverse()
                 .ToAsyncReactiveCommand()
@@ -61,8 +61,8 @@ namespace ReactivePropertySamples.Views.Pages
                     {
                         await HeavyProcessAsync(ScheduledNotifier);
                     }
-                },
-                CompositeDisposable.Add);
+                }, CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
 #if false
             var scheduledNotifier = new ScheduledNotifier<int>();

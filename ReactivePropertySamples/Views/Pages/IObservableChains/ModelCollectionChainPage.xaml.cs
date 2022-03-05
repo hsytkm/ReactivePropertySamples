@@ -65,12 +65,14 @@ namespace ReactivePropertySamples.Views.Pages
             // 家族の選択を 未選択(null) に切り替えるコマンド
             ClearSelectCommand = SelectedFamily.Select(x => x is not null)
                 .ToReactiveCommand()
-                .WithSubscribe(() => SelectedFamily.Value = null, CompositeDisposable.Add);
+                .WithSubscribe(() => SelectedFamily.Value = null, CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             // 選択中の家族に子供を追加するコマンド
             AddBabyCommand = SelectedFamily.Select(x => x is not null)
                 .ToReactiveCommand()
-                .WithSubscribe(() => SelectedFamily.Value.AddChild(), CompositeDisposable.Add);
+                .WithSubscribe(() => SelectedFamily.Value.AddChild(), CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             // VM.Dispose() に備えて、CompositeDisposable に常に追加しておく
             // ◆これ以外の実装が思い浮かばない。もう少しシンプルにならんかなぁ。Disposeを考えたくない。

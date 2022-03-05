@@ -63,7 +63,8 @@ namespace ReactivePropertySamples.Views.Pages
             SendMessageCommand = new ReactiveCommand<string>()
                 .WithSubscribe(s =>
                     MessageBroker.Default.Publish(new MessagePayload1(s)),
-                    CompositeDisposable.Add);
+                    CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             // 3. 一度だけ Dispose(Unsubscribe)できるCommand
             UnsubscribeCommand = disposableProperty
@@ -73,8 +74,9 @@ namespace ReactivePropertySamples.Views.Pages
                 {
                     disposableProperty.Value?.Dispose();
                     disposableProperty.Value = null;
-                },
-                CompositeDisposable.Add);
+                }, CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
+
         }
     }
 }

@@ -46,10 +46,12 @@ namespace ReactivePropertySamples.Views.Pages
                 .AddTo(CompositeDisposable);
 
             StartCommand = new ReactiveCommand()
-                .WithSubscribe(() => clickDateTime = DateTime.Now, CompositeDisposable.Add);
+                .WithSubscribe(() => clickDateTime = DateTime.Now, CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             StopCommand = new ReactiveCommand()
-                .WithSubscribe(() => clickDateTime = DateTime.MinValue, CompositeDisposable.Add);
+                .WithSubscribe(() => clickDateTime = DateTime.MinValue, CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
 #else
             // 2. BooleanNotifier で管理。Command.CanExecute も取れるので良い感じ
@@ -65,12 +67,14 @@ namespace ReactivePropertySamples.Views.Pages
 
             StartCommand = timerRunning.Inverse()
                 .ToReactiveCommand(!timerRunning.Value)
-                .WithSubscribe(() => timerRunning.TurnOn(), CompositeDisposable.Add);
+                .WithSubscribe(() => timerRunning.TurnOn(), CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             // ◆BooleanNotifier は (Rpと違って) Subscribe 時に LatestValue を発行しないので初期値の指定が必要になる
             StopCommand = timerRunning
                 .ToReactiveCommand(timerRunning.Value)
-                .WithSubscribe(() => timerRunning.TurnOff(), CompositeDisposable.Add);
+                .WithSubscribe(() => timerRunning.TurnOff(), CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 #endif
         }
     }

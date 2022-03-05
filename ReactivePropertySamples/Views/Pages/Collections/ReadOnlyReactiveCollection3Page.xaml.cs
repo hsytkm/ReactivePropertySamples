@@ -31,7 +31,8 @@ namespace ReactivePropertySamples.Views.Pages
             var roReactiveCollection = _model.People.ToReadOnlyReactiveCollection().AddTo(CompositeDisposable);
 
             DeleteItemCommand = new ReactiveCommand<PersonRORC>()
-                .WithSubscribe(item => _model.DeleteItem(item), CompositeDisposable.Add);
+                .WithSubscribe(item => _model.DeleteItem(item), CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             ViewPeople = roReactiveCollection.ToRoReactiveCollectionSelectedItemPair().AddTo(CompositeDisposable);
         }

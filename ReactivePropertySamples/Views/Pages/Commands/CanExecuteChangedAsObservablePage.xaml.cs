@@ -38,7 +38,8 @@ namespace ReactivePropertySamples.Views.Pages
             IncrementCommand = new[] { IsChecked1, IsChecked2 }
                 .CombineLatestValuesAreAllTrue()
                 .ToReactiveCommand()
-                .WithSubscribe(() => Counter.Increment(), CompositeDisposable.Add);
+                .WithSubscribe(() => Counter.Increment(), CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             CanExecuteIncrementCommand = IncrementCommand.CanExecuteChangedAsObservable()
                 .Select(_ => IncrementCommand.CanExecute())

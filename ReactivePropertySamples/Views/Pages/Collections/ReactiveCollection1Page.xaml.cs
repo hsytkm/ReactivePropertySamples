@@ -41,13 +41,15 @@ namespace ReactivePropertySamples.Views.Pages
                 .CollectionChangedAsObservable()
                 .Select(_ => SourceValues.Any())
                 .ToReactiveCommand(initialValue: false)
-                .WithSubscribe(() => SourceValues.RemoveAt(0), CompositeDisposable.Add);
+                .WithSubscribe(() => SourceValues.RemoveAt(0), CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             ClearCommand = SourceValues
                 .CollectionChangedAsObservable()
                 .Select(_ => SourceValues.Any())
                 .ToReactiveCommand(initialValue: false)
-                .WithSubscribe(() => SourceValues.Clear(), CompositeDisposable.Add);
+                .WithSubscribe(() => SourceValues.Clear(), CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             // Remove 達の CanExecute を false にするため、コレクションを操作する
             // ◆もっと良い実装ない？  ⇒  initialValue: false の実装に変えた。

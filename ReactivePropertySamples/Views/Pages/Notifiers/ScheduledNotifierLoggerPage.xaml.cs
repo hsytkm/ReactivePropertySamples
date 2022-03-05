@@ -43,16 +43,16 @@ namespace ReactivePropertySamples.Views.Pages
                 {
                     _logger.Trace("On UIThread");
                     _logger.Warn("On UIThread");
-                },
-                CompositeDisposable.Add);
+                }, CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             OnAsyncTaskCommand = new AsyncReactiveCommand()
                 .WithSubscribe(async () => await Task.Run(() =>
                 {
                     _logger.Debug("On AsyncTask");
                     _logger.Error("On AsyncTask");
-                }),
-                CompositeDisposable.Add);
+                }), CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             OnDefaultSchedulerCommand = new ReactiveCommand().AddTo(CompositeDisposable);
             OnDefaultSchedulerCommand

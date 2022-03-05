@@ -46,6 +46,10 @@ collection.ObserveAddChanged().ToUnit()
     .AddTo(_disposables);
 ```
 
+##### ReactiveTimer のサンプルがない（漏れてる）
+
+2022.2.27 気づいた。
+
 ## Reference Website
 
 [runceel/ReactiveProperty](https://github.com/runceel/ReactiveProperty)

@@ -42,11 +42,13 @@ namespace ReactivePropertySamples.Views.Pages
 
             // View の CommandParameter を加算。 WithSubscribeにより宣言からDispose登録まで一気通貫。
             Command2 = new ReactiveCommand<int>()
-                .WithSubscribe(x => Counter2.Increment(x), CompositeDisposable.Add);
+                .WithSubscribe(x => Counter2.Increment(x), CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             // CheckBox により（IObservable<bool>）から ReactiveCommand を作成
             Command31 = CheckFlag31.ToReactiveCommand(initialValue: false)
-                .WithSubscribe(() => Counter3.Increment(), CompositeDisposable.Add);
+                .WithSubscribe(() => Counter3.Increment(), CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             var updateTimeTrigger = new Subject<Unit>();
             CompositeDisposable.Add(updateTimeTrigger);

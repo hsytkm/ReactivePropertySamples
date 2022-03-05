@@ -31,17 +31,20 @@ namespace ReactivePropertySamples.Views.Pages
             GetResourceCommand1 = new AsyncReactiveCommand()
                 .WithSubscribe(
                     async () => await IncrementCountNotifierAsync(1),
-                    CompositeDisposable.Add);
+                    CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             GetResourceCommand2 = new AsyncReactiveCommand()
                 .WithSubscribe(
                     async () => await IncrementCountNotifierAsync(2),
-                    CompositeDisposable.Add);
+                    CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             GetResourceCommand3 = new AsyncReactiveCommand()
                 .WithSubscribe(
                     async () => await IncrementCountNotifierAsync(3),
-                    CompositeDisposable.Add);
+                    CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
         }
 
         private async Task IncrementCountNotifierAsync(int x)

@@ -41,7 +41,8 @@ namespace ReactivePropertySamples.Views.Pages
             /* 1: UIフリーズする */
             var model1 = new AsyncTaskChainModel();
             SetColor1Command = new ReactiveCommand<Color>()
-                .WithSubscribe(x => model1.UserColor = x, CompositeDisposable.Add);
+                .WithSubscribe(x => model1.UserColor = x, CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             FillBrush1 = model1.ObserveProperty(x => x.UserColor, isPushCurrentValueAtFirst: false)
                 .Select(color => ColorToBrush_Heavy(color))
@@ -52,7 +53,8 @@ namespace ReactivePropertySamples.Views.Pages
             /* 2: UIフリーズしない(Task) */
             var model2 = new AsyncTaskChainModel();
             SetColor2Command = new ReactiveCommand<Color>()
-                .WithSubscribe(x => model2.UserColor = x, CompositeDisposable.Add);
+                .WithSubscribe(x => model2.UserColor = x, CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             // Select 内で Task を使用して、IObservable<T> を流す
             // the second call will start only when the first one is already finished.
@@ -67,7 +69,8 @@ namespace ReactivePropertySamples.Views.Pages
             /* 3: UIフリーズしない(Scheduler) */
             var model3 = new AsyncTaskChainModel();
             SetColor3Command = new ReactiveCommand<Color>()
-                .WithSubscribe(x => model3.UserColor = x, CompositeDisposable.Add);
+                .WithSubscribe(x => model3.UserColor = x, CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             // the second call to the method could start before the end of the first call.
             FillBrush3 = model3.ObserveProperty(x => x.UserColor, isPushCurrentValueAtFirst: false)

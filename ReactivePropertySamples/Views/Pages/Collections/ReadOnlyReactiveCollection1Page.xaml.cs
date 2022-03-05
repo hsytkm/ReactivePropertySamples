@@ -39,13 +39,14 @@ namespace ReactivePropertySamples.Views.Pages
                 .WithSubscribe(x =>
                 {
                     if (!string.IsNullOrEmpty(x)) model.AddPerson(x);
-                },
-                CompositeDisposable.Add);
+                }, CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
 
             // Modelのコレクションのクリア
             ClearModelPeopleCommand = model.People.ObserveIsAny()
                 .ToReactiveCommand(initialValue: false)
-                .WithSubscribe(() => model.ClearPersons(), CompositeDisposable.Add);
+                .WithSubscribe(() => model.ClearPersons(), CompositeDisposable.Add)
+                .AddTo(CompositeDisposable);
         }
     }
     
