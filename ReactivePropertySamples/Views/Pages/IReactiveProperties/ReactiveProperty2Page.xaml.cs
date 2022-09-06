@@ -20,6 +20,8 @@ namespace ReactivePropertySamples.Views.Pages
 
     class IgnoreCaseComparer : EqualityComparer<string>
     {
+        public static IgnoreCaseComparer Shared { get; } = new();
+
         public override bool Equals(string? x, string? y)
         {
             if (x is null && y is null) return true;
@@ -36,7 +38,7 @@ namespace ReactivePropertySamples.Views.Pages
         // 大文字/小文字の差であれば、値を更新しない。変更通知が発行されない。
         // Can change comparer logic by the equalityComparer argument of constructor and factory methods.
         public IReactiveProperty<string> InputText { get; } =
-            new ReactiveProperty<string>(equalityComparer: new IgnoreCaseComparer());
+            new ReactiveProperty<string>(equalityComparer: IgnoreCaseComparer.Shared);
 
         public ICommand SetStringCommand => _setStringCommand ??= new MyCommand<string>(x => InputText.Value = x);
         private ICommand _setStringCommand = default!;

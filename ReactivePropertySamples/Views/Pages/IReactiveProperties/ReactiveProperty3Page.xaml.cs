@@ -26,6 +26,8 @@ namespace ReactivePropertySamples.Views.Pages
     /// </summary>
     class FilePathEqualityComparer : EqualityComparer<string>
     {
+        public static FilePathEqualityComparer Shared { get; } = new();
+
         private static ReadOnlySpan<char> Revise(string source)
         {
             if (string.IsNullOrEmpty(source)) return source;
@@ -57,7 +59,7 @@ namespace ReactivePropertySamples.Views.Pages
     class ReactiveProperty3ViewModel : MyDisposableBindableBase
     {
         public IReactiveProperty<string> InputPath { get; } =
-            new ReactiveProperty<string>(equalityComparer: new FilePathEqualityComparer());
+            new ReactiveProperty<string>(equalityComparer: FilePathEqualityComparer.Shared);
 
         public ICommand SetStringCommand => _setStringCommand ??= new MyCommand<string>(x => InputPath.Value = x);
         private ICommand _setStringCommand = default!;
