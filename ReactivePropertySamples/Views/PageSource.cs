@@ -65,6 +65,7 @@ namespace ReactivePropertySamples.Views
             new(typeof(EventToReactiveProperty2Page)),
             new(typeof(EventToReactiveProperty3Page)),
             new(typeof(EventToReactiveProperty4Page)),
+            new(typeof(EventToReactiveProperty5Page)),
             new(typeof(EventToReactiveCommand1Page)),
 
             // Synchronizations
