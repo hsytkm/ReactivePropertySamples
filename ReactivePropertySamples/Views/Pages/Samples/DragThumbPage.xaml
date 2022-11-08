@@ -1,0 +1,77 @@
+﻿<ctrl:MyPageControl
+    x:Class="ReactivePropertySamples.Views.Pages.DragThumbPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctrl="clr-namespace:ReactivePropertySamples.Views.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:ReactivePropertySamples.Views.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:rp="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.WPF"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <ctrl:MyPageControl.Subtitle>
+        Thumbコントロールのドラッグシフト
+    </ctrl:MyPageControl.Subtitle>
+
+    <ctrl:MyPageControl.Description>
+        Observable.FromEventPattern() から MouseEvent を拾います。
+    </ctrl:MyPageControl.Description>
+
+    <ctrl:MyPageControl.Keywords>
+        <x:Array Type="{x:Type system:String}">
+            <system:String>Thumb / DragDelta</system:String>
+            <system:String>Observable.FromEventPattern</system:String>
+        </x:Array>
+    </ctrl:MyPageControl.Keywords>
+
+    <DockPanel Margin="5">
+        <ctrl:MyPageTitle DataContext="{Binding ., Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type ctrl:MyPageControl}}}" DockPanel.Dock="Top" />
+
+        <Grid
+            Margin="20"
+            Background="LightBlue"
+            ClipToBounds="True">
+
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                IsHitTestVisible="False">
+                <Run Text="ドラッグ範囲の最大側制限は未実装です。" /><LineBreak />
+                <Run Text="(X=300, Y=200 で固定制限)" /><LineBreak />
+                <Run Text="{Binding ThumbPoint.Value.X, StringFormat='X={0:f4}'}" /><LineBreak />
+                <Run Text="{Binding ThumbPoint.Value.Y, StringFormat='Y={0:f4}'}" />
+            </TextBlock>
+
+            <Thumb
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Cursor="Hand">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DragDelta">
+                        <rp:EventToReactiveProperty ReactiveProperty="{Binding ThumbDragDelta, Mode=OneWay}">
+                            <local:ThumbDragDeltaToPointReactiveConverter />
+                        </rp:EventToReactiveProperty>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Thumb.Template>
+                    <ControlTemplate>
+                        <Ellipse
+                            Width="10"
+                            Height="10"
+                            Fill="LightPink">
+                            <i:Interaction.Triggers>
+                                <i:PropertyChangedTrigger Binding="{Binding ThumbPoint.Value, Mode=OneWay}">
+                                    <local:WpfPointToEllipseAction />
+                                </i:PropertyChangedTrigger>
+                            </i:Interaction.Triggers>
+                        </Ellipse>
+                    </ControlTemplate>
+                </Thumb.Template>
+            </Thumb>
+        </Grid>
+    </DockPanel>
+</ctrl:MyPageControl>

@@ -82,7 +82,8 @@ namespace ReactivePropertySamples.Views
             new(typeof(PeriodicInvokePage)),
             new(typeof(FpsCounterPage)),
             new(typeof(ThrottleFirstPage)),
-
+            new(typeof(DragThumbPage)),
+            
             //new(typeof(BlankPage), "Title", "Subtitle", "Description"),
         };
     }
